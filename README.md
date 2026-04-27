@@ -109,12 +109,29 @@ echo "URL: http://$(curl -4s ifconfig.me):${PORT}"
 
 ---
 
-## تنظیم اپ اندروید
+## تنظیم اپ اندروید (v1.7.7+)
 
-- **Deployment IDs:** فقط ID (نه URL) — هر ID یک خط
+### قابلیت‌های جدید
+
+**Full tunnel (no cert):** حالت جدیدی که نیازی به نصب MITM certificate ندارد. همه ترافیک end-to-end از VPS رد می‌شه — پیشنهادی برای اکثر کاربران.
+
+**Export config / QR code:** تنظیمات کامل رو می‌تونی با QR code با دستگاه دیگه‌ای share کنی. در دستگاه دوم «Scan QR code» رو بزن — همه چیز خودکار وارد می‌شه.
+> ⚠️ کانفیگ شامل auth_key هست — فقط با افراد مورد اعتماد share کن
+
+**App splitting:** انتخاب کدوم اپ‌ها از VPN رد بشن:
+- All apps
+- Only selected apps
+- All except selected
+
+**parallel_relay:** در Advanced — روی ۱ بذار (پیش‌فرض). اگه اتصال ناپایداره ۲-۳ امتحان کن.
+
+### تنظیمات پایه
+
+- **Mode:** Full tunnel (no cert)
+- **Deployment:** URL کامل یا فقط ID — هر دو قبوله
 - **Auth key:** همون رمز CodeFull.gs
 - **Google IP:** `216.239.38.120` یا Auto-detect
-- **Install MITM Certificate:** حتماً بزن
+- **SNI pool:** Test all بزن — فقط آدرس‌های ✅ رو انتخاب کن. `accounts.google.com` معمولاً بهترین پینگ داره
 
 ---
 

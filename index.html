@@ -5,110 +5,86 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>راهنمای کامل mhrv-rs + Tunnel Node</title>
 <style>
-:root {
-  --bg:#0d1117;--bg2:#161b22;--bg3:#21262d;
-  --border:#30363d;--text:#e6edf3;--muted:#8b949e;
-  --green:#3fb950;--blue:#58a6ff;--orange:#f0883e;
-  --red:#f85149;--purple:#bc8cff;--yellow:#e3b341;
-}
-*{box-sizing:border-box;margin:0;padding:0}
-body{background:var(--bg);color:var(--text);font-family:Tahoma,'Segoe UI',sans-serif;font-size:14px;line-height:1.7}
-
-/* Hero */
-.hero{background:linear-gradient(135deg,#0d1117,#161b22,#0d1117);border-bottom:1px solid var(--border);padding:44px 20px 36px;text-align:center;position:relative;overflow:hidden}
-.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,#1f6feb1a 0%,transparent 70%)}
-.hero h1{font-size:26px;font-weight:700;color:#fff;margin-bottom:8px;position:relative}
-.hero h1 span{color:var(--blue)}
-.hero p{color:var(--muted);font-size:13px;max-width:520px;margin:0 auto 18px;position:relative}
-.badges{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;position:relative}
-.badge{padding:3px 11px;border-radius:20px;font-size:11px;font-weight:600}
-.bg{background:#1a3a1a;color:var(--green);border:1px solid #2a5a2a}
-.bb{background:#1a2a3a;color:var(--blue);border:1px solid #1f3a5a}
-.bo{background:#3a2010;color:var(--orange);border:1px solid #5a3010}
-.by{background:#2a2000;color:var(--yellow);border:1px solid #4a3800}
-
-/* Tabs */
-.tabs{display:flex;border-bottom:1px solid var(--border);background:var(--bg2);overflow-x:auto;padding:0 12px}
-.tab{padding:11px 14px;font-size:13px;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;transition:color .15s}
-.tab.active{color:var(--text);border-bottom-color:var(--orange)}
-
-/* Layout */
-.con{max-width:860px;margin:0 auto;padding:20px 14px}
-.sec{display:none}.sec.active{display:block}
-
-/* Cards */
-.card{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:18px;margin-bottom:14px}
-.card-title{font-size:14px;font-weight:700;color:var(--text);margin-bottom:12px;display:flex;align-items:center;gap:8px}
-.num{width:22px;height:22px;border-radius:50%;background:var(--blue);color:#fff;font-size:11px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.card p,.card li{color:var(--muted);margin-bottom:5px}
-.card ul{padding-right:18px}
-
-/* Alerts */
-.alert{border-radius:8px;padding:10px 14px;margin-bottom:12px;font-size:13px;border-right:3px solid}
-.aw{background:#2a1f00;border-color:var(--yellow);color:var(--yellow)}
-.ai{background:#0d2137;border-color:var(--blue);color:#79c0ff}
-.as{background:#0a2a10;border-color:var(--green);color:var(--green)}
-.ad{background:#2a0a0a;border-color:var(--red);color:#ff7b72}
-
-/* Code */
-.cb{position:relative;background:#010409;border:1px solid var(--border);border-radius:8px;margin:10px 0}
-.ch{display:flex;align-items:center;justify-content:space-between;padding:7px 14px;border-bottom:1px solid var(--border);background:#0d1117;border-radius:8px 8px 0 0}
-.cl{font-size:11px;color:var(--muted);font-family:monospace}
-.cp{background:var(--bg3);border:1px solid var(--border);color:var(--muted);padding:3px 10px;border-radius:6px;font-size:11px;cursor:pointer;transition:all .15s}
-.cp:active,.cp.ok{background:var(--green);color:#fff;border-color:var(--green)}
-pre{padding:13px 15px;overflow-x:auto;font-family:Consolas,monospace;font-size:12px;line-height:1.65;color:#e6edf3;white-space:pre}
-textarea.code-ta{width:100%;height:480px;background:#010409;color:#e6edf3;border:none;padding:13px 15px;font-family:Consolas,monospace;font-size:12px;line-height:1.65;resize:vertical;outline:none;display:block}
-
-/* Config inputs */
-.cfg{display:flex;flex-direction:column;gap:4px;margin-bottom:12px}
-.cfg-label{font-size:11px;color:var(--orange);font-weight:700;font-family:monospace}
-.cfg-input{background:#010409;border:1px solid var(--border);border-radius:6px;padding:7px 11px;color:var(--text);font-family:monospace;font-size:13px;width:100%}
-.cfg-hint{font-size:11px;color:var(--muted)}
-
-/* Download grid */
-.dl-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:10px 0}
-.dl-card{background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:12px;text-decoration:none;color:var(--text);display:flex;align-items:center;gap:10px;transition:border-color .15s}
-.dl-card:active{border-color:var(--blue)}
-.dl-icon{font-size:20px}
-.dl-name{font-size:13px;font-weight:600}
-.dl-desc{font-size:11px;color:var(--muted)}
-
-/* Steps */
-.steps{display:flex;flex-direction:column;gap:0}
-.si{display:flex;gap:12px;padding-bottom:18px;position:relative}
-.si:not(:last-child)::before{content:'';position:absolute;right:10px;top:26px;bottom:0;width:2px;background:var(--border)}
-.sd{width:22px;height:22px;border-radius:50%;background:var(--bg3);border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--muted);flex-shrink:0}
-.sd.done{background:var(--green);border-color:var(--green);color:#fff}
-.sb{flex:1}
-.st{font-weight:600;font-size:13px;margin-bottom:4px}
-.sd2{color:var(--muted);font-size:12px}
-
-/* Tag */
-.tag{display:inline-block;background:var(--bg3);border:1px solid var(--border);border-radius:4px;padding:1px 6px;font-size:11px;font-family:monospace;color:var(--purple)}
-
-/* VPS status colors in code */
-.ok-line{color:#3fb950}
-.err-line{color:#f85149}
-
-/* Toast */
-.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--green);color:#fff;padding:8px 20px;border-radius:20px;font-size:13px;opacity:0;pointer-events:none;transition:opacity .3s;z-index:999}
-.toast.show{opacity:1}
-
-footer{border-top:1px solid var(--border);padding:20px 14px;text-align:center;color:var(--muted);font-size:12px}
-footer a{color:var(--blue);text-decoration:none}
-@media(max-width:500px){.dl-grid{grid-template-columns:1fr}}
+:root{--bg:#0d1117;--bg2:#161b22;--bg3:#21262d;--border:#30363d;--text:#e6edf3;--muted:#8b949e;--green:#3fb950;--blue:#58a6ff;--orange:#f0883e;--red:#f85149;--purple:#bc8cff;--yellow:#d29922;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);color:var(--text);font-family:Tahoma,'Segoe UI',sans-serif;font-size:14px;line-height:1.7;}
+.hero{background:linear-gradient(135deg,#0d1117 0%,#161b22 50%,#0d1117 100%);border-bottom:1px solid var(--border);padding:48px 20px 36px;text-align:center;position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,#1f6feb22 0%,transparent 70%);}
+.hero h1{font-size:26px;font-weight:700;color:#fff;margin-bottom:8px;position:relative;}
+.hero h1 span{color:var(--blue);}
+.hero p{color:var(--muted);font-size:13px;max-width:540px;margin:0 auto 16px;position:relative;}
+.badges{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;position:relative;}
+.badge{padding:3px 10px;border-radius:20px;font-size:11px;font-weight:600;}
+.badge.green{background:#1a3a1a;color:var(--green);border:1px solid #2a5a2a;}
+.badge.blue{background:#1a2a3a;color:var(--blue);border:1px solid #1f3a5a;}
+.badge.orange{background:#3a2010;color:var(--orange);border:1px solid #5a3010;}
+.badge.purple{background:#2a1a3a;color:var(--purple);border:1px solid #4a2a6a;}
+.tabs{display:flex;gap:0;border-bottom:1px solid var(--border);background:var(--bg2);overflow-x:auto;padding:0 12px;scrollbar-width:none;}
+.tabs::-webkit-scrollbar{display:none;}
+.tab{padding:11px 14px;font-size:12px;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;transition:color .15s;user-select:none;}
+.tab.active{color:var(--text);border-bottom-color:var(--orange);}
+.container{max-width:820px;margin:0 auto;padding:20px 14px;}
+.section{display:none;}
+.section.active{display:block;}
+.card{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:18px;margin-bottom:14px;}
+.card-title{font-size:14px;font-weight:700;color:var(--text);margin-bottom:12px;display:flex;align-items:center;gap:8px;}
+.card-title .num{width:22px;height:22px;border-radius:50%;background:var(--blue);color:#fff;font-size:11px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.card p,.card li{color:var(--muted);margin-bottom:5px;font-size:13px;}
+.card ul{padding-right:18px;}
+.card strong{color:var(--text);}
+.code-block{position:relative;background:#010409;border:1px solid var(--border);border-radius:8px;margin:10px 0;}
+.code-block pre{padding:14px 16px;overflow-x:auto;font-family:'Consolas',monospace;font-size:11.5px;line-height:1.65;color:#e6edf3;white-space:pre;}
+.code-header{display:flex;align-items:center;justify-content:space-between;padding:7px 14px;border-bottom:1px solid var(--border);background:#0d1117;border-radius:8px 8px 0 0;}
+.code-label{font-size:11px;color:var(--muted);font-family:monospace;}
+.copy-btn{background:var(--bg3);border:1px solid var(--border);color:var(--muted);padding:3px 10px;border-radius:6px;font-size:11px;cursor:pointer;transition:all .15s;}
+.copy-btn:active,.copy-btn.copied{background:var(--green);color:#fff;border-color:var(--green);}
+.config-row{display:flex;flex-direction:column;gap:4px;margin-bottom:12px;}
+.config-label{font-size:11px;color:var(--orange);font-weight:700;font-family:monospace;}
+.config-input{background:#010409;border:1px solid var(--border);border-radius:6px;padding:8px 12px;color:var(--text);font-family:monospace;font-size:12px;width:100%;outline:none;transition:border-color .15s;}
+.config-input:focus{border-color:var(--blue);}
+.config-hint{font-size:11px;color:var(--muted);}
+.alert{border-radius:8px;padding:11px 14px;margin-bottom:12px;font-size:12px;border-right:3px solid;line-height:1.5;}
+.alert.warn{background:#2a1f00;border-color:var(--yellow);color:#d29922;}
+.alert.info{background:#0d2137;border-color:var(--blue);color:#79c0ff;}
+.alert.success{background:#0a2a10;border-color:var(--green);color:var(--green);}
+.alert.danger{background:#2a0a0a;border-color:var(--red);color:#ff7b72;}
+.dl-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:10px 0;}
+.dl-card{background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:12px;text-decoration:none;color:var(--text);display:flex;align-items:center;gap:10px;transition:border-color .15s;}
+.dl-card:active{border-color:var(--blue);}
+.dl-icon{font-size:20px;}
+.dl-name{font-size:12px;font-weight:600;}
+.dl-desc{font-size:11px;color:var(--muted);}
+.step-list{display:flex;flex-direction:column;gap:0;}
+.step-item{display:flex;gap:12px;padding-bottom:18px;position:relative;}
+.step-item:not(:last-child)::before{content:'';position:absolute;right:10px;top:26px;bottom:0;width:2px;background:var(--border);}
+.step-dot{width:22px;height:22px;border-radius:50%;background:var(--bg3);border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:10px;color:var(--muted);flex-shrink:0;}
+.step-dot.done{background:var(--green);border-color:var(--green);color:#fff;}
+.step-body{flex:1;}
+.step-title{font-weight:600;font-size:13px;margin-bottom:4px;}
+.step-desc{color:var(--muted);font-size:12px;}
+.tag{display:inline-block;background:var(--bg3);border:1px solid var(--border);border-radius:4px;padding:1px 6px;font-size:11px;font-family:monospace;color:var(--purple);}
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--green);color:#fff;padding:7px 18px;border-radius:20px;font-size:12px;opacity:0;pointer-events:none;transition:opacity .3s;z-index:999;}
+.toast.show{opacity:1;}
+.arch-box{background:#010409;border:1px solid var(--border);border-radius:8px;padding:14px 16px;margin:10px 0;font-family:monospace;font-size:12px;line-height:1.8;overflow-x:auto;}
+.arch-box .g{color:var(--green);}
+.arch-box .b{color:var(--blue);}
+.arch-box .o{color:var(--orange);}
+.arch-box .m{color:var(--muted);}
+footer{border-top:1px solid var(--border);padding:20px 14px;text-align:center;color:var(--muted);font-size:11px;}
+footer a{color:var(--blue);text-decoration:none;}
+@media(max-width:480px){.dl-grid{grid-template-columns:1fr;}.hero h1{font-size:20px;}}
 </style>
 </head>
 <body>
 
 <div class="hero">
   <h1>🛡️ راهنمای <span>mhrv-rs</span> + Tunnel Node</h1>
-  <p>دور زدن رایگان DPI با Google Apps Script + تانل کامل VPS — بدون فیلتر، بدون محدودیت</p>
+  <p>دور زدن رایگان DPI با Google Apps Script + تانل کامل VPS — بدون فیلتر، برای همه اپ‌ها</p>
   <div class="badges">
-    <span class="badge bg">✓ رایگان</span>
-    <span class="badge bb">Android</span>
-    <span class="badge bo">Full Tunnel VPS</span>
-    <span class="badge by">Apps Script</span>
+    <span class="badge green">✓ رایگان</span>
+    <span class="badge blue">Android</span>
+    <span class="badge orange">Full Tunnel VPS</span>
+    <span class="badge purple">بدون ریشه</span>
   </div>
 </div>
 
@@ -121,96 +97,115 @@ footer a{color:var(--blue);text-decoration:none}
 </div>
 
 <!-- ===== ANDROID ===== -->
-<div id="tab-android" class="sec active con">
+<div id="tab-android" class="section active container">
 
-  <div class="alert ai">📌 اپ از چند Deployment ID پشتیبانی می‌کنه — هر جیمیل = یه ID = سرعت و ظرفیت بیشتر</div>
+  <div class="alert info">📌 هر جیمیل = یه Deployment جداگانه = ظرفیت بیشتر. اپ از چندین ID به‌صورت round-robin استفاده می‌کنه.</div>
 
   <div class="card">
     <div class="card-title">📥 دانلود نرم‌افزارهای مورد نیاز</div>
     <div class="dl-grid">
       <a class="dl-card" href="https://github.com/therealaleph/MasterHttpRelayVPN-RUST/releases/latest" target="_blank">
         <div class="dl-icon">🤖</div>
-        <div class="dl-name">mhrv-rs Android<br><span style="font-size:11px;color:var(--muted)">آخرین نسخه — GitHub Releases</span></div>
+        <div class="dl-info"><div class="dl-name">mhrv-rs Android APK</div><div class="dl-desc">آخرین نسخه — GitHub Releases</div></div>
       </a>
       <a class="dl-card" href="https://play.google.com/store/apps/details?id=com.server.audit" target="_blank">
         <div class="dl-icon">💻</div>
-        <div class="dl-name">Termius SSH<br><span style="font-size:11px;color:var(--muted)">Google Play — اتصال به VPS</span></div>
+        <div class="dl-info"><div class="dl-name">Termius SSH Client</div><div class="dl-desc">Google Play — اتصال به VPS</div></div>
       </a>
     </div>
   </div>
 
   <div class="card">
-    <div class="card-title"><span class="num">1</span> تنظیمات اپ mhrv-rs</div>
-    <div class="steps">
-      <div class="si"><div class="sd done">1</div><div class="sb"><div class="st">نصب APK</div><div class="sd2">از لینک بالا دانلود کن — نصب از منابع ناشناس باید فعال باشه.</div></div></div>
-      <div class="si"><div class="sd done">2</div><div class="sb"><div class="st">Deployment ID</div><div class="sd2">فقط <strong>ID</strong> رو وارد کن — اپ خودش URL کامل می‌سازه. برای چند ID هر کدوم رو خط جداگانه.</div></div></div>
-      <div class="si"><div class="sd done">3</div><div class="sb"><div class="st">Auth Key</div><div class="sd2">همون رمزی که داخل <span class="tag">CodeFull.gs</span> تنظیم کردی.</div></div></div>
-      <div class="si"><div class="sd done">4</div><div class="sb"><div class="st">Google IP و Front Domain</div><div class="sd2">IP پیش‌فرض: <span class="tag">216.239.38.120</span> یا دکمه Auto-detect. Front domain: <span class="tag">www.google.com</span></div></div></div>
-      <div class="si"><div class="sd done">5</div><div class="sb"><div class="st">Install MITM Certificate</div><div class="sd2">دکمه رو بزن و certificate رو نصب کن — برای HTTPS ضروریه.</div></div></div>
-      <div class="si"><div class="sd">6</div><div class="sb"><div class="st">SNI Pool — بهینه‌سازی سرعت</div><div class="sd2">بخش <strong>SNI pool + tester</strong> رو باز کن، تست بزن و ۲-۳ آدرس با کمترین پینگ رو انتخاب کن.</div></div></div>
+    <div class="card-title"><span class="num">1</span> نصب و تنظیم اپ</div>
+    <div class="step-list">
+      <div class="step-item">
+        <div class="step-dot done">✓</div>
+        <div class="step-body"><div class="step-title">APK رو نصب کن</div><div class="step-desc">از لینک بالا آخرین نسخه رو دانلود کن. «نصب از منابع ناشناس» باید فعال باشه.</div></div>
+      </div>
+      <div class="step-item">
+        <div class="step-dot done">✓</div>
+        <div class="step-body"><div class="step-title">Deployment ID رو وارد کن</div><div class="step-desc">فقط <strong>ID</strong> رو وارد کن — نه کل URL. اپ خودش آدرس کامل رو می‌سازه. هر ID در یه خط جداگانه.</div></div>
+      </div>
+      <div class="step-item">
+        <div class="step-dot done">✓</div>
+        <div class="step-body"><div class="step-title">Auth Key رو وارد کن</div><div class="step-desc">همون رمزی که داخل <span class="tag">CodeFull.gs</span> تنظیم کردی — باید دقیقاً یکی باشه.</div></div>
+      </div>
+      <div class="step-item">
+        <div class="step-dot done">✓</div>
+        <div class="step-body"><div class="step-title">Google IP و Front Domain</div><div class="step-desc">IP پیش‌فرض: <span class="tag">216.239.38.120</span> یا دکمه Auto-detect. Front domain: <span class="tag">www.google.com</span> — دست نزن.</div></div>
+      </div>
+      <div class="step-item">
+        <div class="step-dot done">✓</div>
+        <div class="step-body"><div class="step-title">Install MITM Certificate</div><div class="step-desc">دکمه رو بزن → اسم دلخواه بنویس (مثلاً mhrv) → تأیید کن. برای HTTPS ضروریه.</div></div>
+      </div>
+      <div class="step-item">
+        <div class="step-dot">6</div>
+        <div class="step-body"><div class="step-title">SNI Pool — بهینه سرعت</div><div class="step-desc">بخش <strong>SNI pool + tester</strong> رو باز کن، تست بزن و ۲-۳ آدرس با کمترین پینگ رو انتخاب کن.</div></div>
+      </div>
     </div>
   </div>
 
-  <div class="alert aw">⚠️ <strong>امنیت جیمیل:</strong> از جیمیل اصلیت استفاده نکن — برای هر Deployment یه جیمیل جدید بساز.</div>
-
   <div class="card">
     <div class="card-title">🚀 چند Deployment برای سرعت بیشتر</div>
-    <div class="steps">
-      <div class="si"><div class="sd done">1</div><div class="sb"><div class="st">چند مرورگر نصب کن</div><div class="sd2">Chrome، Brave، Firefox — هر کدوم برای یه جیمیل جداگانه.</div></div></div>
-      <div class="si"><div class="sd done">2</div><div class="sb"><div class="st">در هر مرورگر با یه جیمیل وارد script.google.com بشو</div><div class="sd2">CodeFull.gs رو deploy کن و ID رو بگیر.</div></div></div>
-      <div class="si"><div class="sd done">3</div><div class="sb"><div class="st">هشدار «unsafe» — نگران نباش</div><div class="sd2">روی <strong>Advanced</strong> کلیک کن ← <strong>Go to ... (unsafe)</strong> ← دسترسی بده. این برای اولین deploy هر جیمیل نرمالیه.</div></div></div>
-      <div class="si"><div class="sd">4</div><div class="sb"><div class="st">همه ID ها رو به اپ اضافه کن</div><div class="sd2">هر ID در یه خط — اپ به‌صورت round-robin استفاده می‌کنه و سرعت چند برابر میشه.</div></div></div>
+    <div class="alert warn">⚠️ <strong>مهم:</strong> یه deployment per Google account. چند deployment روی یه اکانت فایده نداره — برای scale باید اکانت‌های مختلف استفاده کرد.</div>
+    <div class="step-list">
+      <div class="step-item">
+        <div class="step-dot">1</div>
+        <div class="step-body"><div class="step-title">چند مرورگر مختلف نصب کن</div><div class="step-desc">مثلاً Chrome، Brave، Firefox — در هر کدوم با یه جیمیل جدید وارد شو</div></div>
+      </div>
+      <div class="step-item">
+        <div class="step-dot">2</div>
+        <div class="step-body"><div class="step-title">هشدار «unsafe» — اولین deploy</div><div class="step-desc">گوگل هشدار «This app isn't verified» میده → <strong>Advanced</strong> → <strong>Go to (unsafe)</strong> → <strong>Allow</strong> — این طبیعیه.</div></div>
+      </div>
+      <div class="step-item">
+        <div class="step-dot">3</div>
+        <div class="step-body"><div class="step-title">همه ID ها رو به اپ اضافه کن</div><div class="step-desc">هر ID در یه خط جداگانه در بخش Deployment IDs — اپ round-robin استفاده می‌کنه.</div></div>
+      </div>
     </div>
+    <div class="alert danger">🔐 از جیمیل اصلیت استفاده نکن — جیمیل‌های جدید بساز. ریسک محدودیت اکانت وجود داره.</div>
   </div>
 </div>
 
 <!-- ===== SCRIPT ===== -->
-<div id="tab-script" class="sec con">
+<div id="tab-script" class="section container">
 
-  <div class="alert ai">این <strong>CodeFull.gs</strong> هست — نه Code.gs قدیمی. حتماً از این نسخه استفاده کن که tunnel node رو پشتیبانی می‌کنه.</div>
-  <div class="alert aw">⚠️ <strong>باگ کپی‌پیست:</strong> بعد از Paste کردن، آخر فایل رو چک کن — اگه خط خالی اضافه بود پاکش کن وگرنه خطای Syntax میگیری.</div>
+  <div class="alert info">این <strong>CodeFull.gs</strong> هست — برای حالت Full Tunnel با VPS. اگه VPS نداری از <strong>Code.gs</strong> ساده استفاده کن.</div>
+  <div class="alert warn">⚠️ <strong>باگ کپی‌پیست:</strong> بعد از کپی کردن، آخر فایل رو چک کن — اغلب یه خط خالی اضافه میشه. قبل از Deploy اون رو پاک کن.</div>
 
   <div class="card">
-    <div class="card-title">⚙️ فقط این ۳ خط رو تغییر بده</div>
-    <div class="cfg">
-      <div class="cfg-label">AUTH_KEY</div>
-      <input class="cfg-input" id="cfg-ak" placeholder="رمز دلخواه — مثلاً: MyStr0ng@Pass2026" oninput="updateScript()">
-      <div class="cfg-hint">رمز دلخواه — هم اینجا هم توی اپ باید یکی باشه</div>
+    <div class="card-title">⚙️ تنظیمات — فقط این ۳ مقدار رو عوض کن</div>
+    <div class="config-row">
+      <div class="config-label">AUTH_KEY</div>
+      <input class="config-input" id="cfg-authkey" placeholder="رمز قوی — مثلاً: MyStr0ng@Pass2026" oninput="updateScript()">
+      <div class="config-hint">رمز دلخواه — هم اینجا هم توی اپ باید دقیقاً یکی باشه</div>
     </div>
-    <div class="cfg">
-      <div class="cfg-label">TUNNEL_SERVER_URL</div>
-      <input class="cfg-input" id="cfg-url" placeholder="http://YOUR_VPS_IP:8080" oninput="updateScript()">
-      <div class="cfg-hint">IP و پورت VPS — مثلاً: http://1.2.3.4:8080</div>
+    <div class="config-row">
+      <div class="config-label">TUNNEL_SERVER_URL</div>
+      <input class="config-input" id="cfg-url" placeholder="http://YOUR_VPS_IP:8080" oninput="updateScript()">
+      <div class="config-hint">آدرس VPS — مثلاً: http://1.2.3.4:8080</div>
     </div>
-    <div class="cfg">
-      <div class="cfg-label">TUNNEL_AUTH_KEY</div>
-      <input class="cfg-input" id="cfg-tk" placeholder="همون AUTH_KEY بالا" oninput="updateScript()">
-      <div class="cfg-hint">معمولاً همون رمز AUTH_KEY هست</div>
+    <div class="config-row">
+      <div class="config-label">TUNNEL_AUTH_KEY</div>
+      <input class="config-input" id="cfg-tunnelkey" placeholder="همون AUTH_KEY بالا" oninput="updateScript()">
+      <div class="config-hint">معمولاً همون رمز AUTH_KEY — باید با رمز VPS یکی باشه</div>
     </div>
   </div>
 
-  <div class="cb">
-    <div class="ch">
-      <span class="cl">CodeFull.gs — کپی کن در Apps Script Paste کن</span>
-      <button class="cp" onclick="copyTA('script-ta',this)">کپی</button>
+  <div class="code-block">
+    <div class="code-header">
+      <span class="code-label">CodeFull.gs — کپی کامل → Apps Script → Paste → Deploy</span>
+      <button class="copy-btn" id="btn-script" onclick="copyEl('script-code','btn-script')">کپی</button>
     </div>
-    <textarea class="code-ta" id="script-ta" readonly spellcheck="false">/**
- * DomainFront Relay + Full Tunnel — Google Apps Script
- *
- * FOUR modes:
- *   1. Single relay:  POST { k, m, u, h, b, ct, r }           -> { s, h, b }
- *   2. Batch relay:   POST { k, q: [{m,u,h,b,ct,r}, ...] }    -> { q: [{s,h,b}, ...] }
- *   3. Tunnel:        POST { k, t, h, p, sid, d }              -> { sid, d, eof }
- *   4. Tunnel batch:  POST { k, t:"batch", ops:[...] }         -> { r: [...] }
- *
- * ============================================================
- * فقط این ۳ مقدار رو تغییر بده:
- * ============================================================
+    <pre id="script-code">/**
+ * DomainFront Relay + Full Tunnel — Google Apps Script (CodeFull.gs)
+ * ================================================================
+ * ⚙️  فقط این ۳ مقدار رو تغییر بده — بقیه کد رو دست نزن:
+ * ================================================================
  */
-const AUTH_KEY          = "YOUR_AUTH_KEY";
-const TUNNEL_SERVER_URL = "http://YOUR_VPS_IP:8080";
-const TUNNEL_AUTH_KEY   = "YOUR_AUTH_KEY";
-// ============================================================
+const AUTH_KEY          = "YOUR_AUTH_KEY";           // ← رمز دلخواه (20+ کاراکتر)
+const TUNNEL_SERVER_URL = "http://YOUR_VPS_IP:8080"; // ← آدرس VPS
+const TUNNEL_AUTH_KEY   = "YOUR_AUTH_KEY";           // ← همون رمز AUTH_KEY
+// ================================================================
 
 const SKIP_HEADERS = {
   host: 1, connection: 1, "content-length": 1,
@@ -218,20 +213,35 @@ const SKIP_HEADERS = {
   "priority": 1, te: 1,
 };
 
+// ======================== Entry point ========================
+
 function doPost(e) {
   try {
     var req = JSON.parse(e.postData.contents);
     if (req.k !== AUTH_KEY) return _json({ e: "unauthorized" });
+
+    // Tunnel mode (full tunnel via VPS)
     if (req.t) return _doTunnel(req);
+
+    // Batch relay mode
     if (Array.isArray(req.q)) return _doBatch(req.q);
+
+    // Single relay mode
     return _doSingle(req);
   } catch (err) {
     return _json({ e: String(err) });
   }
 }
 
+// ======================== Tunnel mode ========================
+
 function _doTunnel(req) {
-  if (req.t === "batch") return _doTunnelBatch(req);
+  // Batch tunnel: { k, t:"batch", ops:[...] }
+  if (req.t === "batch") {
+    return _doTunnelBatch(req);
+  }
+
+  // Single tunnel op
   var payload = { k: TUNNEL_AUTH_KEY };
   switch (req.t) {
     case "connect":
@@ -251,6 +261,7 @@ function _doTunnel(req) {
     default:
       return _json({ e: "unknown tunnel op: " + req.t });
   }
+
   var resp = UrlFetchApp.fetch(TUNNEL_SERVER_URL + "/tunnel", {
     method: "post",
     contentType: "application/json",
@@ -258,14 +269,22 @@ function _doTunnel(req) {
     muteHttpExceptions: true,
     followRedirects: true,
   });
-  if (resp.getResponseCode() !== 200)
+
+  if (resp.getResponseCode() !== 200) {
     return _json({ e: "tunnel node HTTP " + resp.getResponseCode() });
+  }
+
   return ContentService.createTextOutput(resp.getContentText())
     .setMimeType(ContentService.MimeType.JSON);
 }
 
+// Batch tunnel: forward all ops in one request to /tunnel/batch
 function _doTunnelBatch(req) {
-  var payload = { k: TUNNEL_AUTH_KEY, ops: req.ops || [] };
+  var payload = {
+    k: TUNNEL_AUTH_KEY,
+    ops: req.ops || [],
+  };
+
   var resp = UrlFetchApp.fetch(TUNNEL_SERVER_URL + "/tunnel/batch", {
     method: "post",
     contentType: "application/json",
@@ -273,11 +292,16 @@ function _doTunnelBatch(req) {
     muteHttpExceptions: true,
     followRedirects: true,
   });
-  if (resp.getResponseCode() !== 200)
+
+  if (resp.getResponseCode() !== 200) {
     return _json({ e: "tunnel batch HTTP " + resp.getResponseCode() });
+  }
+
   return ContentService.createTextOutput(resp.getContentText())
     .setMimeType(ContentService.MimeType.JSON);
 }
+
+// ======================== HTTP relay mode ========================
 
 function _doSingle(req) {
   if (!req.u || typeof req.u !== "string" || !req.u.match(/^https?:\/\//i)) {
@@ -293,7 +317,9 @@ function _doSingle(req) {
 }
 
 function _doBatch(items) {
-  var fetchArgs = [], errorMap = {};
+  var fetchArgs = [];
+  var errorMap = {};
+
   for (var i = 0; i < items.length; i++) {
     var item = items[i];
     if (!item.u || typeof item.u !== "string" || !item.u.match(/^https?:\/\//i)) {
@@ -304,25 +330,30 @@ function _doBatch(items) {
     opts.url = item.u;
     fetchArgs.push({ _i: i, _o: opts });
   }
+
   var responses = [];
   if (fetchArgs.length > 0) {
     responses = UrlFetchApp.fetchAll(fetchArgs.map(function(x) { return x._o; }));
   }
-  var results = [], rIdx = 0;
+
+  var results = [];
+  var rIdx = 0;
   for (var i = 0; i < items.length; i++) {
     if (errorMap.hasOwnProperty(i)) {
       results.push({ e: errorMap[i] });
-      continue;
+    } else {
+      var resp = responses[rIdx++];
+      results.push({
+        s: resp.getResponseCode(),
+        h: _respHeaders(resp),
+        b: Utilities.base64Encode(resp.getContent()),
+      });
     }
-    var resp = responses[rIdx++];
-    results.push({
-      s: resp.getResponseCode(),
-      h: _respHeaders(resp),
-      b: Utilities.base64Encode(resp.getContent()),
-    });
   }
   return _json({ q: results });
 }
+
+// ======================== Helpers ========================
 
 function _buildOpts(req) {
   var opts = {
@@ -367,365 +398,346 @@ function doGet(e) {
 }
 
 function _json(obj) {
-  return ContentService.createTextOutput(JSON.stringify(obj))
-    .setMimeType(ContentService.MimeType.JSON);
-}</textarea>
+  return ContentService.createTextOutput(JSON.stringify(obj)).setMimeType(
+    ContentService.MimeType.JSON
+  );
+}</pre>
   </div>
 
   <div class="card">
-    <div class="card-title">🚀 مراحل Deploy</div>
-    <div class="steps">
-      <div class="si"><div class="sd done">1</div><div class="sb"><div class="st">برو به script.google.com</div><div class="sd2">New project ← کد پیش‌فرض رو کامل پاک کن</div></div></div>
-      <div class="si"><div class="sd done">2</div><div class="sb"><div class="st">کد بالا رو Paste کن</div><div class="sd2">۳ خط اول رو تنظیم کن. آخر فایل رو چک کن — خط اضافه نباشه.</div></div></div>
-      <div class="si"><div class="sd done">3</div><div class="sb"><div class="st">Deploy ← New deployment</div><div class="sd2">Type: <strong>Web app</strong> | Execute as: <strong>Me</strong> | Who has access: <strong>Anyone</strong></div></div></div>
-      <div class="si"><div class="sd">4</div><div class="sb"><div class="st">Deployment ID رو کپی کن</div><div class="sd2">فقط همین ID رو به اپ اندروید بده — نه کل URL.</div></div></div>
+    <div class="card-title">🚀 مراحل Deploy در Apps Script</div>
+    <div class="step-list">
+      <div class="step-item"><div class="step-dot done">1</div><div class="step-body"><div class="step-title">script.google.com → New project</div><div class="step-desc">کد پیش‌فرض رو کامل پاک کن</div></div></div>
+      <div class="step-item"><div class="step-dot done">2</div><div class="step-body"><div class="step-title">کد بالا رو Paste کن</div><div class="step-desc">۳ مقدار اول رو تنظیم کن. آخر فایل چک کن خط اضافه نباشه.</div></div></div>
+      <div class="step-item"><div class="step-dot done">3</div><div class="step-body"><div class="step-title">Deploy → New deployment → Web app</div><div class="step-desc">Execute as: <strong>Me</strong> | Who has access: <strong>Anyone</strong></div></div></div>
+      <div class="step-item"><div class="step-dot">4</div><div class="step-body"><div class="step-title">Deployment ID رو کپی کن</div><div class="step-desc">فقط ID — نه کل URL. این رو به اپ اندروید بده.</div></div></div>
     </div>
   </div>
 </div>
 
 <!-- ===== VPS ===== -->
-<div id="tab-vps" class="sec con">
+<div id="tab-vps" class="section container">
 
-  <div class="alert as">✅ فقط یه بار اجرا کن — همه چیز خودکار نصب میشه. نیازی به ساخت فایل جداگانه نیست.</div>
+  <div class="alert success">✅ کافیه یه بار اجرا کنی — همه چیز خودکار نصب میشه. نیازی به هیچ فایل جداگانه‌ای نیست.</div>
+
+  <div class="card">
+    <div class="card-title">🛒 خرید VPS پیشنهادی (ارز دیجیتال، بدون احراز هویت)</div>
+    <a class="dl-card" href="https://www.netlen.com.tr/" target="_blank" style="margin-bottom:0;">
+      <div class="dl-icon">🌐</div>
+      <div class="dl-info"><div class="dl-name">Netlen.com.tr</div><div class="dl-desc">VPS هلند — پرداخت با ارز دیجیتال — بدون KYC</div></div>
+    </a>
+    <p style="margin-top:8px;color:var(--muted);font-size:12px;">پکیج پیشنهادی: حداقل ۱ vCPU، ۵۱۲MB RAM، Ubuntu 22.04</p>
+  </div>
 
   <div class="card">
     <div class="card-title">⚙️ قبل از نصب — این ۲ مقدار رو تنظیم کن</div>
-    <div class="cfg">
-      <div class="cfg-label">TUNNEL_AUTH_KEY — رمز tunnel</div>
-      <input class="cfg-input" id="vps-key" placeholder="رمز دلخواه — مثلاً: MyStr0ng@Pass2026" oninput="updateVPS()">
+    <div class="config-row">
+      <div class="config-label">TUNNEL_AUTH_KEY</div>
+      <input class="config-input" id="vps-key" placeholder="رمز قوی — همون رمز CodeFull.gs" oninput="updateVPS()">
     </div>
-    <div class="cfg">
-      <div class="cfg-label">SSH_PORT — پورت SSH سرورت</div>
-      <input class="cfg-input" id="vps-ssh" placeholder="22 یا 2233 یا هر پورت دیگه" oninput="updateVPS()">
+    <div class="config-row">
+      <div class="config-label">SSH_PORT</div>
+      <input class="config-input" id="vps-ssh" placeholder="پورت SSH — معمولاً 22" oninput="updateVPS()">
     </div>
-    <div class="alert ai" style="margin-top:10px;margin-bottom:0">💡 بعد از تنظیم، کد پایین خودکار آپدیت میشه — فقط کپی کن و در ترمینال بزن.</div>
   </div>
 
-  <!-- INSTALL -->
-  <div class="cb">
-    <div class="ch">
-      <span class="cl">🔧 نصب کامل tunnel-node — یک بار اجرا کن</span>
-      <button class="cp" id="btn-install" onclick="copyPre('vps-install',this)">کپی</button>
+  <div class="code-block">
+    <div class="code-header">
+      <span class="code-label">📦 نصب کامل tunnel-node</span>
+      <button class="copy-btn" id="btn-install" onclick="copyEl('vps-install','btn-install')">کپی</button>
     </div>
     <pre id="vps-install">#!/bin/bash
 # ══════════════════════════════════════════════
-#  mhrv Tunnel Node — نصب کامل
-#  Ubuntu 22.04 / Debian
+#  mhrv tunnel-node — نصب کامل Ubuntu 22.04
+#  ۱. مقادیر زیر رو تنظیم کن
+#  ۲. کل کد رو کپی کن و در ترمینال Paste کن
 # ══════════════════════════════════════════════
 
-AUTH_KEY="YOUR_AUTH_KEY"   # ← رمز tunnel
-SSH_PORT=22                 # ← پورت SSH
-PORT=8080                   # پورت tunnel (تغییر نده)
+AUTH_KEY="YOUR_AUTH_KEY"   # ← رمز خودت
+SSH_PORT=22                # ← پورت SSH سرورت
+PORT=8080
 
 echo ""
-echo "┌─────────────────────────────────────┐"
-echo "│  ۱ / ۵  آپدیت سیستم...             │"
-echo "└─────────────────────────────────────┘"
+echo "▶ [1/5] پاک‌سازی نصب‌های قبلی..."
+docker rm -f tunnel-node mhrv-tunnel 2>/dev/null && echo "  ✓ پاک شد" || echo "  - چیزی برای پاک کردن نبود"
+
+echo ""
+echo "▶ [2/5] آپدیت سیستم..."
 export DEBIAN_FRONTEND=noninteractive
-apt update -y && apt upgrade -y && \
-echo "✅ آپدیت موفق" || { echo "❌ خطا در آپدیت"; exit 1; }
+apt update -y -q && apt upgrade -y -q && echo "  ✓ سیستم آپدیت شد"
 
 echo ""
-echo "┌─────────────────────────────────────┐"
-echo "│  ۲ / ۵  نصب Docker و ابزارها...    │"
-echo "└─────────────────────────────────────┘"
-apt install -y docker.io curl ufw && \
-systemctl enable docker && systemctl start docker && \
-echo "✅ Docker نصب شد" || { echo "❌ خطا در نصب Docker"; exit 1; }
+echo "▶ [3/5] نصب Docker..."
+apt install -y -q docker.io curl ufw
+systemctl enable docker --now && echo "  ✓ Docker فعال شد"
 
 echo ""
-echo "┌─────────────────────────────────────┐"
-echo "│  ۳ / ۵  تنظیم فایرول...            │"
-echo "└─────────────────────────────────────┘"
-ufw --force reset
+echo "▶ [4/5] تنظیم فایرول..."
+ufw --force reset -q
 ufw default deny incoming
 ufw default allow outgoing
-ufw allow ${SSH_PORT}/tcp && echo "✅ پورت SSH ${SSH_PORT} باز شد"
-ufw allow ${PORT}/tcp     && echo "✅ پورت Tunnel ${PORT} باز شد"
-ufw --force enable        && echo "✅ فایرول فعال شد"
+ufw allow ${SSH_PORT}/tcp
+ufw allow ${PORT}/tcp
+ufw --force enable
+echo "  ✓ فایرول فعال — پورت‌های ${SSH_PORT} و ${PORT} باز"
 
 echo ""
-echo "┌─────────────────────────────────────┐"
-echo "│  ۴ / ۵  دانلود image رسمی...        │"
-echo "└─────────────────────────────────────┘"
-docker rm -f tunnel-node 2>/dev/null || true
-docker pull ghcr.io/therealaleph/mhrv-tunnel-node:latest && \
-echo "✅ Image دانلود شد" || { echo "❌ خطا در دانلود image"; exit 1; }
+echo "▶ [5/5] دانلود و اجرای tunnel-node..."
+docker pull ghcr.io/therealaleph/mhrv-tunnel-node:latest -q && echo "  ✓ image دانلود شد"
 
-echo ""
-echo "┌─────────────────────────────────────┐"
-echo "│  ۵ / ۵  راه‌اندازی سرویس...        │"
-echo "└─────────────────────────────────────┘"
 docker run -d \
   --name tunnel-node \
   --restart always \
   -p ${PORT}:${PORT} \
   -e TUNNEL_AUTH_KEY="${AUTH_KEY}" \
   -e PORT=${PORT} \
-  ghcr.io/therealaleph/mhrv-tunnel-node:latest && \
-echo "✅ Container اجرا شد"
+  ghcr.io/therealaleph/mhrv-tunnel-node:latest
 
 sleep 5
-echo ""
-echo "┌─────────────────────────────────────┐"
-echo "│  تست نهایی...                       │"
-echo "└─────────────────────────────────────┘"
-curl -sf http://localhost:${PORT}/health && \
-echo "✅ سرویس OK — آماده استفاده‌ست!" || \
-echo "❌ سرویس جواب نمیده — لاگ: docker logs tunnel-node"
 
 echo ""
-VPS_IP=$(curl -4s ifconfig.me 2>/dev/null)
 echo "══════════════════════════════════════════"
-echo "  ✅ نصب کامل شد"
-echo "  📌 URL برای CodeFull.gs:"
-echo "     http://${VPS_IP}:${PORT}"
-echo "  🔑 AUTH_KEY: ${AUTH_KEY}"
+echo "  تست سلامت سرویس..."
+HEALTH=$(curl -sf http://localhost:${PORT}/health 2>/dev/null)
+if [ "$HEALTH" = "ok" ]; then
+  echo "  ✅ سرویس OK — آماده کار"
+else
+  echo "  ❌ خطا — لاگ: docker logs tunnel-node"
+fi
+
+VPS_IP=$(curl -4s ifconfig.me 2>/dev/null)
+echo ""
+echo "  📋 اطلاعات مهم:"
+echo "  URL برای CodeFull.gs : http://${VPS_IP}:${PORT}"
+echo "  AUTH_KEY             : ${AUTH_KEY}"
 echo "══════════════════════════════════════════"</pre>
   </div>
 
-  <!-- CHECK -->
-  <div class="cb">
-    <div class="ch">
-      <span class="cl">🔍 چک کامل وضعیت VPS</span>
-      <button class="cp" onclick="copyPre('vps-check',this)">کپی</button>
+  <div class="code-block">
+    <div class="code-header">
+      <span class="code-label">🔍 چک کامل وضعیت VPS</span>
+      <button class="copy-btn" id="btn-check" onclick="copyEl('vps-check','btn-check')">کپی</button>
     </div>
-    <pre id="vps-check">echo ""
-echo "┌─────────────────────────────────────┐"
-echo "│  وضعیت Docker Container             │"
-echo "└─────────────────────────────────────┘"
-docker ps --format "  نام: {{.Names}}  |  وضعیت: {{.Status}}  |  پورت: {{.Ports}}"
+    <pre id="vps-check">#!/bin/bash
+echo "══════════════════════════════════════════"
+echo "  چک کامل VPS — tunnel-node"
+echo "══════════════════════════════════════════"
 
 echo ""
-echo "┌─────────────────────────────────────┐"
-echo "│  تست Health                         │"
-echo "└─────────────────────────────────────┘"
-curl -sf http://localhost:8080/health && echo " ✅ سرویس OK" || echo " ❌ سرویس جواب نمیده"
+echo "▶ وضعیت Container:"
+docker ps --format "  {{.Names}} | {{.Status}} | {{.Ports}}" 2>/dev/null || echo "  ❌ Docker در دسترس نیست"
 
 echo ""
-echo "┌─────────────────────────────────────┐"
-echo "│  تست اتصال Tunnel                   │"
-echo "└─────────────────────────────────────┘"
-RESULT=$(curl -s -X POST http://localhost:8080/tunnel \
+echo "▶ تست Health:"
+R=$(curl -sf http://localhost:8080/health 2>/dev/null)
+[ "$R" = "ok" ] && echo "  ✅ سرویس OK" || echo "  ❌ سرویس جواب نمی‌ده"
+
+echo ""
+echo "▶ تست Tunnel Connect:"
+curl -s -X POST http://localhost:8080/tunnel \
   -H "Content-Type: application/json" \
-  -d '{"k":"YOUR_AUTH_KEY","op":"connect","host":"www.google.com","port":443}')
-echo "$RESULT" | grep -q '"sid"' && echo " ✅ Tunnel OK — اتصال برقرار شد" || echo " ❌ Tunnel خطا: $RESULT"
+  -d '{"k":"YOUR_AUTH_KEY","op":"connect","host":"www.google.com","port":443}' \
+  | grep -o '"sid":"[^"]*"' && echo "  ✅ Tunnel OK" || echo "  ❌ خطا در tunnel"
 
 echo ""
-echo "┌─────────────────────────────────────┐"
-echo "│  IP عمومی VPS                       │"
-echo "└─────────────────────────────────────┘"
-echo "  $(curl -4s ifconfig.me)"
+echo "▶ IP عمومی VPS:"
+echo "  $(curl -4s ifconfig.me 2>/dev/null)"
 
 echo ""
-echo "┌─────────────────────────────────────┐"
-echo "│  وضعیت فایرول                       │"
-echo "└─────────────────────────────────────┘"
-ufw status numbered
+echo "▶ فایرول:"
+ufw status numbered 2>/dev/null | grep -E "ALLOW|Status"
 
 echo ""
-echo "┌─────────────────────────────────────┐"
-echo "│  مصرف منابع                         │"
-echo "└─────────────────────────────────────┘"
-docker stats tunnel-node --no-stream --format "  CPU: {{.CPUPerc}}  |  RAM: {{.MemUsage}}"
+echo "▶ مصرف منابع:"
+docker stats tunnel-node --no-stream --format "  CPU: {{.CPUPerc}} | RAM: {{.MemUsage}}" 2>/dev/null
 
 echo ""
-echo "┌─────────────────────────────────────┐"
-echo "│  آخرین لاگ‌ها                       │"
-echo "└─────────────────────────────────────┘"
-docker logs tunnel-node --tail 10</pre>
+echo "▶ آخرین لاگ‌ها:"
+docker logs tunnel-node --tail 10 2>/dev/null | sed 's/^/  /'
+
+echo ""
+echo "══════════════════════════════════════════"</pre>
   </div>
 
-  <!-- UPDATE -->
-  <div class="cb">
-    <div class="ch">
-      <span class="cl">🔄 آپدیت به آخرین نسخه</span>
-      <button class="cp" onclick="copyPre('vps-update',this)">کپی</button>
+  <div class="code-block">
+    <div class="code-header">
+      <span class="code-label">🔄 آپدیت به آخرین نسخه</span>
+      <button class="copy-btn" id="btn-update" onclick="copyEl('vps-update','btn-update')">کپی</button>
     </div>
-    <pre id="vps-update">echo "🔄 آپدیت tunnel-node..."
-docker pull ghcr.io/therealaleph/mhrv-tunnel-node:latest && \
-echo "✅ Image جدید دانلود شد" || { echo "❌ خطا در دانلود"; exit 1; }
-
-docker rm -f tunnel-node 2>/dev/null
+    <pre id="vps-update">docker pull ghcr.io/therealaleph/mhrv-tunnel-node:latest && \
+docker rm -f tunnel-node && \
 docker run -d \
   --name tunnel-node \
   --restart always \
   -p 8080:8080 \
   -e TUNNEL_AUTH_KEY="YOUR_AUTH_KEY" \
   -e PORT=8080 \
-  ghcr.io/therealaleph/mhrv-tunnel-node:latest
-
-sleep 4
-curl -sf http://localhost:8080/health && \
-echo "✅ آپدیت موفق — سرویس OK" || \
-echo "❌ خطا — بزن: docker logs tunnel-node"</pre>
+  ghcr.io/therealaleph/mhrv-tunnel-node:latest && \
+sleep 4 && \
+curl -sf http://localhost:8080/health && echo " ✅ آپدیت OK" || echo " ❌ خطا"</pre>
   </div>
 
-  <!-- CLEAN -->
-  <div class="alert aw">🗑️ کد پاک‌سازی پایین فقط اگه دیگه نمی‌خوای از tunnel-node استفاده کنی اجرا کن — برای VPS که می‌خوای کار دیگه‌ای باهاش بکنی. نیازی نیست معمولاً.</div>
-  <div class="cb">
-    <div class="ch">
-      <span class="cl">🗑️ پاک‌سازی کامل — فقط در صورت نیاز</span>
-      <button class="cp" onclick="copyPre('vps-clean',this)">کپی</button>
+  <div class="card" style="border-color:var(--yellow);">
+    <div class="card-title">🧹 پاک‌سازی کامل VPS <span style="font-size:11px;color:var(--muted);font-weight:400;">(اختیاری — فقط اگه نیاز داری)</span></div>
+    <p style="color:var(--muted);margin-bottom:10px;">این کد نیازی نیست مگر اینکه بخوای VPS رو برای کار دیگه‌ای آزاد کنی یا از اول نصب کنی.</p>
+    <div class="code-block">
+      <div class="code-header">
+        <span class="code-label">⚠️ پاک‌سازی — با احتیاط استفاده کن</span>
+        <button class="copy-btn" id="btn-clean" onclick="copyEl('vps-clean','btn-clean')">کپی</button>
+      </div>
+      <pre id="vps-clean">docker rm -f tunnel-node mhrv-tunnel 2>/dev/null
+docker rmi -f ghcr.io/therealaleph/mhrv-tunnel-node:latest 2>/dev/null
+docker system prune -f
+echo "✓ پاک‌سازی کامل شد"</pre>
     </div>
-    <pre id="vps-clean">echo "⚠️  پاک‌سازی tunnel-node..."
-docker rm -f tunnel-node 2>/dev/null && echo "✅ Container حذف شد"
-docker rmi ghcr.io/therealaleph/mhrv-tunnel-node:latest 2>/dev/null && echo "✅ Image حذف شد"
-docker system prune -f && echo "✅ فضای Docker آزاد شد"
-echo "✅ پاک‌سازی کامل شد"</pre>
   </div>
-
 </div>
 
 <!-- ===== TIPS ===== -->
-<div id="tab-tips" class="sec con">
+<div id="tab-tips" class="section container">
 
   <div class="card">
-    <div class="card-title">🏗️ معماری کامل</div>
-    <div class="cb"><pre style="color:#79c0ff;font-size:12px">گوشی شما
-    ↓
-mhrv-rs (اپ اندروید)
-    ↓  TLS  |  SNI: www.google.com
-Google Edge  ← ISP فقط این رو میبینه ✓
-    ↓
-Apps Script (جیمیل شما — رایگان)
-    ↓  HTTP
-Tunnel Node (VPS هلند شما)
-    ↓  TCP مستقیم
-🌍 اینترنت آزاد</pre></div>
+    <div class="card-title">🏗️ معماری کامل سیستم</div>
+    <div class="arch-box">
+<span class="g">گوشی شما</span>
+  <span class="m">↓</span>
+<span class="b">mhrv-rs (اپ اندروید)</span>
+  <span class="m">↓ TLS — SNI: www.google.com (ISP این رو می‌بینه)</span>
+<span class="b">Google Edge</span> <span class="m">(فیلتر نمیشه چون گوگله)</span>
+  <span class="m">↓</span>
+<span class="o">Apps Script</span> <span class="m">(جیمیل شما — رایگان)</span>
+  <span class="m">↓ HTTP</span>
+<span class="g">Tunnel Node</span> <span class="m">(VPS هلند شما)</span>
+  <span class="m">↓ TCP مستقیم</span>
+<span class="g">🌍 اینترنت آزاد</span>
+    </div>
   </div>
 
   <div class="card">
     <div class="card-title">⚡ بهینه‌سازی سرعت</div>
     <ul>
-      <li>حداقل ۳-۴ Deployment ID از جیمیل‌های مختلف اضافه کن</li>
-      <li>از بخش SNI pool، آدرس‌هایی با کمترین پینگ انتخاب کن</li>
-      <li>دکمه Auto-detect برای Google IP بزن</li>
-      <li>Connection mode رو روی VPN (TUN) بذار</li>
+      <li>حداقل ۳-۶ Deployment از جیمیل‌های مختلف — هر اکانت جداگانه</li>
+      <li>از بخش SNI pool، ۲-۳ آدرس با کمترین پینگ انتخاب کن</li>
+      <li>دکمه Auto-detect روی Google IP بزن تا بهترین IP پیدا بشه</li>
+      <li>Connection mode: VPN (TUN) برای همه اپ‌ها</li>
     </ul>
   </div>
 
   <div class="card">
     <div class="card-title">⚠️ محدودیت‌های شناخته‌شده</div>
-    <div class="alert ad">WebSocket کار نمی‌کنه — ChatGPT streaming، Discord voice</div>
-    <div class="alert aw">ویدیو سنگین سهمیه دارد — برای ۱۰۸۰p از چند Deployment استفاده کن</div>
-    <div class="alert aw">User-Agent ثابته — بعضی سایت‌ها CAPTCHA نشون می‌دن</div>
+    <div class="alert danger">WebSocket کار نمی‌کنه — ChatGPT streaming، Discord voice</div>
+    <div class="alert warn">ویدیو سنگین سهمیه دارد — هر اکانت گوگل ۲M call/روز</div>
+    <div class="alert warn">User-Agent ثابته (Google-Apps-Script) — بعضی سایت‌ها CAPTCHA</div>
   </div>
 
   <div class="card">
     <div class="card-title">🔧 عیب‌یابی</div>
     <ul>
-      <li><strong>Relay timeout:</strong> Apps Script درست deploy نشده</li>
+      <li><strong>Relay timeout:</strong> Apps Script درست deploy نشده — دوباره deploy کن</li>
       <li><strong>Certificate error:</strong> دکمه Install MITM Certificate رو بزن</li>
-      <li><strong>تلگرام:</strong> Settings → Proxy → SOCKS5 → <span class="tag">127.0.0.1:8086</span></li>
-      <li><strong>VPS قفل SSH:</strong> فایرول پورت SSH رو بسته — از پنل هاستینگ Reboot کن</li>
+      <li><strong>تلگرام وصل نمیشه:</strong> Settings → Proxy → SOCKS5 → <span class="tag">127.0.0.1:8086</span></li>
+      <li><strong>VPS قفل شد:</strong> حتماً قبل از ufw enable پورت SSH رو باز کن</li>
+      <li><strong>Syntax error deploy:</strong> خط آخر کد رو چک کن — خط اضافه پاک کن</li>
     </ul>
   </div>
 </div>
 
 <!-- ===== ABOUT ===== -->
-<div id="tab-about" class="sec con">
-
-  <div class="alert ai">💡 برای خرید VPS با ارز دیجیتال و بدون احراز هویت پیشنهاد میشه:</div>
+<div id="tab-about" class="section container">
   <div class="card">
-    <a class="dl-card" href="https://www.netlen.com.tr/" target="_blank" style="margin-bottom:0">
-      <div class="dl-icon">🌐</div>
-      <div>
-        <div class="dl-name">Netlen.com.tr</div>
-        <div class="dl-desc">VPS هلند — پرداخت با ارز دیجیتال — بدون احراز هویت</div>
-      </div>
-    </a>
-  </div>
-
-  <div class="card">
-    <div class="card-title">📚 منابع اصلی</div>
+    <div class="card-title">📚 منابع و لینک‌های مهم</div>
     <div class="dl-grid">
       <a class="dl-card" href="https://github.com/therealaleph/MasterHttpRelayVPN-RUST" target="_blank">
-        <div class="dl-icon">⭐</div><div><div class="dl-name">mhrv-rs (Rust)</div><div class="dl-desc">therealaleph — ریپو اصلی</div></div>
+        <div class="dl-icon">⭐</div>
+        <div class="dl-info"><div class="dl-name">mhrv-rs (Rust Port)</div><div class="dl-desc">therealaleph — ریپو اصلی</div></div>
       </a>
       <a class="dl-card" href="https://github.com/masterking32/MasterHttpRelayVPN" target="_blank">
-        <div class="dl-icon">🐍</div><div><div class="dl-name">MasterHttpRelayVPN</div><div class="dl-desc">masterking32 — پروژه اصلی Python</div></div>
+        <div class="dl-icon">🐍</div>
+        <div class="dl-info"><div class="dl-name">MasterHttpRelayVPN</div><div class="dl-desc">masterking32 — پروژه اصلی Python</div></div>
       </a>
       <a class="dl-card" href="https://github.com/therealaleph/MasterHttpRelayVPN-RUST/releases/latest" target="_blank">
-        <div class="dl-icon">📦</div><div><div class="dl-name">آخرین Release اندروید</div><div class="dl-desc">همیشه آخرین نسخه</div></div>
+        <div class="dl-icon">📦</div>
+        <div class="dl-info"><div class="dl-name">آخرین Release اندروید</div><div class="dl-desc">همیشه آخرین نسخه</div></div>
       </a>
       <a class="dl-card" href="https://github.com/therealaleph/MasterHttpRelayVPN-RUST/tree/main/tunnel-node" target="_blank">
-        <div class="dl-icon">🖥️</div><div><div class="dl-name">Tunnel Node</div><div class="dl-desc">مستندات VPS</div></div>
+        <div class="dl-icon">🖥️</div>
+        <div class="dl-info"><div class="dl-name">Tunnel Node</div><div class="dl-desc">مستندات VPS کامل</div></div>
+      </a>
+      <a class="dl-card" href="https://kian-irani.github.io/mhrv-setup-full-tunell" target="_blank">
+        <div class="dl-icon">📖</div>
+        <div class="dl-info"><div class="dl-name">این راهنما (GitHub Pages)</div><div class="dl-desc">kian-irani.github.io</div></div>
+      </a>
+      <a class="dl-card" href="https://www.netlen.com.tr/" target="_blank">
+        <div class="dl-icon">🌐</div>
+        <div class="dl-info"><div class="dl-name">Netlen VPS</div><div class="dl-desc">خرید با ارز دیجیتال</div></div>
       </a>
     </div>
   </div>
-
   <div class="card">
-    <div class="card-title">🙏 تشکر</div>
-    <p style="color:var(--muted)">ایده اصلی و پیاده‌سازی Python از <strong>@masterking32</strong> — تمام اعتبار معماری و پروتکل Apps Script متعلق به ایشان است.</p>
-    <p style="color:var(--muted);margin-top:8px">پورت Rust و اپ اندروید توسط <strong>@therealaleph</strong> برای ساده‌کردن توزیع و استفاده موبایل نوشته شده.</p>
+    <div class="card-title">🙏 تشکر و اعتبار</div>
+    <p>ایده اصلی و پیاده‌سازی پایتون از <strong>@masterking32</strong> — تمام اعتبار معماری و پروتکل متعلق به ایشان است.</p>
+    <p style="margin-top:6px;">پورت Rust توسط <strong>@therealaleph</strong> — برای ساده‌کردن استفاده موبایل و اضافه کردن Full Tunnel.</p>
   </div>
 </div>
 
 <footer>
-  ساخته شده با ❤️ برای آزادی اینترنت &nbsp;|&nbsp;
-  <a href="https://github.com/therealaleph/MasterHttpRelayVPN-RUST" target="_blank">GitHub</a> &nbsp;|&nbsp;
-  <a href="https://github.com/masterking32/MasterHttpRelayVPN" target="_blank">پروژه اصلی</a>
+  ساخته شده با ❤️ برای آزادی اینترنت |
+  <a href="https://github.com/therealaleph/MasterHttpRelayVPN-RUST" target="_blank">GitHub اصلی</a> |
+  <a href="https://github.com/masterking32/MasterHttpRelayVPN" target="_blank">پروژه Python</a> |
+  <a href="https://kian-irani.github.io/mhrv-setup-full-tunell" target="_blank">این صفحه</a>
 </footer>
 
 <div class="toast" id="toast">✓ کپی شد!</div>
 
 <script>
 function showTab(n){
-  const names=['android','script','vps','tips','about'];
-  document.querySelectorAll('.tab').forEach((t,i)=>t.classList.toggle('active',names[i]===n));
-  document.querySelectorAll('.sec').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  var tabs=['android','script','vps','tips','about'];
+  document.querySelectorAll('.tab')[tabs.indexOf(n)].classList.add('active');
   document.getElementById('tab-'+n).classList.add('active');
 }
 
-function showToast(){
-  const t=document.getElementById('toast');
-  t.classList.add('show');
-  setTimeout(()=>t.classList.remove('show'),2000);
-}
-
-function copyTA(id,btn){
-  const el=document.getElementById(id);
-  navigator.clipboard.writeText(el.value.trim()).then(()=>{
-    if(btn){btn.textContent='✓';btn.classList.add('ok');setTimeout(()=>{btn.textContent='کپی';btn.classList.remove('ok')},2000);}
-    showToast();
-  });
-}
-
-function copyPre(id,btn){
-  const el=document.getElementById(id);
-  navigator.clipboard.writeText(el.textContent.trim()).then(()=>{
-    if(btn){btn.textContent='✓';btn.classList.add('ok');setTimeout(()=>{btn.textContent='کپی';btn.classList.remove('ok')},2000);}
-    showToast();
+function copyEl(id, btnId){
+  var el=document.getElementById(id);
+  var text=el.textContent.trim();
+  navigator.clipboard.writeText(text).then(function(){
+    var btn=document.getElementById(btnId);
+    btn.textContent='✓ کپی شد';
+    btn.classList.add('copied');
+    setTimeout(function(){btn.textContent='کپی';btn.classList.remove('copied');},2000);
+    var t=document.getElementById('toast');
+    t.classList.add('show');
+    setTimeout(function(){t.classList.remove('show');},2000);
   });
 }
 
 function updateScript(){
-  const ak=document.getElementById('cfg-ak').value||'YOUR_AUTH_KEY';
-  const url=document.getElementById('cfg-url').value||'http://YOUR_VPS_IP:8080';
-  const tk=document.getElementById('cfg-tk').value||'YOUR_AUTH_KEY';
-  const ta=document.getElementById('script-ta');
-  let t=ta.value;
-  t=t.replace(/const AUTH_KEY\s*=\s*"[^"]*"/,'const AUTH_KEY          = "'+ak+'"');
-  t=t.replace(/const TUNNEL_SERVER_URL\s*=\s*"[^"]*"/,'const TUNNEL_SERVER_URL = "'+url+'"');
-  t=t.replace(/const TUNNEL_AUTH_KEY\s*=\s*"[^"]*"/,'const TUNNEL_AUTH_KEY   = "'+tk+'"');
-  ta.value=t;
+  var key=document.getElementById('cfg-authkey').value||'YOUR_AUTH_KEY';
+  var url=document.getElementById('cfg-url').value||'http://YOUR_VPS_IP:8080';
+  var tkey=document.getElementById('cfg-tunnelkey').value||'YOUR_AUTH_KEY';
+  var el=document.getElementById('script-code');
+  var t=el.textContent;
+  t=t.replace(/const AUTH_KEY\s*=\s*"[^"]*"/,`const AUTH_KEY          = "${key}"`);
+  t=t.replace(/const TUNNEL_SERVER_URL\s*=\s*"[^"]*"/,`const TUNNEL_SERVER_URL = "${url}"`);
+  t=t.replace(/const TUNNEL_AUTH_KEY\s*=\s*"[^"]*"/,`const TUNNEL_AUTH_KEY   = "${tkey}"`);
+  el.textContent=t;
 }
 
 function updateVPS(){
-  const key=document.getElementById('vps-key').value||'YOUR_AUTH_KEY';
-  const ssh=document.getElementById('vps-ssh').value||'22';
-  ['vps-install','vps-update','vps-check','vps-clean'].forEach(id=>{
-    const el=document.getElementById(id);
+  var key=document.getElementById('vps-key').value||'YOUR_AUTH_KEY';
+  var ssh=document.getElementById('vps-ssh').value||'22';
+  ['vps-install','vps-update','vps-check','vps-clean'].forEach(function(id){
+    var el=document.getElementById(id);
     if(!el)return;
-    let t=el.textContent;
-    t=t.replace(/AUTH_KEY="[^"]*"/g,'AUTH_KEY="'+key+'"');
-    t=t.replace(/TUNNEL_AUTH_KEY="[^"]*"/g,'TUNNEL_AUTH_KEY="'+key+'"');
-    t=t.replace(/"k":"[^"]*"/g,'"k":"'+key+'"');
-    t=t.replace(/SSH_PORT=\S+/,'SSH_PORT='+ssh);
+    var t=el.textContent;
+    t=t.replace(/AUTH_KEY="[^"]*"/g,`AUTH_KEY="${key}"`);
+    t=t.replace(/SSH_PORT=\S+/,`SSH_PORT=${ssh}`);
+    t=t.replace(/"k":"[^"]*"/g,`"k":"${key}"`);
+    t=t.replace(/TUNNEL_AUTH_KEY="[^"]*"/g,`TUNNEL_AUTH_KEY="${key}"`);
     el.textContent=t;
   });
 }
 </script>
 </body>
-  </html>
+</html>

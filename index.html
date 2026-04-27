@@ -347,31 +347,56 @@ footer a{color:var(--blue);text-decoration:none;}
   </div>
 
   <div class="card">
-    <h3>📋 تنظیم اپ mhrv-rs</h3>
+    <h3>📋 تنظیم اپ mhrv-rs (v1.7.7+)</h3>
+    <div class="alert s">✅ <strong>قابلیت جدید:</strong> حالت <strong>Full tunnel (no cert)</strong> دیگه نیازی به نصب MITM certificate ندارد — همه ترافیک از VPS رد می‌شه.</div>
     <div class="step">
       <div class="sdot ok">1</div>
-      <div class="sbody"><div class="stitle">APK رو نصب کن</div><div class="sdesc">«نصب از منابع ناشناس» باید فعال باشد. SHA-256 رو در صفحه release چک کن.</div></div>
+      <div class="sbody"><div class="stitle">APK رو نصب کن</div><div class="sdesc">«نصب از منابع ناشناس» باید فعال باشد.</div></div>
     </div>
     <div class="step">
       <div class="sdot ok">2</div>
-      <div class="sbody"><div class="stitle">Deployment ID رو وارد کن</div><div class="sdesc">فقط ID — نه کل URL. اپ آدرس کامل رو خودش می‌سازد. هر ID در یک خط.</div></div>
+      <div class="sbody"><div class="stitle">Mode رو روی «Full tunnel (no cert)» بذار</div><div class="sdesc">این حالت همه ترافیک رو بدون نیاز به certificate از VPS رد می‌کنه</div></div>
     </div>
     <div class="step">
       <div class="sdot ok">3</div>
-      <div class="sbody"><div class="stitle">Auth key: <span class="tag" id="show-key">رمز وارد نشده</span></div><div class="sdesc">همون رمزی که در سربرگ تنظیمات وارد کردی</div></div>
+      <div class="sbody"><div class="stitle">Deployment URL یا ID رو وارد کن</div><div class="sdesc">می‌تونی URL کامل یا فقط ID وارد کنی. چند تا رو با newline/space/comma جدا کن.</div></div>
     </div>
     <div class="step">
       <div class="sdot ok">4</div>
-      <div class="sbody"><div class="stitle">Google IP و Front Domain</div><div class="sdesc">IP: <span class="tag">216.239.38.120</span> یا Auto-detect | Front domain: <span class="tag">www.google.com</span> — دست نزن</div></div>
+      <div class="sbody"><div class="stitle">Auth key: <span class="tag" id="show-key">رمز وارد نشده</span></div><div class="sdesc">همون رمزی که در سربرگ تنظیمات وارد کردی</div></div>
     </div>
     <div class="step">
       <div class="sdot ok">5</div>
-      <div class="sbody"><div class="stitle">Install MITM Certificate</div><div class="sdesc">دکمه رو بزن → اسم بنویس (مثلاً mhrv) → تأیید کن. برای HTTPS ضروریه.</div></div>
+      <div class="sbody"><div class="stitle">Google IP و Front Domain</div><div class="sdesc">IP: <span class="tag">216.239.38.120</span> یا Auto-detect | Front domain: <span class="tag">www.google.com</span></div></div>
     </div>
     <div class="step">
       <div class="sdot">6</div>
-      <div class="sbody"><div class="stitle">SNI Pool — بهینه‌سازی</div><div class="sdesc">بخش SNI pool + tester رو باز کن، تست بزن، ۲-۳ آدرس با کمترین پینگ انتخاب کن.</div></div>
+      <div class="sbody">
+        <div class="stitle">SNI Pool — تست کن</div>
+        <div class="sdesc">بخش SNI pool + tester → Test all بزن. فقط آدرس‌هایی که ✅ دارن رو انتخاب کن. بر اساس تست‌ها <span class="tag">accounts.google.com</span> معمولاً بهترین پینگ رو داره.</div>
+      </div>
     </div>
+    <div class="step">
+      <div class="sdot">7</div>
+      <div class="sbody">
+        <div class="stitle">App splitting (اختیاری)</div>
+        <div class="sdesc">می‌تونی انتخاب کنی کدوم اپ‌ها از VPN رد بشن: همه / فقط انتخاب‌شده‌ها / همه به‌جز انتخاب‌شده‌ها</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>📤 اشتراک‌گذاری کانفیگ — قابلیت جدید</h3>
+    <p>می‌تونی تنظیمات کامل (Deployment IDs + auth key) رو با دستگاه دیگه‌ای به اشتراک بذاری:</p>
+    <div class="step">
+      <div class="sdot ok">1</div>
+      <div class="sbody"><div class="stitle">دکمه «Export config» رو بزن</div><div class="sdesc">یه QR code و یه لینک کوتاه نشون میده</div></div>
+    </div>
+    <div class="step">
+      <div class="sdot ok">2</div>
+      <div class="sbody"><div class="stitle">در دستگاه دوم «Scan QR code» رو بزن</div><div class="sdesc">همه تنظیمات خودکار وارد می‌شه — نیازی به تایپ مجدد نیست</div></div>
+    </div>
+    <div class="alert w" style="margin-top:8px;">⚠️ کانفیگ شامل auth_key هست — فقط با افراد مورد اعتماد به اشتراک بذار</div>
   </div>
 </div>
 
@@ -395,9 +420,11 @@ Tunnel Node (VPS هلند شما)
     <h3>⚡ بهینه‌سازی سرعت</h3>
     <ul>
       <li>حداقل ۳-۶ Deployment از اکانت‌های مختلف گوگل</li>
-      <li>از SNI pool، ۲-۳ آدرس با کمترین پینگ انتخاب کن</li>
+      <li>SNI pool → Test all بزن → فقط آدرس‌های ✅ رو انتخاب کن (<span class="tag">accounts.google.com</span> معمولاً بهترینه)</li>
       <li>دکمه Auto-detect روی Google IP بزن</li>
       <li>Connection mode: VPN (TUN) برای همه اپ‌ها</li>
+      <li>از App splitting استفاده کن — اپ‌هایی که نیازی به فیلترشکن ندارن رو exclude کن تا سرعت بهتر بشه</li>
+      <li>در Advanced، parallel_relay رو روی ۲-۳ بذار اگه اتصال ناپایداره</li>
     </ul>
   </div>
   <div class="card">

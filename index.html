@@ -214,6 +214,46 @@ footer a{color:var(--blue);text-decoration:none;}
     .mhrv-bbg{background:#1e293b;color:#e2e8f0;border:1px solid rgba(255,255,255,.1)}
     @media(max-width:480px){.mhrv-ch-row{grid-template-columns:1fr}.mhrv-ts{flex-direction:column}}
 
+    
+    /* ═══ mhrv custom additions ═══ */
+    .mhrv-ch-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:0 0 10px}
+    .mhrv-ch{display:flex;align-items:center;gap:10px;background:#1a2035;border:1px solid rgba(99,179,237,.2);border-radius:10px;padding:10px 12px;text-decoration:none!important;color:inherit!important;transition:border-color .2s}
+    .mhrv-ch:hover{border-color:rgba(99,179,237,.5)}
+    .mhrv-ch-icon{font-size:20px;flex-shrink:0}
+    .mhrv-ch-name{font-size:13px;font-weight:600;color:#e2e8f0}
+    .mhrv-ch-desc{font-size:11px;color:#64748b}
+    .mhrv-vpn{display:flex;align-items:center;gap:8px;background:rgba(124,58,237,.1);border:1px solid rgba(124,58,237,.28);border-radius:8px;padding:7px 12px;margin:0 0 18px;font-size:12px;color:#c4b5fd;text-decoration:none!important}
+    .mhrv-vpn:hover{background:rgba(124,58,237,.18)}
+    .mhrv-tw{margin:18px 0 20px}
+    .mhrv-ts{display:flex;gap:12px;margin-bottom:10px;background:#181f30;border:1px solid rgba(99,179,237,.15);border-radius:10px;padding:13px;transition:border-color .2s}
+    .mhrv-ts:hover{border-color:rgba(99,179,237,.4)}
+    .mhrv-tn{flex-shrink:0;width:26px;height:26px;background:linear-gradient(135deg,#3b82f6,#6366f1);color:#fff;border-radius:6px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;font-family:monospace}
+    .mhrv-tb{flex:1;min-width:0}
+    .mhrv-tt{font-weight:700;color:#e2e8f0;font-size:13px;margin-bottom:4px}
+    .mhrv-td{color:#94a3b8;font-size:12px;line-height:1.55}
+    .mhrv-gm{background:#0d1117;border:1px solid rgba(255,255,255,.08);border-radius:8px;overflow:hidden;margin:8px 0}
+    .mhrv-gb{background:#161b22;padding:6px 10px;display:flex;align-items:center;gap:6px;border-bottom:1px solid rgba(255,255,255,.06)}
+    .mhrv-gd{display:flex;gap:4px}
+    .mhrv-gd span{width:8px;height:8px;border-radius:50%;display:block}
+    .mhrv-gu{flex:1;background:#0d1117;border-radius:10px;padding:2px 9px;font-size:10.5px;color:#58a6ff}
+    .mhrv-gc{padding:10px 12px}
+    .mhrv-gw{background:#fff;color:#1e293b;border-radius:7px;padding:12px;font-family:Roboto,sans-serif;max-width:100%}
+    .mhrv-gw h5{margin:0 0 4px;font-size:13px;font-weight:600}
+    .mhrv-gw p{font-size:11px;color:#64748b;margin:2px 0}
+    .mhrv-gf{font-size:10.5px;color:#64748b;margin:5px 0 2px}
+    .mhrv-gs{width:100%;border:1px solid #cbd5e1;border-radius:4px;padding:5px 7px;font-size:11.5px;color:#1e293b;background:#fff;box-sizing:border-box}
+    .mhrv-gr{display:flex;gap:5px;justify-content:flex-end;margin-top:8px}
+    .mhrv-hb{border-radius:7px;padding:7px 11px;margin:6px 0;font-size:11.5px;line-height:1.5}
+    .mhrv-hw{background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.25);color:#fbbf24}
+    .mhrv-ho{background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.25);color:#4ade80}
+    .mhrv-hi{background:rgba(59,130,246,.1);border:1px solid rgba(59,130,246,.25);color:#60a5fa}
+    .mhrv-he{background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.25);color:#f87171}
+    .mhrv-bm{display:inline-block;padding:3px 10px;border-radius:4px;font-size:11px;font-weight:600;margin:2px}
+    .mhrv-bbl{background:#1d4ed8;color:#fff}
+    .mhrv-bbw{background:#fff;color:#1e293b;border:1px solid #cbd5e1}
+    .mhrv-bbg{background:#1e293b;color:#e2e8f0;border:1px solid rgba(255,255,255,.1)}
+    @media(max-width:480px){.mhrv-ch-row{grid-template-columns:1fr}.mhrv-ts{flex-direction:column}}
+
     </style>
 </head>
 <body>
@@ -251,6 +291,22 @@ footer a{color:var(--blue);text-decoration:none;}
 
 <!-- ══════════ TABS ══════════ -->
 <div 
+      <!-- mhrv-channels -->
+      <div class="mhrv-ch-row">
+        <a class="mhrv-ch" href="https://t.me/Kian_irani_t" target="_blank">
+          <span class="mhrv-ch-icon">📡</span>
+          <span><div class="mhrv-ch-name">Kian Irani</div><div class="mhrv-ch-desc">راهنما و پشتیبانی</div></span>
+        </a>
+        <a class="mhrv-ch" href="https://t.me/shin_persian" target="_blank">
+          <span class="mhrv-ch-icon">🦀</span>
+          <span><div class="mhrv-ch-name">shin_persian</div><div class="mhrv-ch-desc">سازنده mhrv-rs</div></span>
+        </a>
+      </div>
+      <a class="mhrv-vpn" href="https://t.me/PremiumVpn8bot?start=fsPBYln2" target="_blank">
+        ⚠️ برای شروع به فیلترشکن نیاز داری — دریافت کانفیگ
+      </a>
+
+      
       <!-- mhrv-channels -->
       <div class="mhrv-ch-row">
         <a class="mhrv-ch" href="https://t.me/Kian_irani_t" target="_blank">
@@ -717,6 +773,66 @@ footer a{color:var(--blue);text-decoration:none;}
 
       <hr style="border-color: rgba(99,179,237,0.2); margin: 24px 0;">
 <!-- mhrv-tutorial -->
+      <div class="mhrv-tw">
+        <h3 style="color:#63b3ed;margin:0 0 3px;font-size:15px;">📸 آموزش تصویری گام‌به‌گام</h3>
+        <p style="color:#64748b;font-size:12px;margin:0 0 12px;">کد CodeFull.gs بالا از مشخصاتت ساخته شده — فقط کپی و paste کن.</p>
+
+        <div class="mhrv-ts"><div class="mhrv-tn">1</div><div class="mhrv-tb">
+          <div class="mhrv-tt">🌐 رفتن به script.google.com</div>
+          <div class="mhrv-td">با فیلترشکن فعال در مرورگر باز کن.</div>
+          <div class="mhrv-gm"><div class="mhrv-gb"><div class="mhrv-gd"><span style="background:#ff5f57"></span><span style="background:#febc2e"></span><span style="background:#28c840"></span></div><div class="mhrv-gu">script.google.com</div></div><div class="mhrv-gc"><div style="display:flex;gap:5px;align-items:center;margin-bottom:7px;"><span style="font-weight:700;color:#4285f4;font-size:14px;">Apps</span><span style="font-weight:700;color:#34a853;font-size:14px;">Script</span></div><div style="color:#58778b;font-size:10.5px;margin-bottom:6px;">My Projects</div><span class="mhrv-bm mhrv-bbl">+ New project</span></div></div>
+        </div></div>
+
+        <div class="mhrv-ts"><div class="mhrv-tn">2</div><div class="mhrv-tb">
+          <div class="mhrv-tt">🔐 Sign in با جیمیل جدید</div>
+          <div class="mhrv-td">با یه <strong style="color:#e2e8f0;">جیمیل جدید</strong> وارد شو — از جیمیل اصلیت استفاده نکن.</div>
+          <div class="mhrv-gm"><div class="mhrv-gb"><div class="mhrv-gd"><span style="background:#ff5f57"></span><span style="background:#febc2e"></span><span style="background:#28c840"></span></div><div class="mhrv-gu">accounts.google.com</div></div><div class="mhrv-gc"><div class="mhrv-gw"><div style="text-align:center;margin-bottom:6px;font-size:18px;font-weight:700;letter-spacing:-1px;"><span style="color:#4285f4">G</span><span style="color:#ea4335">o</span><span style="color:#fbbc05">o</span><span style="color:#4285f4">g</span><span style="color:#34a853">l</span><span style="color:#ea4335">e</span></div><h5 style="text-align:center;">Sign in</h5><p style="text-align:center;">to continue to Apps Script</p><div style="border:1px solid #e2e8f0;border-radius:4px;padding:5px 8px;color:#94a3b8;font-size:11px;margin:7px 0;">yourname@gmail.com</div><div class="mhrv-gr"><span class="mhrv-bm mhrv-bbl">Next →</span></div></div></div></div>
+        </div></div>
+
+        <div class="mhrv-ts"><div class="mhrv-tn">3</div><div class="mhrv-tb">
+          <div class="mhrv-tt">📄 New project + پاک کردن کد پیش‌فرض</div>
+          <div class="mhrv-td">New project → <strong style="color:#e2e8f0;">Ctrl+A</strong> → <strong style="color:#e2e8f0;">Delete</strong></div>
+          <div class="mhrv-gm"><div class="mhrv-gb"><div class="mhrv-gd"><span style="background:#ff5f57"></span><span style="background:#febc2e"></span><span style="background:#28c840"></span></div><div class="mhrv-gu">script.google.com</div><span class="mhrv-bm mhrv-bbl" style="font-size:9.5px;padding:2px 7px;">Deploy ▾</span></div><div style="display:flex;"><div style="background:#161b22;width:90px;padding:7px;border-right:1px solid rgba(255,255,255,.06);font-size:10.5px;color:#94a3b8;">📄 Code.gs</div><div style="flex:1;padding:7px;font-family:monospace;font-size:10.5px;background:#0d1117;color:#6a9955;">// ← این رو پاک کن<br><span style="color:#569cd6">function</span> myFunction(){ }</div></div></div>
+          <div class="mhrv-hb mhrv-he">🗑️ Ctrl+A → Delete — همه پاک بشه</div>
+        </div></div>
+
+        <div class="mhrv-ts"><div class="mhrv-tn">4</div><div class="mhrv-tb">
+          <div class="mhrv-tt">📋 Paste کردن CodeFull.gs</div>
+          <div class="mhrv-td">کد بالا → کپی → paste → <strong style="color:#e2e8f0;">Ctrl+S</strong></div>
+          <div class="mhrv-gm"><div style="display:flex;"><div style="background:#161b22;width:90px;padding:7px;border-right:1px solid rgba(255,255,255,.06);font-size:10.5px;color:#58a6ff;font-weight:600;">📄 Code.gs ✓</div><div style="flex:1;padding:7px;font-family:monospace;font-size:10px;background:#0d1117;overflow:hidden;"><div style="color:#6a9955;">// DomainFront Relay</div><div><span style="color:#569cd6">const</span> <span style="color:#9cdcfe">AUTH_KEY</span>=<span style="color:#ce9178">"••••••"</span>;</div><div><span style="color:#569cd6">const</span> <span style="color:#9cdcfe">TUNNEL_SERVER_URL</span>=...</div></div></div></div>
+          <div class="mhrv-hb mhrv-hw">⚠️ آخر فایل رو چک کن — خط خالی اضافه → Syntax Error</div>
+        </div></div>
+
+        <div class="mhrv-ts"><div class="mhrv-tn">5</div><div class="mhrv-tb">
+          <div class="mhrv-tt">🚀 Deploy ← New deployment</div>
+          <div class="mhrv-td">دکمه <strong style="color:#93c5fd;">Deploy</strong> بالا راست ← <strong style="color:#93c5fd;">New deployment</strong></div>
+          <div class="mhrv-gm"><div class="mhrv-gb"><div class="mhrv-gd"><span style="background:#ff5f57"></span><span style="background:#febc2e"></span><span style="background:#28c840"></span></div><div class="mhrv-gu">script.google.com</div><span class="mhrv-bm mhrv-bbg" style="font-size:9.5px;padding:2px 7px;">▶ Run</span><span class="mhrv-bm mhrv-bbl" style="font-size:9.5px;padding:2px 7px;">🚀 Deploy ▾</span></div><div class="mhrv-gc"><div style="background:#161b22;border:1px solid rgba(255,255,255,.1);border-radius:5px;overflow:hidden;width:170px;"><div style="padding:6px 11px;color:#58a6ff;font-weight:600;font-size:11.5px;border-bottom:1px solid rgba(255,255,255,.06);">➕ New deployment</div><div style="padding:6px 11px;color:#64748b;font-size:11px;">⚙️ Manage deployments</div></div></div></div>
+        </div></div>
+
+        <div class="mhrv-ts"><div class="mhrv-tn">6</div><div class="mhrv-tb">
+          <div class="mhrv-tt">⚙️ تنظیمات — Execute as: Me + Anyone</div>
+          <div class="mhrv-td">این دو تنظیم الزامیه:</div>
+          <div class="mhrv-gm"><div class="mhrv-gc"><div class="mhrv-gw"><h5>New deployment</h5><div class="mhrv-gf">Execute as</div><select class="mhrv-gs" disabled><option>Me (your@gmail.com)</option></select><div class="mhrv-gf">Who has access</div><select class="mhrv-gs" style="color:#1d4ed8;font-weight:700;" disabled><option>Anyone ✅</option></select><div class="mhrv-gr"><span class="mhrv-bm mhrv-bbw">Cancel</span><span class="mhrv-bm mhrv-bbl">Deploy →</span></div></div></div></div>
+          <div class="mhrv-hb mhrv-hi">💡 Execute as: Me + Anyone — هر دو باید همینطور باشن</div>
+        </div></div>
+
+        <div class="mhrv-ts"><div class="mhrv-tn">7</div><div class="mhrv-tb">
+          <div class="mhrv-tt">🔓 تایید دسترسی — Advanced → unsafe → Allow</div>
+          <div class="mhrv-td">گوگل هشدار میده — <strong style="color:#4ade80;">طبیعیه</strong>:</div>
+          <div class="mhrv-gm"><div class="mhrv-gc"><div class="mhrv-gw"><div style="text-align:center;margin-bottom:6px;"><div style="font-size:26px;">⚠️</div><h5 style="color:#dc2626;font-size:12.5px;">Google hasn't verified this app</h5></div><div style="background:#fef2f2;border:1px solid #fca5a5;border-radius:5px;padding:5px 9px;font-size:11px;color:#dc2626;margin:4px 0;">⛔ روی Back to safety کلیک نکن!</div><div style="background:#eff6ff;border:1px solid #93c5fd;border-radius:5px;padding:5px 9px;font-size:11px;color:#1d4ed8;margin:4px 0;">1. روی <strong>Advanced</strong> کلیک کن<br>2. روی <strong>Go to [project] (unsafe)</strong> کلیک کن<br>3. روی <strong>Allow</strong> کلیک کن</div><div class="mhrv-gr"><span class="mhrv-bm mhrv-bbw" style="font-size:10.5px;">Back to safety ←</span><span class="mhrv-bm mhrv-bbl" style="font-size:10.5px;">Advanced ▾</span></div></div></div></div>
+          <div class="mhrv-hb mhrv-ho">✅ این هشدار برای همه اسکریپت‌های شخصی طبیعیه</div>
+        </div></div>
+
+        <div class="mhrv-ts"><div class="mhrv-tn">8</div><div class="mhrv-tb">
+          <div class="mhrv-tt">📋 کپی Deployment ID</div>
+          <div class="mhrv-td">فقط <strong style="color:#e2e8f0;">ID</strong> رو کپی کن — نه URL.</div>
+          <div class="mhrv-gm"><div class="mhrv-gc"><div class="mhrv-gw"><h5 style="color:#16a34a;">✅ Deployment complete</h5><div class="mhrv-gf">Deployment ID 👇 این رو کپی کن</div><div style="background:#f0fdf4;border:2px solid #86efac;border-radius:5px;padding:6px;font-family:monospace;font-size:10.5px;color:#166534;margin:4px 0;word-break:break-all;">AKfycbx<span style="color:#1d4ed8">XXXXXXXXXXXXXXXXXXXXXXXXX</span></div><div class="mhrv-gf">Web app URL (نیازی نیست)</div><div style="background:#f8fafc;border-radius:4px;padding:4px 7px;font-size:10px;color:#94a3b8;">https://script.google.com/macros/s/.../exec</div><div class="mhrv-gr"><span class="mhrv-bm mhrv-bbl">Done ✓</span></div></div></div></div>
+          <div class="mhrv-hb mhrv-ho">🎉 تموم! این ID رو در اپ mhrv-rs وارد کن.</div>
+        </div></div>
+
+      </div><!-- /mhrv-tw -->
+
+      <!-- mhrv-tutorial -->
       <div class="mhrv-tw">
         <h3 style="color:#63b3ed;margin:0 0 3px;font-size:15px;">📸 آموزش تصویری گام‌به‌گام</h3>
         <p style="color:#64748b;font-size:12px;margin:0 0 12px;">کد CodeFull.gs بالا از مشخصاتت ساخته شده — فقط کپی و paste کن.</p>

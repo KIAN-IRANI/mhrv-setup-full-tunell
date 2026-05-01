@@ -101,280 +101,173 @@ footer{border-top:1px solid var(--border);padding:18px 14px;text-align:center;co
 footer a{color:var(--blue);text-decoration:none;}
 @media(max-width:480px){.dl2,.vps-compare{grid-template-columns:1fr;}.dl-strip{flex-direction:column;align-items:center;}}
 
-    /* ── آموزش تصویری Apps Script ── */
-    .tutorial-grid {
-      display: grid;
-      gap: 16px;
-      margin: 20px 0;
-    }
-    .tutorial-step {
-      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-      border: 1px solid rgba(99,179,237,0.3);
-      border-radius: 16px;
-      padding: 20px;
+    
+    /* ════ TUTORIAL STEPS ════ */
+    .tut-wrap { margin: 20px 0 28px; }
+    .tut-step {
       display: flex;
-      gap: 16px;
-      align-items: flex-start;
-      transition: border-color 0.2s;
-    }
-    .tutorial-step:hover { border-color: rgba(99,179,237,0.7); }
-    .tutorial-step .step-num {
-      background: linear-gradient(135deg, #4299e1, #667eea);
-      color: white;
-      width: 36px; height: 36px;
-      border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      font-weight: bold; font-size: 16px;
-      flex-shrink: 0;
-    }
-    .tutorial-step .step-content { flex: 1; }
-    .tutorial-step .step-title {
-      font-weight: bold; color: #e2e8f0;
-      font-size: 15px; margin-bottom: 6px;
-    }
-    .tutorial-step .step-desc {
-      color: #a0aec0; font-size: 13px; line-height: 1.6;
-    }
-    .mock-browser {
-      background: #0f172a;
-      border: 1px solid rgba(99,179,237,0.25);
+      gap: 14px;
+      margin-bottom: 14px;
+      background: linear-gradient(145deg, #1e2235, #161927);
+      border: 1px solid rgba(99,179,237,0.2);
       border-radius: 12px;
-      overflow: hidden;
-      margin: 12px 0;
+      padding: 16px;
+      transition: border-color 0.2s, transform 0.15s;
+    }
+    .tut-step:hover {
+      border-color: rgba(99,179,237,0.5);
+      transform: translateX(-2px);
+    }
+    .tut-num {
+      flex-shrink: 0;
+      width: 30px;
+      height: 30px;
+      background: linear-gradient(135deg, #3b82f6, #6366f1);
+      color: #fff;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 14px;
       font-family: monospace;
     }
-    .mock-browser .mock-bar {
-      background: #1e293b;
-      padding: 8px 14px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      border-bottom: 1px solid rgba(255,255,255,0.08);
+    .tut-inner { flex: 1; min-width: 0; }
+    .tut-title {
+      font-weight: 700;
+      color: #e2e8f0;
+      font-size: 14px;
+      margin-bottom: 5px;
     }
-    .mock-browser .mock-dot {
-      width: 10px; height: 10px; border-radius: 50%;
+    .tut-desc {
+      color: #94a3b8;
+      font-size: 13px;
+      line-height: 1.6;
     }
-    .mock-browser .mock-url {
+    /* ── Google screen mockup ── */
+    .gs-mock {
       background: #0f172a;
-      border-radius: 6px;
-      padding: 3px 12px;
-      color: #64748b;
-      font-size: 12px;
-      flex: 1;
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 10px;
+      overflow: hidden;
+      margin: 10px 0;
     }
-    .mock-browser .mock-body {
-      padding: 14px;
-    }
-    .mock-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 6px 16px;
-      border-radius: 6px;
-      font-size: 13px;
-      font-weight: 500;
-      margin: 4px 2px;
-      cursor: default;
-    }
-    .mock-btn.blue { background: #1a73e8; color: white; }
-    .mock-btn.white { background: white; color: #202124; border: 1px solid #dadce0; }
-    .mock-btn.red { background: #d93025; color: white; }
-    .mock-dialog {
-      background: #fff;
-      color: #202124;
-      border-radius: 8px;
-      padding: 20px;
-      max-width: 340px;
-      margin: 8px auto;
-      font-family: 'Google Sans', sans-serif;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.4);
-    }
-    .mock-dialog h4 { font-size: 18px; margin: 0 0 8px; color: #202124; }
-    .mock-dialog p { font-size: 13px; color: #5f6368; margin: 0 0 12px; }
-    .mock-dialog .dialog-btn-row {
-      display: flex; gap: 8px; justify-content: flex-end; margin-top: 16px;
-    }
-    .mock-select {
-      background: white;
-      border: 1px solid #dadce0;
-      border-radius: 4px;
-      padding: 6px 10px;
-      font-size: 13px;
-      color: #202124;
-      width: 100%;
-      margin: 4px 0;
-    }
-    .mock-label {
-      font-size: 12px;
-      color: #5f6368;
-      margin-top: 10px;
-      display: block;
-    }
-    .mock-google-header {
-      background: #fff;
-      color: #202124;
-      border-radius: 8px 8px 0 0;
-      padding: 12px 16px;
+    .gs-bar {
+      background: #1e293b;
+      padding: 7px 12px;
       display: flex;
       align-items: center;
-      gap: 12px;
-      border-bottom: 1px solid #e8eaed;
+      gap: 8px;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
     }
-    .mock-google-logo {
-      font-size: 20px;
-      font-weight: bold;
-      color: #4285f4;
+    .gs-dots { display: flex; gap: 5px; }
+    .gs-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+    .gs-url {
+      flex: 1;
+      background: #0f172a;
+      border-radius: 14px;
+      padding: 3px 12px;
+      font-size: 11.5px;
+      color: #64748b;
     }
-    .highlight-box {
-      background: linear-gradient(135deg, rgba(237,137,54,0.15), rgba(237,137,54,0.05));
-      border: 1px solid rgba(237,137,54,0.4);
-      border-radius: 12px;
-      padding: 16px 20px;
-      margin: 12px 0;
+    .gs-url strong { color: #93c5fd; }
+    .gs-body { padding: 12px; }
+    .gs-action {
+      background: #1e293b;
+      border-radius: 6px;
+      padding: 5px 14px;
+      font-size: 12px;
+      color: #e2e8f0;
+      display: inline-block;
+      margin: 3px 2px;
+      border: 1px solid rgba(255,255,255,0.1);
     }
-    .highlight-box.green {
-      background: linear-gradient(135deg, rgba(72,187,120,0.15), rgba(72,187,120,0.05));
-      border-color: rgba(72,187,120,0.4);
+    .gs-action.blue { background: #1d4ed8; color: #fff; border-color: #1d4ed8; }
+    /* ── Dialog ── */
+    .g-dlg {
+      background: #fff;
+      color: #1e293b;
+      border-radius: 8px;
+      padding: 18px;
+      margin: 6px auto;
+      max-width: 100%;
+      font-family: 'Google Sans', Roboto, sans-serif;
     }
-    .highlight-box.red {
-      background: linear-gradient(135deg, rgba(245,101,101,0.15), rgba(245,101,101,0.05));
-      border-color: rgba(245,101,101,0.4);
+    .g-dlg h4 { margin: 0 0 6px; font-size: 16px; }
+    .g-dlg p  { font-size: 12.5px; color: #64748b; margin: 3px 0; }
+    .g-dlg .g-btns { display: flex; gap: 8px; justify-content: flex-end; margin-top: 14px; }
+    .g-dlg .g-field { font-size: 11px; color: #64748b; margin: 8px 0 2px; }
+    .g-dlg .g-sel {
+      width: 100%;
+      border: 1px solid #cbd5e1;
+      border-radius: 4px;
+      padding: 6px 8px;
+      font-size: 13px;
+      color: #1e293b;
+      background: #fff;
     }
-    .highlight-box.blue {
-      background: linear-gradient(135deg, rgba(66,153,225,0.15), rgba(66,153,225,0.05));
-      border-color: rgba(66,153,225,0.4);
+    /* ── Highlight boxes ── */
+    .hl {
+      border-radius: 8px;
+      padding: 10px 14px;
+      margin: 8px 0;
+      font-size: 12.5px;
+      line-height: 1.6;
+      display: flex;
+      gap: 8px;
+      align-items: flex-start;
     }
-    .vpn-notice {
-      background: linear-gradient(135deg, #7c3aed20, #4f46e520);
-      border: 2px solid #7c3aed60;
-      border-radius: 16px;
-      padding: 20px 24px;
-      margin: 20px 0;
+    .hl::before { flex-shrink: 0; font-size: 14px; }
+    .hl.warn { background: rgba(245,158,11,0.12); border: 1px solid rgba(245,158,11,0.3); color: #fcd34d; }
+    .hl.warn::before { content: "⚠️"; }
+    .hl.ok   { background: rgba(34,197,94,0.12);  border: 1px solid rgba(34,197,94,0.3);  color: #86efac; }
+    .hl.ok::before { content: "✅"; }
+    .hl.info { background: rgba(59,130,246,0.12); border: 1px solid rgba(59,130,246,0.3); color: #93c5fd; }
+    .hl.info::before { content: "💡"; }
+    .hl.err  { background: rgba(239,68,68,0.12);  border: 1px solid rgba(239,68,68,0.3);  color: #fca5a5; }
+    .hl.err::before { content: "🗑️"; }
+    /* ── Channel promo ── */
+    .ch-promo {
+      display: flex;
+      gap: 10px;
+      margin: 0 0 20px;
+      flex-wrap: wrap;
+    }
+    .ch-card {
+      flex: 1;
+      min-width: 140px;
+      background: linear-gradient(135deg, #1e2235, #161927);
+      border: 1px solid rgba(99,179,237,0.2);
+      border-radius: 10px;
+      padding: 12px 14px;
       text-align: center;
+      text-decoration: none !important;
+      transition: border-color 0.2s;
     }
-    .vpn-notice .vpn-title { 
-      font-size: 18px; font-weight: bold; 
-      color: #a78bfa; margin-bottom: 8px;
-    }
-    .vpn-notice .vpn-desc {
-      color: #c4b5fd; font-size: 14px; margin-bottom: 16px;
-    }
-    .vpn-btn {
+    .ch-card:hover { border-color: rgba(99,179,237,0.55); }
+    .ch-card .ch-icon { font-size: 22px; margin-bottom: 4px; }
+    .ch-card .ch-name { font-size: 13px; font-weight: 600; color: #e2e8f0; margin-bottom: 2px; }
+    .ch-card .ch-desc { font-size: 11px; color: #64748b; }
+    /* ── VPN mini badge ── */
+    .vpn-mini {
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      background: linear-gradient(135deg, #7c3aed, #4f46e5);
-      color: white !important;
+      background: rgba(124,58,237,0.15);
+      border: 1px solid rgba(124,58,237,0.35);
+      border-radius: 8px;
+      padding: 8px 14px;
+      margin: 8px 0 16px;
+      font-size: 13px;
+      color: #c4b5fd;
       text-decoration: none !important;
-      padding: 12px 24px;
-      border-radius: 10px;
-      font-weight: bold;
-      font-size: 15px;
-      transition: opacity 0.2s;
     }
-    .vpn-btn:hover { opacity: 0.85; }
-    .settings-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 8px;
-      margin: 8px 0;
+    .vpn-mini:hover { background: rgba(124,58,237,0.25); }
+    @media(max-width:580px){
+      .tut-step { flex-direction: column; }
+      .tut-num  { width: 26px; height: 26px; }
+      .ch-promo { flex-direction: column; }
     }
-    .setting-item {
-      background: #f8f9fa;
-      border-radius: 6px;
-      padding: 10px;
-    }
-    .setting-item .s-label { font-size: 11px; color: #5f6368; }
-    .setting-item .s-value { font-size: 13px; font-weight: 500; color: #1a73e8; }
-    @media(max-width: 600px) {
-      .settings-row { grid-template-columns: 1fr; }
-      .tutorial-step { flex-direction: column; }
-    }
-
-    
-    /* ── آموزش تصویری Apps Script ── */
-    .gs-tutorial { margin: 24px 0; }
-    .gs-step {
-      display: flex; gap: 16px; margin-bottom: 20px;
-      background: linear-gradient(135deg,#1a1a2e,#16213e);
-      border: 1px solid rgba(99,179,237,.25);
-      border-radius: 14px; padding: 18px;
-      transition: border-color .2s;
-    }
-    .gs-step:hover { border-color: rgba(99,179,237,.6); }
-    .gs-num {
-      background: linear-gradient(135deg,#4299e1,#667eea);
-      color:#fff; min-width:34px; height:34px;
-      border-radius:50%; display:flex; align-items:center;
-      justify-content:center; font-weight:bold; font-size:15px;
-    }
-    .gs-body { flex:1; min-width:0; }
-    .gs-title { font-weight:bold; color:#e2e8f0; font-size:15px; margin-bottom:6px; }
-    .gs-desc { color:#a0aec0; font-size:13px; line-height:1.6; }
-    /* شبیه‌ساز صفحه واقعی گوگل */
-    .g-screen {
-      background:#202124; border-radius:10px; overflow:hidden;
-      margin:10px 0; border:1px solid rgba(255,255,255,.1);
-      font-family:'Google Sans',Roboto,sans-serif;
-    }
-    .g-topbar {
-      background:#2d2e30; padding:8px 14px;
-      display:flex; align-items:center; gap:10px;
-      border-bottom:1px solid rgba(255,255,255,.08);
-    }
-    .g-dots { display:flex; gap:6px; }
-    .g-dot { width:11px; height:11px; border-radius:50%; }
-    .g-urlbar {
-      flex:1; background:#3c3f42; border-radius:20px;
-      padding:4px 14px; font-size:12px; color:#9aa0a6;
-    }
-    .g-content { padding:14px; }
-    /* دکمه‌های گوگل */
-    .g-btn {
-      display:inline-flex; align-items:center; gap:6px;
-      padding:6px 16px; border-radius:4px; font-size:13px;
-      font-weight:500; cursor:default; margin:3px 2px;
-    }
-    .g-btn.blue { background:#1a73e8; color:#fff; }
-    .g-btn.white { background:#fff; color:#202124; border:1px solid #dadce0; }
-    .g-btn.gray { background:#3c3f42; color:#e8eaed; border:1px solid #5f6368; }
-    /* دیالوگ */
-    .g-dialog {
-      background:#fff; color:#202124; border-radius:8px;
-      padding:20px; max-width:380px; margin:8px auto;
-      box-shadow:0 8px 32px rgba(0,0,0,.5);
-      font-family:'Google Sans',Roboto,sans-serif;
-    }
-    .g-dialog h4 { font-size:17px; margin:0 0 8px; }
-    .g-dialog p { font-size:13px; color:#5f6368; margin:4px 0; }
-    .g-row { display:flex; gap:8px; justify-content:flex-end; margin-top:16px; }
-    .g-field { font-size:12px; color:#5f6368; margin-top:10px; }
-    .g-select {
-      width:100%; border:1px solid #dadce0; border-radius:4px;
-      padding:7px 10px; font-size:13px; color:#202124;
-      background:#fff; margin:3px 0;
-    }
-    /* هایلایت‌ها */
-    .hl { border-radius:10px; padding:12px 16px; margin:10px 0; font-size:13px; }
-    .hl.warn { background:rgba(237,137,54,.12); border:1px solid rgba(237,137,54,.35); }
-    .hl.ok   { background:rgba(72,187,120,.12); border:1px solid rgba(72,187,120,.35); }
-    .hl.info { background:rgba(66,153,225,.12); border:1px solid rgba(66,153,225,.35); }
-    .hl.err  { background:rgba(245,101,101,.12); border:1px solid rgba(245,101,101,.35); }
-    /* بنر VPN */
-    .vpn-banner {
-      background:linear-gradient(135deg,rgba(124,58,237,.18),rgba(79,70,229,.12));
-      border:2px solid rgba(124,58,237,.45); border-radius:14px;
-      padding:20px 24px; margin:20px 0; text-align:center;
-    }
-    .vpn-banner h3 { color:#a78bfa; margin:0 0 8px; font-size:17px; }
-    .vpn-banner p  { color:#c4b5fd; font-size:13px; margin:0 0 14px; }
-    .vpn-link {
-      display:inline-flex; align-items:center; gap:8px;
-      background:linear-gradient(135deg,#7c3aed,#4f46e5);
-      color:#fff !important; text-decoration:none !important;
-      padding:10px 22px; border-radius:8px; font-weight:bold; font-size:14px;
-    }
-    @media(max-width:600px){.gs-step{flex-direction:column}}
 
     </style>
 </head>
@@ -426,9 +319,7 @@ footer a{color:var(--blue);text-decoration:none;}
 
   <div class="alert i">
     
-      <div class="vpn-notice">
-        <div class="vpn-title">⚠️ قبل از شروع — به فیلترشکن نیاز داری</div>
-        <div class="vpn-desc">
+              <div class="vpn-desc">
           برای راه‌اندازی اولیه (اتصال به VPS، باز کردن script.google.com) 
           به یک فیلترشکن فعال نیاز داری.<br>
           بعد از تنظیم کامل، این اپ جای همه چیز رو می‌گیره.
@@ -437,6 +328,29 @@ footer a{color:var(--blue);text-decoration:none;}
           ✈️ دریافت فیلترشکن مطمئن
         </a>
       </div>
+
+      
+      <!-- ── کانال‌ها ── -->
+      <div class="ch-promo">
+        <a class="ch-card" href="https://t.me/Kian_irani_t" target="_blank">
+          <div class="ch-icon">✈️</div>
+          <div class="ch-name">Kian Irani</div>
+          <div class="ch-desc">راهنما و پشتیبانی</div>
+        </a>
+        <a class="ch-card" href="https://t.me/kian_forex" target="_blank">
+          <div class="ch-icon">📊</div>
+          <div class="ch-name">کانال فارکس</div>
+          <div class="ch-desc">آموزش و تحلیل</div>
+        </a>
+        <a class="ch-card" href="https://t.me/shin_persian" target="_blank">
+          <div class="ch-icon">🦀</div>
+          <div class="ch-name">shin_persian</div>
+          <div class="ch-desc">سازنده اپ mhrv-rs</div>
+        </a>
+      </div>
+      <a class="vpn-mini" href="https://t.me/PremiumVpn8bot?start=fsPBYln2" target="_blank">
+        ✈️ برای راه‌اندازی اولیه به فیلترشکن نیاز داری — دریافت کانفیگ
+      </a>
 
       ℹ️ <strong>اینجا شروع کن.</strong> اطلاعات رو یه بار وارد کن — کدهای همه سربرگ‌ها خودکار آپدیت می‌شن. بعد برو کپی کن.
   </div>
@@ -840,284 +754,283 @@ footer a{color:var(--blue);text-decoration:none;}
       </div>
 
       <hr style="border-color: rgba(99,179,237,0.2); margin: 24px 0;">
-<h3>🚀 خلاصه مراحل Deploy
-      <div class="gs-tutorial">
-        <h3 style="color:#63b3ed;margin-bottom:4px;">📸 آموزش تصویری گام‌به‌گام</h3>
-        <p style="color:#718096;font-size:13px;margin-bottom:18px;">
-          کد CodeFull.gs بالا از مشخصاتی که وارد کردی ساخته شده — فقط کپی و paste کن.
+<h3>🚀 خلاصه 
+      <!-- ════ آموزش تصویری گام‌به‌گام ════ -->
+      <div class="tut-wrap">
+        <h3 style="color:#63b3ed;margin:0 0 4px;">📸 آموزش تصویری گام‌به‌گام</h3>
+        <p style="color:#64748b;font-size:13px;margin:0 0 16px;">
+          کد CodeFull.gs بالا از مشخصاتت ساخته شده — فقط کپی و paste کن.
         </p>
 
-        <!-- گام ۱ -->
-        <div class="gs-step">
-          <div class="gs-num">۱</div>
-          <div class="gs-body">
-            <div class="gs-title">🌐 رفتن به Google Apps Script</div>
-            <div class="gs-desc">مرورگر رو باز کن — <strong>با فیلترشکن فعال</strong> — به این آدرس برو:</div>
-            <div class="g-screen" style="margin-top:10px;">
-              <div class="g-topbar">
-                <div class="g-dots">
-                  <div class="g-dot" style="background:#ff5f57"></div>
-                  <div class="g-dot" style="background:#febc2e"></div>
-                  <div class="g-dot" style="background:#28c840"></div>
+        <!-- Step 1 -->
+        <div class="tut-step">
+          <div class="tut-num">1</div>
+          <div class="tut-inner">
+            <div class="tut-title">🌐 رفتن به Google Apps Script</div>
+            <div class="tut-desc">با فیلترشکن فعال، در مرورگر باز کن:</div>
+            <div class="gs-mock">
+              <div class="gs-bar">
+                <div class="gs-dots">
+                  <div class="gs-dot" style="background:#ff5f57"></div>
+                  <div class="gs-dot" style="background:#febc2e"></div>
+                  <div class="gs-dot" style="background:#28c840"></div>
                 </div>
-                <div class="g-urlbar">🔒 <strong style="color:#8ab4f8">script.google.com</strong></div>
+                <div class="gs-url">🔒 <strong>script.google.com</strong></div>
               </div>
-              <div class="g-content">
-                <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
-                  <span style="font-size:22px;font-weight:bold;color:#4285f4">Apps</span>
-                  <span style="font-size:22px;font-weight:bold;color:#34a853">Script</span>
+              <div class="gs-body">
+                <div style="display:flex;align-items:center;gap:6px;margin-bottom:10px;">
+                  <span style="font-size:20px;font-weight:700;color:#4285f4;">Apps</span>
+                  <span style="font-size:20px;font-weight:700;color:#34a853;">Script</span>
                 </div>
-                <div style="color:#9aa0a6;font-size:13px;margin-bottom:10px;">My Projects</div>
-                <div class="g-btn blue">+ New project</div>
+                <div style="color:#64748b;font-size:12px;margin-bottom:8px;">My Projects</div>
+                <span class="gs-action blue">+ New project</span>
               </div>
             </div>
           </div>
         </div>
 
-        <!-- گام ۲ -->
-        <div class="gs-step">
-          <div class="gs-num">۲</div>
-          <div class="gs-body">
-            <div class="gs-title">🔐 ورود با جیمیل</div>
-            <div class="gs-desc">با یه <strong>جیمیل جدید</strong> وارد شو — از جیمیل اصلیت استفاده نکن.</div>
-            <div class="g-screen" style="margin-top:10px;">
-              <div class="g-topbar">
-                <div class="g-dots">
-                  <div class="g-dot" style="background:#ff5f57"></div>
-                  <div class="g-dot" style="background:#febc2e"></div>
-                  <div class="g-dot" style="background:#28c840"></div>
+        <!-- Step 2 -->
+        <div class="tut-step">
+          <div class="tut-num">2</div>
+          <div class="tut-inner">
+            <div class="tut-title">🔐 Sign in با جیمیل جدید</div>
+            <div class="tut-desc">با یه <strong style="color:#e2e8f0;">جیمیل جدید</strong> وارد شو — از جیمیل اصلیت استفاده نکن.</div>
+            <div class="gs-mock">
+              <div class="gs-bar">
+                <div class="gs-dots">
+                  <div class="gs-dot" style="background:#ff5f57"></div>
+                  <div class="gs-dot" style="background:#febc2e"></div>
+                  <div class="gs-dot" style="background:#28c840"></div>
                 </div>
-                <div class="g-urlbar">🔒 accounts.google.com</div>
+                <div class="gs-url">🔒 accounts.google.com</div>
               </div>
-              <div class="g-content">
-                <div class="g-dialog" style="max-width:100%;">
-                  <div style="text-align:center;margin-bottom:12px;">
-                    <span style="font-size:32px;font-weight:bold;">
+              <div class="gs-body">
+                <div class="g-dlg">
+                  <div style="text-align:center;margin-bottom:10px;">
+                    <span style="font-size:26px;font-weight:700;">
                       <span style="color:#4285f4">G</span><span style="color:#ea4335">o</span><span style="color:#fbbc05">o</span><span style="color:#4285f4">g</span><span style="color:#34a853">l</span><span style="color:#ea4335">e</span>
                     </span>
                   </div>
-                  <h4 style="text-align:center;">Sign in</h4>
+                  <h4 style="text-align:center;font-size:15px;">Sign in</h4>
                   <p style="text-align:center;">to continue to Apps Script</p>
-                  <div style="border:1px solid #dadce0;border-radius:4px;padding:8px;font-size:13px;color:#5f6368;margin:10px 0;">
+                  <div style="border:1px solid #cbd5e1;border-radius:4px;padding:7px 10px;font-size:12px;color:#64748b;margin:10px 0;">
                     yourname@gmail.com
                   </div>
-                  <div class="g-row"><div class="g-btn blue">Next →</div></div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- گام ۳ -->
-        <div class="gs-step">
-          <div class="gs-num">۳</div>
-          <div class="gs-body">
-            <div class="gs-title">📄 ساخت پروژه جدید + پاک کردن کد پیش‌فرض</div>
-            <div class="gs-desc">روی New project کلیک کن. کد پیش‌فرض رو <strong>کامل پاک کن</strong> (Ctrl+A → Delete)</div>
-            <div class="g-screen" style="margin-top:10px;">
-              <div class="g-topbar">
-                <div class="g-dots">
-                  <div class="g-dot" style="background:#ff5f57"></div>
-                  <div class="g-dot" style="background:#febc2e"></div>
-                  <div class="g-dot" style="background:#28c840"></div>
-                </div>
-                <div class="g-urlbar">🔒 script.google.com/home/projects/new</div>
-                <div class="g-btn gray" style="font-size:11px;">▶ Run</div>
-                <div class="g-btn blue" style="font-size:11px;">🚀 Deploy ▾</div>
-              </div>
-              <div class="g-content" style="display:flex;gap:0;padding:0;">
-                <div style="background:#2d2e30;width:150px;padding:12px;border-right:1px solid rgba(255,255,255,.08);">
-                  <div style="color:#bdc1c6;font-size:12px;margin-bottom:6px;font-weight:500;">📄 Code.gs</div>
-                </div>
-                <div style="flex:1;padding:12px;font-family:monospace;font-size:12px;background:#1e1e1e;">
-                  <div style="color:#6a9955;">// ← این کد رو پاک کن!</div>
-                  <div style="color:#dcdcaa;">function</div>
-                  <div style="color:#4ec9b0;">myFunction</div>
-                  <div style="color:#d4d4d4;">() { }</div>
-                </div>
-              </div>
-            </div>
-            <div class="hl err">🗑️ <strong>Ctrl+A</strong> بزن، سپس <strong>Delete/Backspace</strong> — همه پاک بشه</div>
-          </div>
-        </div>
-
-        <!-- گام ۴ -->
-        <div class="gs-step">
-          <div class="gs-num">۴</div>
-          <div class="gs-body">
-            <div class="gs-title">📋 Paste کردن CodeFull.gs</div>
-            <div class="gs-desc">کد بالا رو کپی کن، در ویرایشگر paste کن. بعد <strong>Ctrl+S</strong> ذخیره کن.</div>
-            <div class="g-screen" style="margin-top:10px;">
-              <div class="g-topbar">
-                <div class="g-dots">
-                  <div class="g-dot" style="background:#ff5f57"></div>
-                  <div class="g-dot" style="background:#febc2e"></div>
-                  <div class="g-dot" style="background:#28c840"></div>
-                </div>
-                <div class="g-urlbar">🔒 script.google.com</div>
-              </div>
-              <div class="g-content" style="display:flex;gap:0;padding:0;">
-                <div style="background:#2d2e30;width:150px;padding:12px;border-right:1px solid rgba(255,255,255,.08);">
-                  <div style="color:#8ab4f8;font-size:12px;font-weight:500;">📄 Code.gs ✓</div>
-                </div>
-                <div style="flex:1;padding:12px;font-family:monospace;font-size:11px;background:#1e1e1e;max-height:90px;overflow:hidden;">
-                  <div style="color:#6a9955;">// DomainFront Relay + Full Tunnel</div>
-                  <div><span style="color:#569cd6">const</span> <span style="color:#9cdcfe">AUTH_KEY</span> = <span style="color:#ce9178">"••••••••"</span>;</div>
-                  <div><span style="color:#569cd6">const</span> <span style="color:#9cdcfe">TUNNEL_SERVER_URL</span> = <span style="color:#ce9178">"http://..."</span>;</div>
-                  <div><span style="color:#dcdcaa">function</span> <span style="color:#4ec9b0">doPost</span>(e) { ... }</div>
-                </div>
-              </div>
-            </div>
-            <div class="hl warn">⚠️ <strong>آخر فایل رو چک کن</strong> — اگه خط خالی اضافه بود پاکش کن (باعث Syntax Error در deploy میشه)</div>
-          </div>
-        </div>
-
-        <!-- گام ۵ -->
-        <div class="gs-step">
-          <div class="gs-num">۵</div>
-          <div class="gs-body">
-            <div class="gs-title">🚀 Deploy → New deployment</div>
-            <div class="gs-desc">دکمه <strong>Deploy</strong> (بالا راست) ← <strong>New deployment</strong></div>
-            <div class="g-screen" style="margin-top:10px;">
-              <div class="g-topbar">
-                <div class="g-dots">
-                  <div class="g-dot" style="background:#ff5f57"></div>
-                  <div class="g-dot" style="background:#febc2e"></div>
-                  <div class="g-dot" style="background:#28c840"></div>
-                </div>
-                <div class="g-urlbar">🔒 script.google.com</div>
-                <div class="g-btn gray" style="font-size:11px;">▶ Run</div>
-                <div class="g-btn blue" style="font-size:11px;position:relative;">
-                  🚀 Deploy ▾
-                </div>
-              </div>
-              <div class="g-content">
-                <div style="background:#2d2e30;border:1px solid rgba(255,255,255,.15);border-radius:4px;width:200px;padding:4px 0;font-size:13px;">
-                  <div style="padding:9px 16px;color:#8ab4f8;font-weight:500;border-bottom:1px solid rgba(255,255,255,.08);">
-                    ➕ New deployment
+                  <div class="g-btns">
+                    <div style="background:#1a73e8;color:#fff;padding:6px 14px;border-radius:4px;font-size:12px;font-weight:600;">Next →</div>
                   </div>
-                  <div style="padding:9px 16px;color:#9aa0a6;">⚙️ Manage deployments</div>
-                  <div style="padding:9px 16px;color:#9aa0a6;">🔬 Test deployments</div>
                 </div>
               </div>
             </div>
           </div>
         </div>
 
-        <!-- گام ۶ -->
-        <div class="gs-step">
-          <div class="gs-num">۶</div>
-          <div class="gs-body">
-            <div class="gs-title">⚙️ تنظیمات Deployment</div>
-            <div class="gs-desc">این دو تنظیم <strong>حتماً</strong> باید اینجور باشن:</div>
-            <div class="g-screen" style="margin-top:10px;">
-              <div class="g-topbar">
-                <div class="g-dots">
-                  <div class="g-dot" style="background:#ff5f57"></div>
-                  <div class="g-dot" style="background:#febc2e"></div>
-                  <div class="g-dot" style="background:#28c840"></div>
+        <!-- Step 3 -->
+        <div class="tut-step">
+          <div class="tut-num">3</div>
+          <div class="tut-inner">
+            <div class="tut-title">📄 New project + پاک کردن کد پیش‌فرض</div>
+            <div class="tut-desc">روی <strong style="color:#93c5fd;">New project</strong> کلیک کن. بعد کد پیش‌فرض رو پاک کن: <strong style="color:#e2e8f0;">Ctrl+A</strong> ← <strong style="color:#e2e8f0;">Delete</strong></div>
+            <div class="gs-mock">
+              <div class="gs-bar">
+                <div class="gs-dots">
+                  <div class="gs-dot" style="background:#ff5f57"></div>
+                  <div class="gs-dot" style="background:#febc2e"></div>
+                  <div class="gs-dot" style="background:#28c840"></div>
+                </div>
+                <div class="gs-url">🔒 <strong>script.google.com</strong>/home/projects/new</div>
+                <span class="gs-action blue" style="font-size:11px;padding:3px 10px;">Deploy ▾</span>
+              </div>
+              <div class="gs-body" style="display:flex;gap:0;padding:0;">
+                <div style="background:#1e293b;width:120px;padding:10px;border-right:1px solid rgba(255,255,255,0.07);">
+                  <div style="color:#94a3b8;font-size:12px;">📄 Code.gs</div>
+                </div>
+                <div style="flex:1;padding:10px;font-family:monospace;font-size:11.5px;background:#0d1117;">
+                  <div style="color:#6a9955;margin-bottom:2px;">// ← این کد رو پاک کن!</div>
+                  <div><span style="color:#569cd6">function</span> <span style="color:#dcdcaa">myFunction</span>() { }</div>
                 </div>
               </div>
-              <div class="g-content">
-                <div class="g-dialog" style="max-width:100%;">
+            </div>
+            <div class="hl err"><span>Ctrl+A بزن، سپس Delete — همه پاک بشه</span></div>
+          </div>
+        </div>
+
+        <!-- Step 4 -->
+        <div class="tut-step">
+          <div class="tut-num">4</div>
+          <div class="tut-inner">
+            <div class="tut-title">📋 Paste کردن CodeFull.gs</div>
+            <div class="tut-desc">کد بالا رو کپی کن → paste کن → <strong style="color:#e2e8f0;">Ctrl+S</strong> ذخیره کن.</div>
+            <div class="gs-mock">
+              <div class="gs-bar">
+                <div class="gs-dots">
+                  <div class="gs-dot" style="background:#ff5f57"></div>
+                  <div class="gs-dot" style="background:#febc2e"></div>
+                  <div class="gs-dot" style="background:#28c840"></div>
+                </div>
+                <div class="gs-url">🔒 <strong>script.google.com</strong></div>
+              </div>
+              <div class="gs-body" style="display:flex;gap:0;padding:0;">
+                <div style="background:#1e293b;width:120px;padding:10px;border-right:1px solid rgba(255,255,255,0.07);">
+                  <div style="color:#93c5fd;font-size:12px;font-weight:600;">📄 Code.gs ✓</div>
+                </div>
+                <div style="flex:1;padding:10px;font-family:monospace;font-size:11px;background:#0d1117;max-height:75px;overflow:hidden;">
+                  <div style="color:#6a9955;">// DomainFront Relay + Full Tunnel</div>
+                  <div><span style="color:#569cd6">const</span> <span style="color:#9cdcfe">AUTH_KEY</span> = <span style="color:#ce9178">"••••••"</span>;</div>
+                  <div><span style="color:#569cd6">const</span> <span style="color:#9cdcfe">TUNNEL_SERVER_URL</span> = <span style="color:#ce9178">"http://..."</span>;</div>
+                  <div style="color:#94a3b8;margin-top:2px;">// ...</div>
+                </div>
+              </div>
+            </div>
+            <div class="hl warn"><span><strong>آخر فایل رو چک کن</strong> — خط خالی اضافه رو پاک کن (باعث Syntax Error میشه)</span></div>
+          </div>
+        </div>
+
+        <!-- Step 5 -->
+        <div class="tut-step">
+          <div class="tut-num">5</div>
+          <div class="tut-inner">
+            <div class="tut-title">🚀 Deploy ← New deployment</div>
+            <div class="tut-desc">دکمه <strong style="color:#93c5fd;">Deploy</strong> (بالا راست) رو بزن ← <strong style="color:#93c5fd;">New deployment</strong></div>
+            <div class="gs-mock">
+              <div class="gs-bar">
+                <div class="gs-dots">
+                  <div class="gs-dot" style="background:#ff5f57"></div>
+                  <div class="gs-dot" style="background:#febc2e"></div>
+                  <div class="gs-dot" style="background:#28c840"></div>
+                </div>
+                <div class="gs-url">🔒 <strong>script.google.com</strong></div>
+                <span class="gs-action" style="font-size:11px;padding:3px 10px;">▶ Run</span>
+                <span class="gs-action blue" style="font-size:11px;padding:3px 10px;">🚀 Deploy ▾</span>
+              </div>
+              <div class="gs-body">
+                <div style="background:#1e293b;border:1px solid rgba(255,255,255,0.12);border-radius:6px;width:190px;overflow:hidden;">
+                  <div style="padding:8px 14px;color:#93c5fd;font-weight:600;font-size:13px;border-bottom:1px solid rgba(255,255,255,0.07);">➕ New deployment</div>
+                  <div style="padding:8px 14px;color:#64748b;font-size:12px;">⚙️ Manage deployments</div>
+                  <div style="padding:8px 14px;color:#64748b;font-size:12px;">🔬 Test deployments</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 6 -->
+        <div class="tut-step">
+          <div class="tut-num">6</div>
+          <div class="tut-inner">
+            <div class="tut-title">⚙️ تنظیمات Deployment</div>
+            <div class="tut-desc">دقیقاً همین دو تنظیم رو انتخاب کن:</div>
+            <div class="gs-mock">
+              <div class="gs-bar">
+                <div class="gs-dots">
+                  <div class="gs-dot" style="background:#ff5f57"></div>
+                  <div class="gs-dot" style="background:#febc2e"></div>
+                  <div class="gs-dot" style="background:#28c840"></div>
+                </div>
+                <div class="gs-url">New deployment</div>
+              </div>
+              <div class="gs-body">
+                <div class="g-dlg">
                   <h4>New deployment</h4>
                   <div class="g-field">Type</div>
-                  <select class="g-select" disabled><option>Web app</option></select>
+                  <select class="g-sel" disabled><option>Web app</option></select>
                   <div class="g-field">Execute as</div>
-                  <select class="g-select" disabled><option>Me (your@gmail.com)</option></select>
+                  <select class="g-sel" disabled><option>Me (your@gmail.com)</option></select>
                   <div class="g-field">Who has access</div>
-                  <select class="g-select" style="color:#1a73e8;font-weight:bold;" disabled>
-                    <option>Anyone ✅</option>
-                  </select>
-                  <div class="g-row">
-                    <div class="g-btn white">Cancel</div>
-                    <div class="g-btn blue">Deploy →</div>
+                  <select class="g-sel" style="color:#1a73e8;font-weight:700;" disabled><option>Anyone ✅</option></select>
+                  <div class="g-btns">
+                    <div style="padding:6px 14px;border:1px solid #cbd5e1;border-radius:4px;font-size:12px;">Cancel</div>
+                    <div style="background:#1a73e8;color:#fff;padding:6px 14px;border-radius:4px;font-size:12px;font-weight:600;">Deploy →</div>
                   </div>
                 </div>
               </div>
             </div>
-            <div class="hl info">
-              ✅ <strong>Execute as: Me</strong> — بدون این اسکریپت کار نمی‌کنه<br>
-              ✅ <strong>Who has access: Anyone</strong> — بدون این اپ نمی‌تونه وصل بشه
-            </div>
+            <div class="hl info"><span><strong>Execute as: Me</strong> و <strong>Who has access: Anyone</strong> — هر دو الزامیه</span></div>
           </div>
         </div>
 
-        <!-- گام ۷ - تایید -->
-        <div class="gs-step">
-          <div class="gs-num">۷</div>
-          <div class="gs-body">
-            <div class="gs-title">🔓 تایید دسترسی — مهم‌ترین قدم</div>
-            <div class="gs-desc">گوگل هشدار «unsafe» میده — <strong>این طبیعیه</strong>. مراحل دقیق:</div>
-            <div class="g-screen" style="margin-top:10px;">
-              <div class="g-topbar">
-                <div class="g-dots">
-                  <div class="g-dot" style="background:#ff5f57"></div>
-                  <div class="g-dot" style="background:#febc2e"></div>
-                  <div class="g-dot" style="background:#28c840"></div>
+        <!-- Step 7 -->
+        <div class="tut-step">
+          <div class="tut-num">7</div>
+          <div class="tut-inner">
+            <div class="tut-title">🔓 تایید دسترسی — مهم‌ترین قدم</div>
+            <div class="tut-desc">گوگل هشدار «unsafe» میده — <strong style="color:#86efac;">این طبیعیه</strong>. مراحل دقیق:</div>
+            <div class="gs-mock">
+              <div class="gs-bar">
+                <div class="gs-dots">
+                  <div class="gs-dot" style="background:#ff5f57"></div>
+                  <div class="gs-dot" style="background:#febc2e"></div>
+                  <div class="gs-dot" style="background:#28c840"></div>
                 </div>
-                <div class="g-urlbar">🔒 accounts.google.com</div>
+                <div class="gs-url">🔒 accounts.google.com</div>
               </div>
-              <div class="g-content">
-                <div class="g-dialog" style="max-width:100%;">
-                  <div style="text-align:center;margin-bottom:10px;">
-                    <div style="font-size:40px;">⚠️</div>
-                    <h4 style="color:#d93025;">Google hasn't verified this app</h4>
+              <div class="gs-body">
+                <div class="g-dlg">
+                  <div style="text-align:center;margin-bottom:8px;">
+                    <div style="font-size:32px;">⚠️</div>
+                    <h4 style="color:#dc2626;font-size:14px;">Google hasn't verified this app</h4>
                     <p>The app is requesting access to sensitive info in your Google Account.</p>
                   </div>
-                  <div style="background:#fce8e6;border-radius:6px;padding:10px;font-size:12px;color:#d93025;margin:8px 0;">
-                    ⚠️ روی <strong>Back to safety</strong> کلیک نکن!
+                  <div style="background:#fef2f2;border:1px solid #fca5a5;border-radius:6px;padding:8px;font-size:12px;color:#dc2626;margin:6px 0;">
+                    ⛔ روی «Back to safety» کلیک نکن!
                   </div>
-                  <div style="background:#e8f0fe;border-radius:6px;padding:10px;font-size:12px;color:#1967d2;margin:8px 0;">
-                    ✅ قدم ۱: روی <strong>Advanced</strong> کلیک کن (پایین صفحه)<br>
-                    ✅ قدم ۲: روی <strong>"Go to [project name] (unsafe)"</strong> کلیک کن<br>
-                    ✅ قدم ۳: روی <strong>Allow</strong> کلیک کن
+                  <div style="background:#eff6ff;border:1px solid #93c5fd;border-radius:6px;padding:8px;font-size:12px;color:#1d4ed8;margin:6px 0;">
+                    ✅ قدم 1: روی <strong>Advanced</strong> کلیک کن (پایین صفحه)<br>
+                    ✅ قدم 2: روی <strong>"Go to [project] (unsafe)"</strong> کلیک کن<br>
+                    ✅ قدم 3: روی <strong>Allow</strong> کلیک کن
                   </div>
-                  <div class="g-row">
-                    <div class="g-btn white" style="font-size:12px;">← Back to safety</div>
-                    <div class="g-btn blue" style="font-size:12px;background:#1967d2;">Advanced ▾</div>
+                  <div class="g-btns">
+                    <div style="padding:6px 14px;border:1px solid #cbd5e1;border-radius:4px;font-size:12px;">Back to safety ←</div>
+                    <div style="background:#1a73e8;color:#fff;padding:6px 14px;border-radius:4px;font-size:12px;font-weight:600;">Advanced ▾</div>
                   </div>
                 </div>
               </div>
             </div>
-            <div class="hl ok">✅ این هشدار برای همه اسکریپت‌های شخصی نشون داده میشه — خطری نداره</div>
+            <div class="hl ok"><span>این هشدار برای همه اسکریپت‌های شخصی طبیعیه — خطری نداره</span></div>
           </div>
         </div>
 
-        <!-- گام ۸ - کپی ID -->
-        <div class="gs-step">
-          <div class="gs-num">۸</div>
-          <div class="gs-body">
-            <div class="gs-title">📋 کپی Deployment ID</div>
-            <div class="gs-desc">بعد از Allow، پنجره زیر نشون داده میشه. فقط <strong>Deployment ID</strong> رو کپی کن.</div>
-            <div class="g-screen" style="margin-top:10px;">
-              <div class="g-topbar">
-                <div class="g-dots">
-                  <div class="g-dot" style="background:#ff5f57"></div>
-                  <div class="g-dot" style="background:#febc2e"></div>
-                  <div class="g-dot" style="background:#28c840"></div>
+        <!-- Step 8 -->
+        <div class="tut-step">
+          <div class="tut-num">8</div>
+          <div class="tut-inner">
+            <div class="tut-title">📋 کپی Deployment ID</div>
+            <div class="tut-desc">بعد از Allow، پنجره زیر ظاهر میشه. فقط <strong style="color:#e2e8f0;">Deployment ID</strong> رو کپی کن — نه URL.</div>
+            <div class="gs-mock">
+              <div class="gs-bar">
+                <div class="gs-dots">
+                  <div class="gs-dot" style="background:#ff5f57"></div>
+                  <div class="gs-dot" style="background:#febc2e"></div>
+                  <div class="gs-dot" style="background:#28c840"></div>
                 </div>
+                <div class="gs-url">🔒 script.google.com</div>
               </div>
-              <div class="g-content">
-                <div class="g-dialog" style="max-width:100%;">
-                  <h4 style="color:#34a853;">✅ Deployment complete</h4>
-                  <div class="g-field">Deployment ID (این رو کپی کن 👇)</div>
-                  <div style="background:#f1f3f4;border-radius:4px;padding:8px 10px;font-family:monospace;font-size:11px;color:#202124;margin:6px 0;word-break:break-all;border:2px solid #34a853;">
-                    AKfycbx<span style="color:#1a73e8">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</span>
+              <div class="gs-body">
+                <div class="g-dlg">
+                  <h4 style="color:#16a34a;">✅ Deployment complete</h4>
+                  <div class="g-field">Deployment ID 👇 این رو کپی کن</div>
+                  <div style="background:#f0fdf4;border:2px solid #86efac;border-radius:6px;padding:8px;font-family:monospace;font-size:11px;color:#166534;margin:6px 0;word-break:break-all;">
+                    AKfycbx<span style="color:#1d4ed8">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</span>
                   </div>
                   <div class="g-field">Web app URL (نیازی به این نیست)</div>
-                  <div style="background:#f1f3f4;border-radius:4px;padding:6px 10px;font-size:11px;color:#9aa0a6;margin:4px 0;">
+                  <div style="background:#f8fafc;border-radius:4px;padding:6px 8px;font-size:11px;color:#94a3b8;margin:4px 0;">
                     https://script.google.com/macros/s/AKfy.../exec
                   </div>
-                  <div class="g-row"><div class="g-btn blue">Done ✓</div></div>
+                  <div class="g-btns">
+                    <div style="background:#1a73e8;color:#fff;padding:6px 14px;border-radius:4px;font-size:12px;font-weight:600;">Done ✓</div>
+                  </div>
                 </div>
               </div>
             </div>
-            <div class="hl ok">🎉 همین! این ID رو در اپ mhrv-rs وارد کن. برای سرعت بیشتر چند جیمیل استفاده کن.</div>
+            <div class="hl ok"><span>🎉 تموم! این ID رو در اپ mhrv-rs وارد کن. برای سرعت بیشتر از چند جیمیل استفاده کن.</span></div>
           </div>
         </div>
 
-      </div><!-- /gs-tutorial -->
+      </div><!-- /tut-wrap -->
+      <hr style="border-color:rgba(99,179,237,0.15);margin:20px 0 24px;">
+
+      مراحل Deploy
+      
       <hr style="border-color:rgba(99,179,237,.15);margin:24px 0;">
 </h3>
     <div class="step">
@@ -1283,9 +1196,9 @@ Tunnel Node (VPS هلند شما)
         <li><strong>Certificate error:</strong> Install MITM Certificate رو بزن</li>
         <li><strong>VPS قفل شد (SSH نمیشه):</strong> پورت SSH رو قبل از ufw enable باز کن</li>
         <li><strong>تلگرام وصل نمیشه:</strong> Settings → Proxy → SOCKS5 → 127.0.0.1:8086</li>
-        <li><strong>اتصال قطع و وصل میشه:</strong> اپ deployment کند رو ۲ دقیقه خودکار skip می‌کنه — طبیعیه</li>
-        <li><strong>DNS کار نمی‌کنه (v1.9+):</strong> پیش‌فرض tunnel_doh روشنه — درسته، دست نزن</li>
-        <li><strong>Docker نصب نشد روی VPS:</strong> <code>dpkg --configure -a && apt install -y docker.io</code></li>
+        <li><strong>اتصال قطع‌وصل:</strong> اپ deployment کند رو 2 دقیقه خودکار skip می‌کنه — طبیعیه</li>
+        <li><strong>DNS کار نمی‌کنه:</strong> tunnel_doh پیش‌فرض v1.9 روشنه — دست نزن</li>
+        <li><strong>Docker نصب نشد:</strong> <code>dpkg --configure -a && apt install -y docker.io</code></li>
       </ul>
   </div>
 </div>
@@ -1294,18 +1207,6 @@ Tunnel Node (VPS هلند شما)
 <div id="tab-about" class="sec con">
   <div class="card">
     
-      <div class="vpn-banner">
-        <h3>⚠️ برای راه‌اندازی اولیه فیلترشکن لازمه</h3>
-        <p>
-          برای وصل شدن به VPS و باز کردن script.google.com<br>
-          باید یه فیلترشکن فعال داشته باشی.<br>
-          بعد از تنظیم کامل، این اپ جاشو می‌گیره.
-        </p>
-        <a href="https://t.me/PremiumVpn8bot?start=fsPBYln2" target="_blank" class="vpn-link">
-          ✈️ دریافت فیلترشکن مطمئن — ربات تلگرام
-        </a>
-      </div>
-
       <h3>👤 سازنده این راهنما</h3>
     <p style="margin-bottom:10px;">این راهنما توسط <strong>Kian Irani</strong> تهیه شده.</p>
     <div class="contact-row">

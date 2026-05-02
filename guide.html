@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>آموزش Deploy — mhrv-rs Apps Script</title>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#060a0f;
+  --s:#0d1421;
+  --s2:#121b2e;
+  --b:#1e2d45;
+  --b2:#2a3f5f;
+  --g:#00d084;
+  --gd:#00a366;
+  --bl:#4d9fff;
+  --y:#ffb830;
+  --r:#ff5252;
+  --t:#e8f0fe;
+  --td:#8ba3c7;
+  --ac:#2563eb;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Vazirmatn',sans-serif;
+  background:var(--bg);
+  color:var(--t);
+  font-size:15px;
+  line-height:1.75;
+  overflow-x:hidden;
+}
+a{color:var(--bl);text-decoration:none}
+a:hover{text-decoration:underline}
+code{background:var(--s2);border:1px solid var(--b);padding:1px 6px;border-radius:4px;font-family:monospace;font-size:.85em;color:#7dd3fc}
+
+/* BG EFFECT */
+body::before{
+  content:'';
+  position:fixed;
+  inset:0;
+  background:
+    radial-gradient(ellipse 80% 50% at 20% 10%, rgba(37,99,235,.12) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 40% at 80% 80%, rgba(0,208,132,.07) 0%, transparent 50%);
+  pointer-events:none;
+  z-index:0;
+}
+
+/* HEADER */
+.hdr{
+  position:relative;
+  z-index:1;
+  text-align:center;
+  padding:40px 20px 24px;
+  border-bottom:1px solid var(--b);
+  background:linear-gradient(180deg,rgba(13,20,33,.8) 0%,transparent 100%);
+}
+.hdr-badge{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  background:rgba(37,99,235,.15);
+  border:1px solid rgba(37,99,235,.4);
+  border-radius:20px;
+  padding:4px 14px;
+  font-size:.78rem;
+  color:var(--bl);
+  margin-bottom:14px;
+}
+.hdr h1{
+  font-size:1.7rem;
+  font-weight:700;
+  background:linear-gradient(135deg,#e8f0fe 0%,#4d9fff 50%,#00d084 100%);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+  margin-bottom:8px;
+  line-height:1.3;
+}
+.hdr p{color:var(--td);font-size:.9rem;max-width:480px;margin:0 auto 16px}
+.hdr-links{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.hdr-link{
+  display:flex;align-items:center;gap:6px;
+  background:var(--s);border:1px solid var(--b);
+  border-radius:8px;padding:7px 14px;
+  font-size:.82rem;color:var(--td);
+  transition:all .2s;text-decoration:none!important;
+}
+.hdr-link:hover{border-color:var(--bl);color:var(--t)}
+
+/* PROGRESS */
+.progress{
+  position:relative;z-index:1;
+  display:flex;align-items:center;
+  gap:0;padding:20px 16px;
+  overflow-x:auto;scrollbar-width:none;
+  max-width:700px;margin:0 auto;
+}
+.progress::-webkit-scrollbar{display:none}
+.prog-step{
+  flex-shrink:0;display:flex;flex-direction:column;align-items:center;gap:4px;
+  cursor:pointer;
+}
+.prog-num{
+  width:32px;height:32px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:.78rem;font-weight:700;font-family:monospace;
+  border:2px solid var(--b2);color:var(--td);
+  background:var(--s);transition:all .25s;
+}
+.prog-step.done .prog-num{background:var(--gd);border-color:var(--g);color:#fff}
+.prog-step.active .prog-num{background:var(--ac);border-color:var(--bl);color:#fff;box-shadow:0 0 16px rgba(37,99,235,.5)}
+.prog-label{font-size:.65rem;color:var(--td);white-space:nowrap;max-width:56px;text-align:center;line-height:1.3}
+.prog-step.active .prog-label{color:var(--bl)}
+.prog-step.done .prog-label{color:var(--g)}
+.prog-line{flex:1;height:2px;background:var(--b);margin:0 4px;margin-bottom:20px;min-width:12px;transition:background .3s}
+.prog-line.done{background:var(--gd)}
+
+/* CONTENT */
+.cnt{position:relative;z-index:1;max-width:680px;margin:0 auto;padding:0 14px 40px}
+
+/* STEP CARD */
+.step-card{
+  background:var(--s);
+  border:1px solid var(--b);
+  border-radius:12px;
+  margin-bottom:14px;
+  overflow:hidden;
+  display:none;
+}
+.step-card.active{display:block;animation:fadeIn .3s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.step-hdr{
+  padding:14px 16px;
+  background:linear-gradient(90deg,var(--s2) 0%,var(--s) 100%);
+  border-bottom:1px solid var(--b);
+  display:flex;align-items:center;gap:10px;
+}
+.step-num-big{
+  width:28px;height:28px;border-radius:50%;
+  background:var(--ac);color:#fff;
+  display:flex;align-items:center;justify-content:center;
+  font-size:.8rem;font-weight:700;font-family:monospace;
+  flex-shrink:0;
+}
+.step-hdr h2{font-size:.95rem;font-weight:600;color:var(--t)}
+.step-body{padding:16px}
+.step-body p{color:var(--td);font-size:.86rem;margin-bottom:12px}
+
+/* MOCK BROWSER */
+.mock{
+  background:#0a0e1a;
+  border:1px solid #2a3a55;
+  border-radius:10px;
+  overflow:hidden;
+  margin:12px 0;
+  direction:ltr;
+  font-family:Arial,sans-serif;
+}
+.mock-bar{
+  background:#111827;
+  padding:8px 12px;
+  display:flex;align-items:center;gap:8px;
+  border-bottom:1px solid #1e2d45;
+}
+.mock-dots{display:flex;gap:5px}
+.mock-dot{width:10px;height:10px;border-radius:50%}
+.mock-dot.r{background:#ff5f57}
+.mock-dot.y{background:#ffbd2e}
+.mock-dot.g{background:#28c840}
+.mock-url{
+  background:#0d1421;border:1px solid #2a3a55;
+  border-radius:16px;padding:3px 12px;
+  font-size:11px;color:#6b84a8;flex:1;text-align:center;
+}
+.mock-body{padding:16px;background:#fff;min-height:80px;position:relative}
+.mock-body.dark{background:#1a1f2e;padding:12px}
+
+/* G COMPONENTS */
+.g-logo{font-size:22px;font-weight:300;color:#5f6368;letter-spacing:-1px;margin-bottom:10px}
+.g-logo span:nth-child(1){color:#4285f4}
+.g-logo span:nth-child(2){color:#ea4335}
+.g-logo span:nth-child(3){color:#fbbc04}
+.g-logo span:nth-child(4){color:#4285f4}
+.g-logo span:nth-child(5){color:#34a853}
+.g-logo span:nth-child(6){color:#ea4335}
+.g-btn{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:8px 20px;border-radius:4px;
+  font-size:13px;font-weight:500;
+  cursor:pointer;border:none;font-family:Arial;
+}
+.g-btn.bl{background:#1a73e8;color:#fff}
+.g-btn.wh{background:#fff;color:#1a73e8;border:1px solid #dadce0}
+.gs-header{
+  background:#fff;padding:8px 14px;
+  display:flex;align-items:center;justify-content:space-between;
+  border-bottom:1px solid #e0e0e0;
+}
+.gs-title{font-size:12px;color:#3c4043;display:flex;align-items:center;gap:7px}
+.dpl-btn{
+  background:#1a73e8;color:#fff;border:none;
+  padding:5px 12px;border-radius:4px;
+  font-size:11px;cursor:pointer;font-family:Arial;
+}
+.gs-editor{display:grid;grid-template-columns:40px 1fr;min-height:70px}
+.gs-sb{background:#f8f9fa;border-right:1px solid #e0e0e0}
+.gs-code{
+  background:#1e1e1e;color:#d4d4d4;
+  padding:10px;font-family:monospace;font-size:10px;line-height:1.6;
+  position:relative;
+}
+.dlg{background:#fff;border-radius:8px;padding:16px;border:1px solid #e0e0e0;font-family:Arial}
+.dlg h4{font-size:13px;color:#202124;margin-bottom:11px;font-weight:500}
+.dlg-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:9px;font-size:11px;color:#5f6368}
+.dlg-row select{font-size:10px;padding:2px 5px;border:1px solid #dadce0;border-radius:3px;color:#3c4043}
+.dlg-actions{display:flex;justify-content:flex-end;gap:7px;margin-top:12px}
+.warn-screen{background:#fff;padding:20px;text-align:center;direction:ltr}
+.warn-icon{font-size:40px;margin-bottom:8px}
+.warn-title{font-size:15px;color:#202124;font-weight:500;margin-bottom:5px;font-family:Arial}
+.warn-sub{font-size:11px;color:#5f6368;margin-bottom:14px;font-family:Arial}
+.warn-link{font-size:11px;color:#1a73e8;cursor:pointer;text-decoration:underline;display:block;margin-top:10px;font-family:Arial}
+.id-box{
+  background:#e8f0fe;border:2px solid #1a73e8;
+  border-radius:6px;padding:10px 14px;
+  font-size:12px;color:#1a73e8;font-weight:700;
+  word-break:break-all;font-family:monospace;
+}
+
+/* ANNOTATION */
+.ann{position:absolute;display:flex;align-items:center;gap:4px;z-index:10}
+.ann-c{
+  width:22px;height:22px;border-radius:50%;
+  background:rgba(220,38,38,.9);color:#fff;
+  font-size:10px;font-weight:700;
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;animation:pulse 1.5s infinite;
+}
+.ann-l{
+  background:rgba(220,38,38,.9);color:#fff;
+  font-size:9px;padding:2px 6px;border-radius:3px;
+  white-space:nowrap;font-family:'Vazirmatn',sans-serif;direction:rtl;
+}
+@keyframes pulse{
+  0%,100%{box-shadow:0 0 0 0 rgba(220,38,38,.5)}
+  50%{box-shadow:0 0 0 6px rgba(220,38,38,0)}
+}
+
+/* ALERTS */
+.al{border-radius:8px;padding:11px 13px;margin:10px 0;font-size:.84rem;border:1px solid}
+.al.g{background:rgba(0,208,132,.08);border-color:rgba(0,163,102,.5);color:#4ade80}
+.al.y{background:rgba(255,184,48,.08);border-color:rgba(180,120,0,.5);color:var(--y)}
+.al.r{background:rgba(255,82,82,.08);border-color:rgba(180,40,40,.5);color:#fca5a5}
+.al.b{background:rgba(77,159,255,.08);border-color:rgba(37,99,235,.4);color:var(--bl)}
+
+/* NAV BUTTONS */
+.nav{display:flex;gap:10px;margin-top:16px;justify-content:space-between}
+.nav-btn{
+  flex:1;padding:10px 16px;border-radius:8px;
+  font-family:inherit;font-size:.86rem;font-weight:600;
+  cursor:pointer;border:1px solid var(--b2);
+  transition:all .2s;display:flex;align-items:center;justify-content:center;gap:6px;
+}
+.nav-btn.prev{background:var(--s2);color:var(--td)}
+.nav-btn.prev:hover{border-color:var(--bl);color:var(--t)}
+.nav-btn.next{background:var(--ac);color:#fff;border-color:var(--ac)}
+.nav-btn.next:hover{background:#1d4ed8}
+.nav-btn.finish{background:var(--gd);color:#fff;border-color:var(--g)}
+.nav-btn.finish:hover{background:var(--g)}
+.nav-btn:disabled{opacity:.4;cursor:not-allowed}
+
+/* CHECKLIST */
+.cl{list-style:none}
+.cl li{
+  display:flex;align-items:center;gap:10px;
+  padding:8px 0;border-bottom:1px solid var(--b);
+  font-size:.85rem;cursor:pointer;user-select:none;
+}
+.cl li:last-child{border-bottom:none}
+.cl-box{
+  width:20px;height:20px;border-radius:4px;
+  border:2px solid var(--b2);flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  transition:all .2s;
+}
+.cl li.checked .cl-box{background:var(--gd);border-color:var(--g);color:#fff;font-size:12px}
+.cl li.checked span{color:var(--td);text-decoration:line-through}
+
+/* TIPS */
+.tip-list{list-style:none}
+.tip-list li{
+  padding:9px 0;border-bottom:1px solid var(--b);
+  display:flex;gap:10px;font-size:.84rem;color:var(--td);
+}
+.tip-list li:last-child{border-bottom:none}
+
+/* DONE SCREEN */
+.done-screen{text-align:center;padding:30px 20px}
+.done-icon{font-size:4rem;margin-bottom:14px;animation:bounce .6s ease}
+@keyframes bounce{0%,100%{transform:scale(1)}50%{transform:scale(1.2)}}
+.done-title{font-size:1.3rem;font-weight:700;color:var(--g);margin-bottom:8px}
+.done-sub{color:var(--td);font-size:.87rem;margin-bottom:20px}
+.done-links{display:flex;flex-direction:column;gap:8px}
+.done-link{
+  padding:11px 16px;border-radius:8px;
+  font-size:.86rem;font-weight:600;
+  text-decoration:none!important;text-align:center;
+}
+.done-link.green{background:var(--gd);color:#fff}
+.done-link.blue{background:var(--s2);border:1px solid var(--b2);color:var(--t)}
+
+/* FOOTER */
+.ftr{
+  position:relative;z-index:1;
+  text-align:center;padding:16px;
+  border-top:1px solid var(--b);
+  font-size:.8rem;color:var(--td);
+}
+.ftr a{margin:0 8px;color:var(--bl)}
+</style>
+</head>
+<body>
+
+<div class="hdr">
+<div class="hdr-badge">📖 آموزش گام‌به‌گام</div>
+<h1>Deploy کردن Google Apps Script</h1>
+<p>از ورود به گوگل تا گرفتن Deployment ID — همه مراحل با تصویر</p>
+<div class="hdr-links">
+<a href="https://kian-irani.github.io/mhrv-setup-full-tunell/" class="hdr-link">🛡️ صفحه اصلی</a>
+<a href="https://t.me/kian_forex" target="_blank" class="hdr-link">📌 کانال آموزشی</a>
+<a href="https://github.com/therealaleph/MasterHttpRelayVPN-RUST/releases/latest" target="_blank" class="hdr-link">📥 دانلود اپ</a>
+</div>
+</div>
+
+<!-- PROGRESS BAR -->
+<div class="progress" id="progress">
+<div class="prog-step active" onclick="goStep(1)"><div class="prog-num">1</div><div class="prog-label">ورود به گوگل</div></div>
+<div class="prog-line" id="line-1"></div>
+<div class="prog-step" onclick="goStep(2)"><div class="prog-num">2</div><div class="prog-label">پروژه جدید</div></div>
+<div class="prog-line" id="line-2"></div>
+<div class="prog-step" onclick="goStep(3)"><div class="prog-num">3</div><div class="prog-label">paste کد</div></div>
+<div class="prog-line" id="line-3"></div>
+<div class="prog-step" onclick="goStep(4)"><div class="prog-num">4</div><div class="prog-label">Deploy</div></div>
+<div class="prog-line" id="line-4"></div>
+<div class="prog-step" onclick="goStep(5)"><div class="prog-num">5</div><div class="prog-label">تنظیمات</div></div>
+<div class="prog-line" id="line-5"></div>
+<div class="prog-step" onclick="goStep(6)"><div class="prog-num">6</div><div class="prog-label">Authorize</div></div>
+<div class="prog-line" id="line-6"></div>
+<div class="prog-step" onclick="goStep(7)"><div class="prog-num">7</div><div class="prog-label">دریافت ID</div></div>
+<div class="prog-line" id="line-7"></div>
+<div class="prog-step" onclick="goStep(8)"><div class="prog-num">8</div><div class="prog-label">تنظیم اپ</div></div>
+</div>
+
+<div class="cnt">
+
+<!-- STEP 1 -->
+<div class="step-card active" id="step-1">
+<div class="step-hdr"><div class="step-num-big">1</div><h2>ورود به Google Apps Script</h2></div>
+<div class="step-body">
+<p>با فیلترشکن فعال، مرورگر رو باز کن و به آدرس زیر برو:</p>
+<div style="background:var(--s2);border:1px solid var(--b);border-radius:6px;padding:10px;direction:ltr;font-family:monospace;font-size:.85rem;color:#7dd3fc;text-align:center;margin-bottom:12px">script.google.com</div>
+<div class="mock">
+<div class="mock-bar"><div class="mock-dots"><div class="mock-dot r"></div><div class="mock-dot y"></div><div class="mock-dot g"></div></div><div class="mock-url">script.google.com</div></div>
+<div class="mock-body" style="display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;min-height:140px">
+<div class="g-logo"><span>G</span><span>o</span><span>o</span><span>g</span><span>l</span><span>e</span></div>
+<p style="font-size:13px;color:#202124;margin-bottom:14px;font-family:Arial">Sign in to continue to Apps Script</p>
+<div style="position:relative;display:inline-block">
+<button class="g-btn bl">Sign in with Google</button>
+<div class="ann" style="top:-8px;right:-110px"><div class="ann-c">1</div><div class="ann-l">اینجا کلیک کن</div></div>
+</div>
+</div>
+</div>
+<div class="al b">💡 اگه قبلاً وارد جیمیلت شدی، مستقیم وارد میشی — نیازی به لاگین مجدد نیست</div>
+<div class="al y">⚠️ اگه صفحه باز نشد یا خطا گرفت، فیلترشکن رو چک کن</div>
+<div class="nav"><button class="nav-btn next" onclick="goStep(2)">مرحله بعد ◀</button></div>
+</div>
+</div>
+
+<!-- STEP 2 -->
+<div class="step-card" id="step-2">
+<div class="step-hdr"><div class="step-num-big">2</div><h2>ساخت پروژه جدید</h2></div>
+<div class="step-body">
+<p>بعد از ورود، صفحه اصلی Apps Script نشون داده میشه. روی دکمه <strong style="color:var(--t)">New project</strong> کلیک کن.</p>
+<div class="mock">
+<div class="mock-bar"><div class="mock-dots"><div class="mock-dot r"></div><div class="mock-dot y"></div><div class="mock-dot g"></div></div><div class="mock-url">script.google.com/home</div></div>
+<div class="mock-body" style="padding:16px">
+<div style="display:flex;align-items:center;gap:12px;margin-bottom:14px">
+<span style="font-size:13px;color:#202124;font-weight:500;font-family:Arial">Apps Script</span>
+</div>
+<div style="position:relative;display:inline-block">
+<button class="g-btn wh" style="font-size:12px">+ New project</button>
+<div class="ann" style="top:-8px;right:-110px"><div class="ann-c">2</div><div class="ann-l">New project بزن</div></div>
+</div>
+</div>
+</div>
+<div class="al g">✅ یه پنجره ادیتور کد باز میشه — آماده‌ای برای مرحله بعد</div>
+<div class="nav">
+<button class="nav-btn prev" onclick="goStep(1)">▶ قبلی</button>
+<button class="nav-btn next" onclick="goStep(3)">مرحله بعد ◀</button>
+</div>
+</div>
+</div>
+
+<!-- STEP 3 -->
+<div class="step-card" id="step-3">
+<div class="step-hdr"><div class="step-num-big">3</div><h2>پاک کردن کد و Paste کردن CodeFull.gs</h2></div>
+<div class="step-body">
+<p>ادیتور کد باز میشه و یه کد پیش‌فرض نشون میده. باید اول همه رو پاک کنی، بعد کد اسکریپت رو paste کنی.</p>
+
+<div class="al y" style="margin-bottom:10px">⚠️ <strong>باگ مهم:</strong> بعد از paste، به <strong>آخر فایل</strong> نگاه کن — اگه خط خالی اضافه‌ای هست پاکش کن. وگرنه Syntax Error میده.</div>
+
+<div class="mock">
+<div class="mock-bar"><div class="mock-dots"><div class="mock-dot r"></div><div class="mock-dot y"></div><div class="mock-dot g"></div></div><div class="mock-url">script.google.com/d/.../edit</div></div>
+<div class="gs-editor" style="min-height:100px">
+<div class="gs-sb"></div>
+<div class="gs-code" style="position:relative">
+<span style="color:#6a9955">// CodeFull.gs — paste شده ✅</span><br>
+<span style="color:#4ec9b0">const</span> <span style="color:#9cdcfe">AUTH_KEY</span> = <span style="color:#ce9178">"..."</span>;<br>
+<span style="color:#4ec9b0">const</span> <span style="color:#9cdcfe">TUNNEL_SERVER_URL</span> = <span style="color:#ce9178">"http://..."</span>;<br>
+<span style="color:#569cd6">function</span> <span style="color:#dcdcaa">doPost</span>(e) {<br>
+&nbsp;&nbsp;<span style="color:#6a9955">// relay logic...</span><br>
+}
+<div class="ann" style="bottom:4px;left:4px"><div class="ann-c">3</div><div class="ann-l">کد اینجا paste شده</div></div>
+</div>
+</div>
+</div>
+
+<div style="background:var(--s2);border:1px solid var(--b);border-radius:8px;padding:12px;margin:10px 0">
+<p style="font-size:.83rem;color:var(--td);margin-bottom:8px">📋 مراحل paste:</p>
+<ul style="list-style:none;font-size:.83rem;color:var(--td);display:flex;flex-direction:column;gap:6px">
+<li>1⃣ در ادیتور کلیک کن → <code>Ctrl+A</code> → همه رو پاک کن</li>
+<li>2⃣ کد CodeFull.gs رو که از ربات گرفتی paste کن (<code>Ctrl+V</code>)</li>
+<li>3⃣ آخر فایل رو چک کن — خط خالی اضافه رو پاک کن</li>
+<li>4⃣ <code>Ctrl+S</code> برای ذخیره</li>
+</ul>
+</div>
+
+<div class="nav">
+<button class="nav-btn prev" onclick="goStep(2)">▶ قبلی</button>
+<button class="nav-btn next" onclick="goStep(4)">مرحله بعد ◀</button>
+</div>
+</div>
+</div>
+
+<!-- STEP 4 -->
+<div class="step-card" id="step-4">
+<div class="step-hdr"><div class="step-num-big">4</div><h2>کلیک روی Deploy</h2></div>
+<div class="step-body">
+<p>بالا سمت راست ادیتور، دکمه آبی <strong style="color:var(--t)">Deploy</strong> رو پیدا کن و کلیک کن، بعد <strong style="color:var(--t)">New deployment</strong> رو انتخاب کن.</p>
+<div class="mock">
+<div class="mock-bar"><div class="mock-dots"><div class="mock-dot r"></div><div class="mock-dot y"></div><div class="mock-dot g"></div></div><div class="mock-url">script.google.com/d/.../edit</div></div>
+<div class="mock-body" style="padding:10px">
+<div class="gs-header">
+<div class="gs-title"><span>Untitled project</span></div>
+<div style="position:relative">
+<button class="dpl-btn">Deploy ▼</button>
+<div style="position:absolute;top:26px;right:0;background:#fff;border:1px solid #e0e0e0;border-radius:4px;box-shadow:0 2px 10px rgba(0,0,0,.15);z-index:5;min-width:170px;font-family:Arial">
+<div style="padding:9px 14px;font-size:11px;color:#202124;background:#e8f0fe;border-bottom:1px solid #f1f3f4;font-weight:600">▸ New deployment</div>
+<div style="padding:9px 14px;font-size:11px;color:#5f6368">Manage deployments</div>
+<div style="padding:9px 14px;font-size:11px;color:#5f6368">Test deployments</div>
+</div>
+<div class="ann" style="top:-8px;right:-120px"><div class="ann-c">4</div><div class="ann-l">New deployment انتخاب کن</div></div>
+</div>
+</div>
+</div>
+</div>
+<div class="nav">
+<button class="nav-btn prev" onclick="goStep(3)">▶ قبلی</button>
+<button class="nav-btn next" onclick="goStep(5)">مرحله بعد ◀</button>
+</div>
+</div>
+</div>
+
+<!-- STEP 5 -->
+<div class="step-card" id="step-5">
+<div class="step-hdr"><div class="step-num-big">5</div><h2>تنظیمات Deployment</h2></div>
+<div class="step-body">
+<p>یه پنجره باز میشه. دقیقاً مثل تصویر تنظیم کن:</p>
+<div class="mock">
+<div class="mock-bar"><div class="mock-dots"><div class="mock-dot r"></div><div class="mock-dot y"></div><div class="mock-dot g"></div></div><div class="mock-url">New deployment</div></div>
+<div class="mock-body" style="padding:14px">
+<div class="dlg">
+<h4>New deployment</h4>
+<div class="dlg-row"><span>Type:</span><select><option>Web app ✓</option></select></div>
+<div style="position:relative">
+<div class="dlg-row"><span>Execute as:</span><select><option>Me (your@gmail.com) ✓</option></select></div>
+<div class="ann" style="top:-4px;left:80px"><div class="ann-c">A</div><div class="ann-l">انتخاب کن: Me</div></div>
+</div>
+<div style="position:relative">
+<div class="dlg-row"><span>Who has access:</span><select><option>Anyone ✓</option></select></div>
+<div class="ann" style="top:-4px;left:100px"><div class="ann-c">B</div><div class="ann-l">انتخاب کن: Anyone</div></div>
+</div>
+<div class="dlg-actions" style="position:relative">
+<button class="g-btn wh" style="font-size:11px">Cancel</button>
+<button class="g-btn bl" style="font-size:11px">Deploy</button>
+<div class="ann" style="top:-8px;right:0"><div class="ann-c">5</div><div class="ann-l">Deploy بزن</div></div>
+</div>
+</div>
+</div>
+</div>
+<div style="background:var(--s2);border:1px solid var(--b);border-radius:8px;padding:11px;margin-top:10px;font-size:.83rem">
+<p style="color:var(--td);margin-bottom:6px">تنظیمات صحیح:</p>
+<ul style="list-style:none;color:var(--td);display:flex;flex-direction:column;gap:4px">
+<li>✅ Type: <strong style="color:var(--t)">Web app</strong></li>
+<li>✅ Execute as: <strong style="color:var(--t)">Me</strong></li>
+<li>✅ Who has access: <strong style="color:var(--t)">Anyone</strong></li>
+</ul>
+</div>
+<div class="nav">
+<button class="nav-btn prev" onclick="goStep(4)">▶ قبلی</button>
+<button class="nav-btn next" onclick="goStep(6)">مرحله بعد ◀</button>
+</div>
+</div>
+</div>
+
+<!-- STEP 6 -->
+<div class="step-card" id="step-6">
+<div class="step-hdr"><div class="step-num-big">6</div><h2>مجوزدهی (Authorize)</h2></div>
+<div class="step-body">
+<p>گوگل یه هشدار امنیتی نشون میده — این <strong style="color:var(--g)">کاملاً طبیعیه</strong>. مراحل زیر رو دقیق انجام بده:</p>
+
+<div style="display:flex;flex-direction:column;gap:10px;margin-bottom:12px">
+
+<div style="background:var(--s2);border:1px solid var(--b);border-radius:8px;padding:11px;display:flex;gap:10px;align-items:flex-start">
+<div style="width:22px;height:22px;border-radius:50%;background:var(--ac);color:#fff;display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700;flex-shrink:0;margin-top:2px">6</div>
+<div>
+<strong style="font-size:.85rem">روی «Advanced» کلیک کن</strong>
+<p style="font-size:.81rem;color:var(--td);margin-top:2px">در صفحه هشدار پایین رو نگاه کن</p>
+</div>
+</div>
+
+<div class="mock">
+<div class="mock-bar"><div class="mock-dots"><div class="mock-dot r"></div><div class="mock-dot y"></div><div class="mock-dot g"></div></div><div class="mock-url">accounts.google.com</div></div>
+<div class="warn-screen">
+<div class="warn-icon">🚫</div>
+<div class="warn-title">This app isn't verified</div>
+<div class="warn-sub">This app hasn't been verified by Google.</div>
+<button class="g-btn wh" style="font-size:11px;margin:0 auto">Back to safety</button>
+<div style="position:relative;display:inline-block">
+<a class="warn-link">Advanced</a>
+<div class="ann" style="top:-8px;right:-90px"><div class="ann-c">6a</div><div class="ann-l">Advanced کلیک کن</div></div>
+</div>
+</div>
+</div>
+
+<div style="background:var(--s2);border:1px solid var(--b);border-radius:8px;padding:11px;display:flex;gap:10px;align-items:flex-start">
+<div style="width:22px;height:22px;border-radius:50%;background:var(--ac);color:#fff;display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700;flex-shrink:0;margin-top:2px">7</div>
+<div>
+<strong style="font-size:.85rem">روی «Go to ... (unsafe)» کلیک کن</strong>
+<p style="font-size:.81rem;color:var(--td);margin-top:2px">لینک زیر صفحه ظاهر میشه</p>
+</div>
+</div>
+
+<div class="mock">
+<div class="mock-bar"><div class="mock-dots"><div class="mock-dot r"></div><div class="mock-dot y"></div><div class="mock-dot g"></div></div><div class="mock-url">accounts.google.com</div></div>
+<div class="warn-screen">
+<div class="warn-icon">🚫</div>
+<div class="warn-title">This app isn't verified</div>
+<div style="background:#fef3cd;border:1px solid #ffc107;border-radius:4px;padding:8px;margin:8px 0;font-size:10px;color:#856404">⚠ If you understand the risks...</div>
+<div style="position:relative;display:inline-block">
+<a class="warn-link" style="font-size:11px">Go to Untitled project (unsafe)</a>
+<div class="ann" style="top:-8px;right:-60px"><div class="ann-c">6b</div><div class="ann-l">اینجا کلیک کن</div></div>
+</div>
+</div>
+</div>
+
+<div style="background:var(--s2);border:1px solid var(--b);border-radius:8px;padding:11px;display:flex;gap:10px;align-items:flex-start">
+<div style="width:22px;height:22px;border-radius:50%;background:var(--ac);color:#fff;display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700;flex-shrink:0;margin-top:2px">8</div>
+<div>
+<strong style="font-size:.85rem">«Allow» رو بزن</strong>
+<p style="font-size:.81rem;color:var(--td);margin-top:2px">پایین صفحه مجوزها</p>
+</div>
+</div>
+
+</div>
+
+<div class="al r">🔴 دکمه «Back to safety» رو نزن — برمیگردونه!</div>
+
+<div class="nav">
+<button class="nav-btn prev" onclick="goStep(5)">▶ قبلی</button>
+<button class="nav-btn next" onclick="goStep(7)">مرحله بعد ◀</button>
+</div>
+</div>
+</div>
+
+<!-- STEP 7 -->
+<div class="step-card" id="step-7">
+<div class="step-hdr"><div class="step-num-big">7</div><h2>کپی کردن Deployment ID</h2></div>
+<div class="step-body">
+<p>بعد از Allow، یه پنجره با <strong style="color:var(--t)">Deployment ID</strong> نشون داده میشه. این ID رو کپی کن.</p>
+<div class="mock">
+<div class="mock-bar"><div class="mock-dots"><div class="mock-dot r"></div><div class="mock-dot y"></div><div class="mock-dot g"></div></div><div class="mock-url">script.google.com</div></div>
+<div class="mock-body" style="padding:14px">
+<div class="dlg">
+<h4 style="color:#1a73e8">✅ Deployment successful!</h4>
+<div style="font-size:11px;color:#5f6368;margin-bottom:5px;font-family:Arial">Deployment ID:</div>
+<div style="position:relative">
+<div class="id-box">AKfycbyXXXXXXXXXXXXXXXXXXXXXXXX</div>
+<div class="ann" style="top:-8px;right:-4px"><div class="ann-c">7</div><div class="ann-l">این ID رو کپی کن</div></div>
+</div>
+<div class="dlg-actions"><button class="g-btn bl" style="font-size:11px">Done</button></div>
+</div>
+</div>
+</div>
+<div class="al g">✅ فقط ID رو کپی کن (رشته AKfyc...) — نه URL کامل</div>
+<div class="al b">💡 چند Deployment از جیمیل‌های مختلف = سرعت بیشتر. همین مراحل رو با جیمیل دیگه‌ای تکرار کن.</div>
+<div class="nav">
+<button class="nav-btn prev" onclick="goStep(6)">▶ قبلی</button>
+<button class="nav-btn next" onclick="goStep(8)">مرحله بعد ◀</button>
+</div>
+</div>
+</div>
+
+<!-- STEP 8 -->
+<div class="step-card" id="step-8">
+<div class="step-hdr"><div class="step-num-big">8</div><h2>تنظیم اپ mhrv-rs</h2></div>
+<div class="step-body">
+
+<ul class="cl" id="checklist">
+<li onclick="toggleCheck(this)"><div class="cl-box"></div><span>اپ mhrv-rs رو نصب کردم</span></li>
+<li onclick="toggleCheck(this)"><div class="cl-box"></div><span>Mode رو روی «Full tunnel (no cert)» گذاشتم</span></li>
+<li onclick="toggleCheck(this)"><div class="cl-box"></div><span>Deployment ID رو وارد کردم</span></li>
+<li onclick="toggleCheck(this)"><div class="cl-box"></div><span>Auth key رو وارد کردم (همون رمز داخل CodeFull.gs)</span></li>
+<li onclick="toggleCheck(this)"><div class="cl-box"></div><span>Google IP: 216.239.38.120 یا Auto-detect</span></li>
+<li onclick="toggleCheck(this)"><div class="cl-box"></div><span>SNI Pool → Test all زدم → فقط ✅ ها رو نگه داشتم</span></li>
+<li onclick="toggleCheck(this)"><div class="cl-box"></div><span>Connect زدم — همه اپ‌ها از VPS رد میشن ✅</span></li>
+</ul>
+
+<div class="al b" style="margin-top:12px">
+📥 دانلود اپ:<br>
+<a href="https://github.com/therealaleph/MasterHttpRelayVPN-RUST/releases/latest" target="_blank" style="color:var(--g)">github.com/therealaleph/MasterHttpRelayVPN-RUST/releases/latest</a>
+</div>
+
+<div class="nav">
+<button class="nav-btn prev" onclick="goStep(7)">▶ قبلی</button>
+<button class="nav-btn finish" onclick="showDone()">✅ تمام شد!</button>
+</div>
+</div>
+</div>
+
+<!-- DONE -->
+<div class="step-card" id="step-done">
+<div class="step-body">
+<div class="done-screen">
+<div class="done-icon">🎉</div>
+<div class="done-title">آفرین! راه‌اندازی کامل شد</div>
+<div class="done-sub">الان همه اپ‌های گوشیت از طریق VPS رد میشن.<br>اگه مشکلی داشتی کانال رو چک کن.</div>
+<div class="done-links">
+<a href="https://t.me/kian_forex" target="_blank" class="done-link green">📌 کانال آموزشی — سوال داری؟</a>
+<a href="https://kian-irani.github.io/mhrv-setup-full-tunell/" class="done-link blue">🛡️ برگشت به صفحه اصلی</a>
+<a href="https://github.com/therealaleph/MasterHttpRelayVPN-RUST/releases/latest" target="_blank" class="done-link blue">📥 آخرین نسخه اپ</a>
+</div>
+</div>
+</div>
+</div>
+
+</div><!-- /cnt -->
+
+<div class="ftr">
+ساخته شده توسط <a href="https://t.me/kian_forex">Kian Irani</a> |
+<a href="https://t.me/shin_persian">سازنده اپ</a> |
+<a href="https://kian-irani.github.io/mhrv-setup-full-tunell/">صفحه اصلی</a>
+</div>
+
+<script>
+var currentStep = 1;
+var totalSteps = 8;
+
+function goStep(n) {
+  if(n < 1 || n > totalSteps) return;
+  
+  document.querySelectorAll('.step-card').forEach(function(c){ c.classList.remove('active'); });
+  document.getElementById('step-done').classList.remove('active');
+  
+  var el = document.getElementById('step-'+n);
+  if(el) el.classList.add('active');
+  
+  var steps = document.querySelectorAll('.prog-step');
+  steps.forEach(function(s,i){
+    s.classList.remove('active','done');
+    if(i+1 < n) s.classList.add('done');
+    else if(i+1 === n) s.classList.add('active');
+  });
+  
+  var lines = document.querySelectorAll('.prog-line');
+  lines.forEach(function(l,i){
+    l.classList.remove('done');
+    if(i+1 < n) l.classList.add('done');
+  });
+  
+  currentStep = n;
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function showDone() {
+  document.querySelectorAll('.step-card').forEach(function(c){ c.classList.remove('active'); });
+  document.getElementById('step-done').classList.add('active');
+  
+  document.querySelectorAll('.prog-step').forEach(function(s){
+    s.classList.remove('active');
+    s.classList.add('done');
+  });
+  document.querySelectorAll('.prog-line').forEach(function(l){
+    l.classList.add('done');
+  });
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function toggleCheck(li) {
+  li.classList.toggle('checked');
+  var box = li.querySelector('.cl-box');
+  if(li.classList.contains('checked')) {
+    box.textContent = '✓';
+  } else {
+    box.textContent = '';
+  }
+}
+</script>
+</body>
+</html>

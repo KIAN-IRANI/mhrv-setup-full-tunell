@@ -599,6 +599,40 @@ echo "✅ پاک شد"</pre></div></div>
 <li><span>7️⃣</span><div style="display:flex;flex-direction:column"><strong>parallel_relay: 1 (پیش‌فرض)</strong><span>اگه اتصال ناپایداره، 2 امتحان کن. بیشتر از 3 نزن — quota سریع تموم می‌شه.</span></div></li>
 <li><span>8️⃣</span><div style="display:flex;flex-direction:column"><strong>چند Deployment ID</strong><span>هر جیمیل = یه Deployment = سهمیه جداگانه. ۳ تا جیمیل = سرعت و quota ۳ برابر.</span></div></li>
 </ul></div>
+<div class="crd" style="border-color:rgba(88,166,255,.4)">
+<h3>🚀 چطور سرعت رو چند برابر کنیم؟</h3>
+<div class="al b" style="margin-bottom:12px">مهم‌ترین کار: چند Deployment ID از جیمیل‌های مختلف</div>
+<ul class="ll">
+<li><span>1️⃣</span><div style="display:flex;flex-direction:column"><strong>چند جیمیل = سهمیه چند برابر</strong><span>هر اکانت گوگل روزانه ۲۰,۰۰۰ درخواست داره. ۳ جیمیل = ۶۰,۰۰۰ درخواست/روز. همین اسکریپت رو روی ۲-۳ جیمیل دیگه deploy کن و همه ID ها رو در اپ وارد کن (هر کدوم یه خط). اپ بین‌شون تقسیم می‌کنه. ⚡</span></div></li>
+<li><span>2️⃣</span><div style="display:flex;flex-direction:column"><strong>SNI بهینه (مهم!)</strong><span>از منوی اپ → SNI → Test all. فقط ۲-۳ تا با کمترین ping تیک بزن. بقیه رو بردار. سرعت محسوس بالا می‌ره.</span></div></li>
+<li><span>3️⃣</span><div style="display:flex;flex-direction:column"><strong>Block QUIC و Block DoH روشن باشن</strong><span>هر دو تو تنظیمات پیشرفته اپ. اگه خاموشن، Full Tunnel درست کار نمی‌کنه.</span></div></li>
+</ul>
+</div>
+
+<div class="crd" style="border-color:rgba(227,179,65,.3)">
+<h3>⚠️ محدودیت‌های طبیعی این روش</h3>
+<p style="color:var(--td);font-size:.82rem;margin-bottom:10px">این روش از Apps Script گوگل استفاده می‌کنه — یه سرویس رایگان که برای relay طراحی نشده. چند محدودیت ذاتی داره:</p>
+<ul class="ll">
+<li><span>🔸</span><div style="display:flex;flex-direction:column"><strong>تأخیر ۲۵۰ms تا ۵۰۰ms هر درخواست</strong><span>تأخیر داخلی Apps Script گوگل — قابل تغییر نیست. برای مرور عادی کافیه، برای gaming مناسب نیست.</span></div></li>
+<li><span>🔸</span><div style="display:flex;flex-direction:column"><strong>۲۰,۰۰۰ درخواست/روز هر جیمیل</strong><span>با چند Deployment از جیمیل‌های مختلف حل می‌شه.</span></div></li>
+<li><span>🔸</span><div style="display:flex;flex-direction:column"><strong>YouTube video کندتر</strong><span>CDN یوتیوب (googlevideo.com) از Apps Script قابل دسترس نیست. صفحه لود می‌شه ولی ویدیو کُنده.</span></div></li>
+<li><span>🔸</span><div style="display:flex;flex-direction:column"><strong>بعضی سایت‌های Cloudflare (مثل ChatGPT)</strong><span>IP گوگل توسط Cloudflare شناخته شده‌ست و captcha می‌ده.</span></div></li>
+</ul>
+<div class="al g" style="margin-top:10px">✅ <strong>برای این‌ها عالیه:</strong> تلگرام، اینستاگرام، توییتر، GitHub، Google، گردش عمومی</div>
+</div>
+
+<div class="crd" style="border-color:rgba(63,185,80,.3)">
+<h3>🛡 آپدیت‌های اخیر</h3>
+<ul class="ll">
+<li><span>✅</span><span>CodeFull.gs کامل <strong>۶۳۴ خطی</strong> — Full Tunnel واقعی (قبلاً ۱۵۷ خط ناقص بود)</span></li>
+<li><span>✅</span><span>کدهای نصب در <strong>پس‌زمینه</strong> — قطع SSH روند رو متوقف نمی‌کنه</span></li>
+<li><span>✅</span><span>tunnel-node بعد از ری‌استارت VPS <strong>خودکار</strong> روشن می‌شه</span></li>
+<li><span>✅</span><span>توضیح کامل لاگ‌های اپ — بدون پشتیبانی مشکل رو تشخیص بدی</span></li>
+<li><span>✅</span><span>تنظیمات بهینه Full Tunnel در صفحه</span></li>
+<li><span>✅</span><span>نسخه <strong>v1.9.25</strong> — آخرین نسخه پایدار</span></li>
+</ul>
+</div>
+
 <div class="crd"><h3>⚡ بهینه‌سازی</h3>
 <ul class="ll">
 <li><span>💡</span><span>3-6 Deployment از اکانت‌های مختلف گوگل</span></li>

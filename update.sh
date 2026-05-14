@@ -27,4 +27,28 @@ H=$(curl -sf http://localhost:${PORT}/health 2>/dev/null)
 echo "RESULT:${H}" >> $LOG
 ) >> $LOG 2>&1
 H=$(grep RESULT: $LOG | tail -1 | cut -d: -f2)
-[ "$H" = "ok" ] && echo "✅ آپدیت موفق" || echo "❌ بزن: cat $LOG"
+PIP=$(curl -4s -m 5 ifconfig.me 2>/dev/null)
+echo ""
+if [ "$H" = "ok" ]; then
+  echo "╔════════════════════════════════════════════════╗"
+  echo "║          ✅  آپدیت با موفقیت انجام شد           ║"
+  echo "╚════════════════════════════════════════════════╝"
+  echo ""
+  echo "┌─ اطلاعات سرور شما ──────────────────────────────"
+  echo "│"
+  [ -n "$PIP" ] && echo "│   🌐 IP سرور      :  ${PIP}"
+  echo "│   🔌 پورت تونل    :  ${PORT}"
+  echo "│   🔑 کلید AUTH    :  ${AUTH}"
+  echo "│"
+  echo "└─────────────────────────────────────────────────"
+  echo ""
+  echo "💡 کلید و آدرس عوض نشده — نیازی به redeploy Apps Script نیست ✅"
+  echo ""
+else
+  echo "╔════════════════════════════════════════════════╗"
+  echo "║          ❌  آپدیت با خطا مواجه شد              ║"
+  echo "╚════════════════════════════════════════════════╝"
+  echo ""
+  echo "برای دیدن جزئیات: cat $LOG"
+  echo "اگه مشکل حل نشد: @Kian_irani_t"
+fi

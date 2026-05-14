@@ -756,21 +756,8 @@ function tab(n,b){
   b.classList.add('on');
 }
 function g(id,fb){var v=document.getElementById(id).value.trim();return v||fb;}
-function upd(){
-  var ip=g('ip','VPS_IP'),pt=g('port','8080'),sh=g('ssh','SSH_PORT'),ak=g('key','AUTH_KEY');
-  var ok=ip!='VPS_IP'&&sh!='SSH_PORT'&&ak!='AUTH_KEY';
-  document.getElementById('warn').style.display=ok?'none':'block';
-  _updateGC(ip,pt,ak);
-  var akEl=document.getElementById('ak');if(akEl)akEl.textContent=ak!='AUTH_KEY'?ak:'وارد نشده';
 
-  document.getElementById('ic').textContent=
-'PORT="'+pt+'" AUTH="'+ak+'" SSH_PORT="'+sh+'" bash <(curl -fsSL https://raw.githubusercontent.com/KIAN-IRANI/mhrv-setup-full-tunell/main/install.sh)';
-
-  document.getElementById('cc').textContent='PORT="'+pt+'" bash <(curl -fsSL https://raw.githubusercontent.com/KIAN-IRANI/mhrv-setup-full-tunell/main/check.sh)';
-
-  document.getElementById('uc').textContent='PORT="'+pt+'" AUTH="'+ak+'" bash <(curl -fsSL https://raw.githubusercontent.com/KIAN-IRANI/mhrv-setup-full-tunell/main/update.sh)';
-
-  // CodeFull.gs از فایل template - fetch می‌کنیم
+// ━━━ cache بیرون upd تا بین فراخوانی‌ها حفظ بشه ━━━
 var _gsTemplate = null;
 function _loadGS(cb) {
   if (_gsTemplate) { cb(_gsTemplate); return; }
@@ -793,9 +780,44 @@ function _updateGC(ip,pt,ak) {
     document.getElementById('gc').textContent = out;
   });
 }
+
+var HINT = 'ابتدا اطلاعات را در سربرگ «تنظیمات» وارد کنید';
+
+function upd(){
+  var ip=g('ip','VPS_IP'),pt=g('port','8080'),sh=g('ssh','SSH_PORT'),ak=g('key','AUTH_KEY');
+  var ok=ip!='VPS_IP'&&sh!='SSH_PORT'&&ak!='AUTH_KEY';
+  document.getElementById('warn').style.display=ok?'none':'block';
+  var akEl=document.getElementById('ak');if(akEl)akEl.textContent=ak!='AUTH_KEY'?ak:'وارد نشده';
+
+  // اگه اطلاعات کامل نیست، پیغام راهنما بمونه — کاربر کد آشغال کپی نکنه
+  if (!ok) {
+    document.getElementById('ic').textContent = HINT;
+    document.getElementById('cc').textContent = HINT;
+    document.getElementById('uc').textContent = HINT;
+    document.getElementById('gc').textContent = HINT;
+    return;
+  }
+
+  document.getElementById('ic').textContent =
+    'PORT="'+pt+'" AUTH="'+ak+'" SSH_PORT="'+sh+'" bash <(curl -fsSL https://raw.githubusercontent.com/KIAN-IRANI/mhrv-setup-full-tunell/main/install.sh)';
+
+  document.getElementById('cc').textContent =
+    'PORT="'+pt+'" bash <(curl -fsSL https://raw.githubusercontent.com/KIAN-IRANI/mhrv-setup-full-tunell/main/check.sh)';
+
+  document.getElementById('uc').textContent =
+    'PORT="'+pt+'" AUTH="'+ak+'" bash <(curl -fsSL https://raw.githubusercontent.com/KIAN-IRANI/mhrv-setup-full-tunell/main/update.sh)';
+
+  _updateGC(ip,pt,ak);
 }
+
 function cp(id,btn){
   var txt=document.getElementById(id).textContent;
+  // جلوگیری از کپی شدن پیغام راهنما
+  if (txt === HINT || txt.indexOf('ابتدا اطلاعات') === 0) {
+    btn.textContent='⚠️ اول اطلاعات رو پر کن';
+    setTimeout(function(){btn.textContent='کپی';},2000);
+    return;
+  }
   if(navigator.clipboard&&navigator.clipboard.writeText){
     navigator.clipboard.writeText(txt).then(function(){
       btn.textContent='✅ کپی شد';btn.classList.add('ok');

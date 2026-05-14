@@ -1,6 +1,13 @@
 #!/bin/bash
 LOG=/tmp/mhrv-update.log
 
+# ── چک root ──
+if [ "$(id -u)" -ne 0 ]; then
+  echo "❌ این اسکریپت نیاز به root داره (برای کنترل docker)"
+  echo "   اگه root نیستی، اول 'sudo -i' بزن یا 'sudo' جلوش بذار"
+  exit 1
+fi
+
 # ── validation ──
 if [ -z "$PORT" ] || ! echo "$PORT" | grep -qE '^[0-9]+$' || [ "$PORT" -lt 1 ] || [ "$PORT" -gt 65535 ]; then
   echo "❌ خطا: PORT معتبر نیست (مثال: PORT=\"8080\")"

@@ -6,6 +6,13 @@ set -e
 LOG=/tmp/mhrv-install.log
 export DEBIAN_FRONTEND=noninteractive
 
+# ── چک root ──
+if [ "$(id -u)" -ne 0 ]; then
+  echo "❌ این اسکریپت نیاز به root داره"
+  echo "   اگه root نیستی، اول 'sudo -i' بزن یا 'sudo' جلوش بذار"
+  exit 1
+fi
+
 # ── validation: قبل از هر کاری، متغیرها رو چک کن ──
 if [ -z "$PORT" ] || ! echo "$PORT" | grep -qE '^[0-9]+$' || [ "$PORT" -lt 1 ] || [ "$PORT" -gt 65535 ]; then
   echo "❌ خطا: PORT معتبر نیست (مثال: PORT=\"8080\")"
@@ -17,6 +24,14 @@ if [ -z "$SSH_PORT" ] || ! echo "$SSH_PORT" | grep -qE '^[0-9]+$' || [ "$SSH_POR
 fi
 if [ -z "$AUTH" ] || [ "${#AUTH}" -lt 6 ]; then
   echo "❌ خطا: AUTH معتبر نیست — حداقل ۶ کاراکتر"
+  exit 1
+fi
+
+# ── چک پورت در حال استفاده ──
+if ss -lntH 2>/dev/null | awk '{print $4}' | grep -qE ":${PORT}$"; then
+  echo "❌ پورت ${PORT} الان توسط برنامه دیگه‌ای استفاده می‌شه"
+  echo "   پورت دیگه‌ای انتخاب کن یا برنامه فعلی رو stop کن"
+  echo "   دیدن برنامه: ss -lntp | grep :${PORT}"
   exit 1
 fi
 
@@ -101,8 +116,12 @@ else
   echo "║          ❌  نصب با خطا مواجه شد               ║"
   echo "╚════════════════════════════════════════════════╝"
   echo ""
-  echo "برای دیدن جزئیات خطا این دستور رو بزن:"
-  echo "   cat $LOG"
+  echo "آخرین خطوط لاگ:"
+  echo "─────────────────────────────────"
+  tail -15 $LOG 2>/dev/null
+  echo "─────────────────────────────────"
   echo ""
-  echo "اگه مشکل حل نشد به پشتیبانی پیام بده: @Kian_irani_t"
+  echo "لاگ کامل: cat $LOG"
+  echo ""
+  echo "🆘 اگه مشکل حل نشد به پشتیبانی پیام بده: @Kian_irani_t"
 fi

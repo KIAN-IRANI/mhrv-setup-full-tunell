@@ -764,49 +764,9 @@ function upd(){
   document.getElementById('ic').textContent=
 'PORT="'+pt+'" AUTH="'+ak+'" SSH_PORT="'+sh+'" bash <(curl -fsSL https://raw.githubusercontent.com/KIAN-IRANI/mhrv-setup-full-tunell/main/install.sh)';
 
-  document.getElementById('cc').textContent=[
-'#!/bin/bash',
-'PORT="'+pt+'"',
-'echo "━━━━━━ وضعیت mhrv-tunnel ━━━━━━"',
-'# وضعیت container',
-'STATUS=$(docker inspect -f "{{.State.Status}}" mhrv-tunnel 2>/dev/null)',
-'STARTED=$(docker inspect -f "{{.State.StartedAt}}" mhrv-tunnel 2>/dev/null | cut -c1-16)',
-'if [ "$STATUS" = "running" ]; then',
-'  echo "Container : ✅ Running (از $STARTED)"',
-'else',
-'  echo "Container : ❌ $STATUS"',
-'fi',
-'# health check',
-'H=$(curl -sf -m 5 http://localhost:${PORT}/health 2>/dev/null)',
-'[ "$H" = "ok" ] && echo "Health    : ✅ OK" || echo "Health    : ❌ DOWN"',
-'# restart policy',
-'RESTART=$(docker inspect -f "{{.HostConfig.RestartPolicy.Name}}" mhrv-tunnel 2>/dev/null)',
-'echo "Restart   : $RESTART"',
-'# آخرین لاگ خطا (اگه بود)',
-'ERRS=$(docker logs --tail 50 mhrv-tunnel 2>&1 | grep -i "error\|panic" | tail -3)',
-'[ -n "$ERRS" ] && echo "آخرین خطا: $ERRS" || echo "لاگ خطا  : ✅ تمیز"',
-'echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"'].join('\n');
+  document.getElementById('cc').textContent='PORT="'+pt+'" bash <(curl -fsSL https://raw.githubusercontent.com/KIAN-IRANI/mhrv-setup-full-tunell/main/check.sh)';
 
-  document.getElementById('uc').textContent=[
-'#!/bin/bash',
-'PORT="'+pt+'"; AUTH="'+ak+'"',
-'LOG=/tmp/mhrv-update.log',
-'echo "⏳ آپدیت در پس‌زمینه... لاگ: $LOG"',
-'(',
-'docker pull ghcr.io/therealaleph/mhrv-tunnel-node:latest',
-'docker rm -f mhrv-tunnel 2>/dev/null || true',
-'docker run -d --name mhrv-tunnel \\',
-'  --restart unless-stopped \\',
-'  -p ${PORT}:${PORT} -e PORT=${PORT} \\',
-'  -e TUNNEL_AUTH_KEY="${AUTH}" \\',
-'  ghcr.io/therealaleph/mhrv-tunnel-node:latest',
-'sleep 6',
-'H=$(curl -sf http://localhost:${PORT}/health 2>/dev/null)',
-'echo "RESULT:${H}" >> /tmp/mhrv-update.log',
-') >> $LOG 2>&1 &',
-'wait $!',
-'H=$(grep RESULT: $LOG | tail -1 | cut -d: -f2)',
-'[ "$H" = "ok" ] && echo "✅ آپدیت موفق" || echo "❌ بزن: cat $LOG"'].join('\n');
+  document.getElementById('uc').textContent='PORT="'+pt+'" AUTH="'+ak+'" bash <(curl -fsSL https://raw.githubusercontent.com/KIAN-IRANI/mhrv-setup-full-tunell/main/update.sh)';
 
   // CodeFull.gs از فایل template - fetch می‌کنیم
 var _gsTemplate = null;

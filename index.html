@@ -783,29 +783,60 @@ function _updateGC(ip,pt,ak) {
 
 var HINT = 'ابتدا اطلاعات را در سربرگ «تنظیمات» وارد کنید';
 
+// escape کاراکترهای خطرناک shell — " و \ و $ و backtick
+function shellEsc(s) {
+  return s.replace(/\\/g,'\\\\').replace(/"/g,'\\"').replace(/\$/g,'\\$').replace(/`/g,'\\`');
+}
+
+// بررسی فرمت IPv4 ساده
+function validIP(s) {
+  return /^(\d{1,3}\.){3}\d{1,3}$/.test(s);
+}
+
+// بررسی محدوده پورت
+function validPort(n) {
+  var p = parseInt(n, 10);
+  return !isNaN(p) && p >= 1 && p <= 65535;
+}
+
 function upd(){
   var ip=g('ip','VPS_IP'),pt=g('port','8080'),sh=g('ssh','SSH_PORT'),ak=g('key','AUTH_KEY');
-  var ok=ip!='VPS_IP'&&sh!='SSH_PORT'&&ak!='AUTH_KEY';
+
+  // چک پایه — پر بودن همه فیلدها
+  var filled = ip!='VPS_IP' && sh!='SSH_PORT' && ak!='AUTH_KEY';
+
+  // چک فرمت IP
+  var ipOk = filled && validIP(ip);
+  // چک محدوده پورت‌ها
+  var portOk = filled && validPort(pt) && validPort(sh);
+
+  var ok = filled && ipOk && portOk;
+
   document.getElementById('warn').style.display=ok?'none':'block';
   var akEl=document.getElementById('ak');if(akEl)akEl.textContent=ak!='AUTH_KEY'?ak:'وارد نشده';
 
-  // اگه اطلاعات کامل نیست، پیغام راهنما بمونه — کاربر کد آشغال کپی نکنه
   if (!ok) {
-    document.getElementById('ic').textContent = HINT;
-    document.getElementById('cc').textContent = HINT;
-    document.getElementById('uc').textContent = HINT;
-    document.getElementById('gc').textContent = HINT;
+    var msg = HINT;
+    if (filled && !ipOk) msg = '⚠️ فرمت IP معتبر نیست — مثال: 1.2.3.4';
+    else if (filled && !portOk) msg = '⚠️ شماره پورت باید بین ۱ تا ۶۵۵۳۵ باشد';
+    document.getElementById('ic').textContent = msg;
+    document.getElementById('cc').textContent = msg;
+    document.getElementById('uc').textContent = msg;
+    document.getElementById('gc').textContent = msg;
     return;
   }
 
+  // escape برای امنیت shell و Apps Script
+  var akSafe = shellEsc(ak);
+
   document.getElementById('ic').textContent =
-    'PORT="'+pt+'" AUTH="'+ak+'" SSH_PORT="'+sh+'" bash <(curl -fsSL https://raw.githubusercontent.com/KIAN-IRANI/mhrv-setup-full-tunell/main/install.sh)';
+    'PORT="'+pt+'" AUTH="'+akSafe+'" SSH_PORT="'+sh+'" bash <(curl -fsSL https://raw.githubusercontent.com/KIAN-IRANI/mhrv-setup-full-tunell/main/install.sh)';
 
   document.getElementById('cc').textContent =
     'PORT="'+pt+'" bash <(curl -fsSL https://raw.githubusercontent.com/KIAN-IRANI/mhrv-setup-full-tunell/main/check.sh)';
 
   document.getElementById('uc').textContent =
-    'PORT="'+pt+'" AUTH="'+ak+'" bash <(curl -fsSL https://raw.githubusercontent.com/KIAN-IRANI/mhrv-setup-full-tunell/main/update.sh)';
+    'PORT="'+pt+'" AUTH="'+akSafe+'" bash <(curl -fsSL https://raw.githubusercontent.com/KIAN-IRANI/mhrv-setup-full-tunell/main/update.sh)';
 
   _updateGC(ip,pt,ak);
 }

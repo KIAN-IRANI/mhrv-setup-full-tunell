@@ -6,6 +6,20 @@ set -e
 LOG=/tmp/mhrv-install.log
 export DEBIAN_FRONTEND=noninteractive
 
+# ── validation: قبل از هر کاری، متغیرها رو چک کن ──
+if [ -z "$PORT" ] || ! echo "$PORT" | grep -qE '^[0-9]+$' || [ "$PORT" -lt 1 ] || [ "$PORT" -gt 65535 ]; then
+  echo "❌ خطا: PORT معتبر نیست (مثال: PORT=\"8080\")"
+  exit 1
+fi
+if [ -z "$SSH_PORT" ] || ! echo "$SSH_PORT" | grep -qE '^[0-9]+$' || [ "$SSH_PORT" -lt 1 ] || [ "$SSH_PORT" -gt 65535 ]; then
+  echo "❌ خطا: SSH_PORT معتبر نیست (مثال: SSH_PORT=\"22\")"
+  exit 1
+fi
+if [ -z "$AUTH" ] || [ "${#AUTH}" -lt 6 ]; then
+  echo "❌ خطا: AUTH معتبر نیست — حداقل ۶ کاراکتر"
+  exit 1
+fi
+
 echo "⏳ در حال نصب... لاگ: $LOG"
 echo ""
 

@@ -30,7 +30,18 @@ docker run -d --name mhrv-tunnel \
   -e TUNNEL_AUTH_KEY="${AUTH}" \
   ghcr.io/therealaleph/mhrv-tunnel-node:latest
 sleep 6
-H=$(curl -sf http://localhost:${PORT}/health 2>/dev/null)
+# چک سلامت چند مرحله‌ای
+PORT_OK="no"
+if ss -lntH 2>/dev/null | awk '{print $4}' | grep -qE ":${PORT}$"; then
+  PORT_OK="yes"
+fi
+HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" -m 5 http://127.0.0.1:${PORT}/ 2>/dev/null)
+CSTATE=$(docker inspect -f "{{.State.Status}}" mhrv-tunnel 2>/dev/null)
+
+H="bad"
+if [ "$CSTATE" = "running" ] && [ "$PORT_OK" = "yes" ] && [ -n "$HTTP_CODE" ] && [ "$HTTP_CODE" != "000" ]; then
+  H="ok"
+fi
 echo "RESULT:${H}" >> $LOG
 ) >> $LOG 2>&1
 H=$(grep RESULT: $LOG | tail -1 | cut -d: -f2)

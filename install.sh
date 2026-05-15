@@ -67,7 +67,20 @@ docker run -d --name mhrv-tunnel \
 
 echo "[5/5] چک سلامت..."
 sleep 8
-H=$(curl -sf http://localhost:${PORT}/health 2>/dev/null)
+# چک پورت listening
+PORT_OK="no"
+if ss -lntH 2>/dev/null | awk '{print $4}' | grep -qE ":${PORT}$"; then
+  PORT_OK="yes"
+fi
+# چک HTTP response code (هر کدی بجز 000 = سرویس بالاست)
+HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" -m 5 http://127.0.0.1:${PORT}/ 2>/dev/null)
+# چک container running
+CSTATE=$(docker inspect -f "{{.State.Status}}" mhrv-tunnel 2>/dev/null)
+
+H="bad"
+if [ "$CSTATE" = "running" ] && [ "$PORT_OK" = "yes" ] && [ -n "$HTTP_CODE" ] && [ "$HTTP_CODE" != "000" ]; then
+  H="ok"
+fi
 PIP=$(curl -4s ifconfig.me 2>/dev/null)
 echo "RESULT:${H}:${PIP}" >> $LOG
 ) 2>> $LOG

@@ -4,465 +4,644 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>راهنمای mhrv-rs برای PC و iPhone</title>
-<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#0d1117;--s:#161b22;--s2:#21262d;--b:#30363d;--g:#3fb950;--gd:#238636;--bl:#58a6ff;--y:#e3b341;--r:#f85149;--t:#e6edf3;--td:#8b949e;--ac:#1f6feb}
+:root{--bg:#0d1117;--s:#161b22;--s2:#21262d;--s3:#262c36;--b:#30363d;--b2:#444c56;--g:#3fb950;--gd:#238636;--bl:#58a6ff;--y:#e3b341;--r:#f85149;--t:#e6edf3;--td:#8b949e;--tw:#c9d1d9;--ac:#1f6feb;--rad:8px;--rad2:10px}
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Vazirmatn',sans-serif;background:var(--bg);color:var(--t);font-size:15px;line-height:1.7;min-height:100vh}
+body{font-family:'Vazirmatn',sans-serif;background:var(--bg);color:var(--t);font-size:15px;line-height:1.75;min-height:100vh}
 a{color:var(--bl);text-decoration:none}
 a:hover{text-decoration:underline}
-
-/* HEADER */
 .hdr{background:linear-gradient(180deg,#0d1f3c 0%,var(--s) 100%);border-bottom:1px solid var(--b);padding:18px 16px;text-align:center}
-.hdr h1{font-size:1.3rem;margin-bottom:6px;background:linear-gradient(90deg,#58a6ff,#3fb950);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hdr h1{font-size:1.25rem;margin-bottom:6px;background:linear-gradient(90deg,#58a6ff,#3fb950);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .hdr p{color:var(--td);font-size:.85rem}
 .bk{display:inline-block;margin-top:8px;font-size:.78rem;color:var(--bl)}
-
-/* DEVICE SWITCH */
-.dsw{display:flex;background:var(--s);border-bottom:1px solid var(--b);padding:8px;gap:8px;justify-content:center;position:sticky;top:0;z-index:100}
-.dsw button{flex:1;max-width:200px;padding:11px 16px;border:1px solid var(--b);background:var(--s2);color:var(--td);font-family:inherit;font-size:.88rem;cursor:pointer;border-radius:8px;display:flex;align-items:center;justify-content:center;gap:8px;transition:all .2s}
-.dsw button:hover{color:var(--t)}
+.dsw{display:flex;background:var(--s);border-bottom:1px solid var(--b);padding:8px;gap:8px;justify-content:center;position:sticky;top:0;z-index:100;box-shadow:0 2px 10px rgba(0,0,0,.3)}
+.dsw button{flex:1;max-width:200px;padding:11px 14px;border:1px solid var(--b);background:var(--s2);color:var(--td);font-family:inherit;font-size:.86rem;cursor:pointer;border-radius:var(--rad);display:flex;align-items:center;justify-content:center;gap:8px;transition:all .2s;font-weight:500}
+.dsw button:hover{color:var(--t);border-color:var(--b2)}
 .dsw button.on{background:var(--ac);color:#fff;border-color:var(--ac)}
-.dsw button .ic{font-size:1.1rem}
-
-/* LEVEL SWITCH */
+.dsw button .ic{font-size:1.05rem}
 .lsw{display:flex;background:var(--s);border-bottom:1px solid var(--b);padding:8px;gap:6px;justify-content:center}
-.lsw button{padding:7px 14px;border:1px solid var(--b);background:var(--s2);color:var(--td);font-family:inherit;font-size:.78rem;cursor:pointer;border-radius:18px;transition:all .15s}
+.lsw button{padding:7px 16px;border:1px solid var(--b);background:var(--s2);color:var(--td);font-family:inherit;font-size:.78rem;cursor:pointer;border-radius:18px;transition:all .15s;font-weight:500}
 .lsw button.on{background:rgba(63,185,80,.15);color:var(--g);border-color:var(--gd)}
-
-/* CONTENT */
-.cnt{padding:14px;max-width:740px;margin:0 auto}
+.cnt{padding:14px;max-width:760px;margin:0 auto}
 .pnl{display:none}
 .pnl.on{display:block}
-
-/* CARDS */
-.crd{background:var(--s);border:1px solid var(--b);border-radius:10px;padding:16px;margin-bottom:14px}
-.crd h2{font-size:1.05rem;font-weight:600;margin-bottom:10px;display:flex;align-items:center;gap:8px}
-.crd h3{font-size:.92rem;font-weight:600;margin:14px 0 8px;color:var(--t)}
-.crd p{color:var(--td);font-size:.88rem;margin-bottom:8px}
+.crd{background:var(--s);border:1px solid var(--b);border-radius:var(--rad2);padding:16px;margin-bottom:14px}
+.crd h2{font-size:1.05rem;font-weight:600;margin-bottom:10px;display:flex;align-items:center;gap:8px;color:var(--t)}
+.crd h3{font-size:.94rem;font-weight:600;margin:14px 0 8px;color:var(--t)}
+.crd p{color:var(--tw);font-size:.88rem;margin-bottom:8px}
 .crd p:last-child{margin-bottom:0}
-
-/* DOWNLOAD BUTTONS */
-.dl{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px;margin:10px 0}
-.dlb{background:var(--s2);border:1px solid var(--b);border-radius:8px;padding:12px;text-decoration:none!important;color:inherit;transition:all .2s;display:flex;flex-direction:column;gap:4px}
-.dlb:hover{border-color:var(--bl);transform:translateY(-1px)}
-.dlb .nm{font-weight:600;font-size:.88rem;color:var(--t);display:flex;align-items:center;gap:6px}
+.crd ul,.crd ol{padding-right:20px;color:var(--tw);font-size:.86rem;line-height:1.85}
+.crd ul li,.crd ol li{margin-bottom:5px}
+.dl{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;margin:10px 0}
+.dlb{background:var(--s2);border:1px solid var(--b);border-radius:var(--rad);padding:12px;text-decoration:none!important;color:inherit;transition:all .2s;display:flex;flex-direction:column;gap:4px}
+.dlb:hover{border-color:var(--bl)}
+.dlb .nm{font-weight:600;font-size:.88rem;color:var(--t)}
 .dlb .ds{font-size:.74rem;color:var(--td)}
-
-/* STEPS */
 .stp{list-style:none;counter-reset:step;padding:0}
-.stp>li{display:flex;gap:12px;margin-bottom:16px;align-items:flex-start;position:relative}
-.stp>li::before{content:counter(step);counter-increment:step;flex-shrink:0;width:28px;height:28px;border-radius:50%;background:var(--ac);color:#fff;display:flex;align-items:center;justify-content:center;font-size:.82rem;font-weight:700;font-family:monospace}
-.sc{flex:1}
-.sc strong{display:block;margin-bottom:4px;font-size:.94rem;color:var(--t)}
-.sc p{color:var(--td);font-size:.85rem;margin-bottom:6px}
-.sc ul{padding-right:18px;margin-top:6px;color:var(--td);font-size:.83rem}
-.sc ul li{margin-bottom:4px}
-.sc code{background:var(--s2);padding:2px 6px;border-radius:4px;font-family:monospace;font-size:.82rem;color:var(--bl);direction:ltr;display:inline-block}
-
-/* ALERTS */
-.al{border-radius:8px;padding:11px 13px;margin:10px 0;font-size:.85rem;border:1px solid;display:flex;gap:8px;align-items:flex-start}
-.al .ai{flex-shrink:0;font-size:1rem}
+.stp>li{display:flex;gap:12px;margin-bottom:18px;align-items:flex-start}
+.stp>li::before{content:counter(step);counter-increment:step;flex-shrink:0;width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,var(--ac),#388bfd);color:#fff;display:flex;align-items:center;justify-content:center;font-size:.85rem;font-weight:700;font-family:monospace}
+.sc{flex:1;padding-top:2px}
+.sc strong{display:block;margin-bottom:4px;font-size:.95rem;color:var(--t)}
+.sc p{color:var(--tw);font-size:.85rem;margin-bottom:6px;line-height:1.7}
+.sc ul,.sc ol{padding-right:18px;margin-top:6px;color:var(--tw);font-size:.83rem}
+.sc ul li,.sc ol li{margin-bottom:4px}
+.sc code{background:var(--s2);padding:2px 6px;border-radius:4px;font-family:monospace;font-size:.82rem;color:var(--bl);direction:ltr;display:inline-block;border:1px solid var(--b)}
+.al{border-radius:var(--rad);padding:11px 14px;margin:10px 0;font-size:.85rem;border:1px solid;display:flex;gap:10px;align-items:flex-start;line-height:1.65}
+.al .ai{flex-shrink:0;font-size:1.05rem;margin-top:1px}
 .al .at{flex:1}
 .al.g{background:rgba(63,185,80,.08);border-color:var(--gd);color:#7ee787}
 .al.y{background:rgba(227,179,65,.08);border-color:#9e6a03;color:var(--y)}
 .al.b{background:rgba(31,111,235,.1);border-color:var(--ac);color:var(--bl)}
 .al.r{background:rgba(248,81,73,.08);border-color:#6e2020;color:#ff7b72}
-
-/* TABLE */
-.tbl{width:100%;border-collapse:collapse;font-size:.82rem;margin:8px 0}
-.tbl th,.tbl td{padding:8px 10px;text-align:right;border-bottom:1px solid var(--b)}
-.tbl th{background:var(--s2);color:var(--td);font-weight:500;font-size:.78rem}
-.tbl td{color:var(--td)}
+.tbl{width:100%;border-collapse:collapse;font-size:.82rem;margin:10px 0;background:var(--s2);border-radius:var(--rad);overflow:hidden}
+.tbl th,.tbl td{padding:9px 11px;text-align:right;border-bottom:1px solid var(--b)}
+.tbl th{background:var(--s3);color:var(--td);font-weight:600;font-size:.78rem}
+.tbl td{color:var(--tw)}
 .tbl td:first-child{color:var(--t);font-weight:500}
-
-/* CODE */
-.code{background:#010409;border:1px solid var(--b);border-radius:6px;padding:10px;font-family:monospace;font-size:.78rem;color:#c9d1d9;direction:ltr;text-align:left;overflow-x:auto;margin:8px 0}
-
-/* SECTION TITLE */
-.st{font-size:1rem;color:var(--bl);font-weight:600;margin:18px 0 10px;padding-right:8px;border-right:3px solid var(--ac)}
-
-/* SUPPORT BAR */
-.sb{background:var(--s);border:1px solid var(--b);border-radius:10px;padding:14px;margin-top:20px;text-align:center}
-.sb h3{font-size:.92rem;margin-bottom:8px}
-.sb a{display:inline-block;background:var(--s2);border:1px solid var(--b);border-radius:6px;padding:6px 12px;font-size:.82rem;margin:4px}
-
-/* COMPARE TABLE */
-.cmp{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:10px 0}
-.cmp .c{background:var(--s2);border:1px solid var(--b);border-radius:8px;padding:12px}
-.cmp .c h4{font-size:.86rem;margin-bottom:6px;color:var(--g)}
-.cmp .c.b h4{color:var(--bl)}
-.cmp .c ul{list-style:none;padding:0;font-size:.78rem;color:var(--td)}
-.cmp .c ul li{padding:4px 0;border-bottom:1px solid var(--b)}
-.cmp .c ul li:last-child{border:none}
-
-@media(max-width:560px){
-  .cmp{grid-template-columns:1fr}
-  .dsw button{padding:9px;font-size:.82rem}
-  .dsw button .ic{font-size:.95rem}
-}
+.tbl tr:last-child td{border-bottom:none}
+.code{background:#010409;border:1px solid var(--b);border-radius:var(--rad);padding:11px 13px;font-family:monospace;font-size:.78rem;color:#c9d1d9;direction:ltr;text-align:left;overflow-x:auto;margin:10px 0;line-height:1.6}
+.st{font-size:1.05rem;color:var(--bl);font-weight:600;margin:20px 0 12px;padding-right:10px;border-right:3px solid var(--ac)}
+.sb{background:linear-gradient(180deg,var(--s) 0%,var(--s2) 100%);border:1px solid var(--b);border-radius:var(--rad2);padding:18px;margin-top:24px;text-align:center}
+.sb h3{font-size:.95rem;margin-bottom:10px;color:var(--t)}
+.sb p{font-size:.82rem;color:var(--td);margin-bottom:10px}
+.sb a{display:inline-block;background:var(--s2);border:1px solid var(--b);border-radius:6px;padding:7px 14px;font-size:.82rem;margin:4px}
+.faq{margin:10px 0}
+.faq details{background:var(--s2);border:1px solid var(--b);border-radius:var(--rad);margin-bottom:8px;overflow:hidden}
+.faq summary{padding:11px 14px;cursor:pointer;font-size:.86rem;color:var(--t);font-weight:500;user-select:none;list-style:none;display:flex;align-items:center;gap:8px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::before{content:"❓";font-size:.85rem}
+.faq details[open] summary{background:var(--s3);border-bottom:1px solid var(--b)}
+.faq .a{padding:12px 14px;color:var(--tw);font-size:.83rem;line-height:1.75}
+.faq .a p{margin-bottom:6px}
+.faq .a ul{padding-right:18px}
+.hl{background:linear-gradient(135deg,rgba(63,185,80,.08),rgba(31,111,235,.08));border:1px solid var(--gd);border-radius:var(--rad2);padding:14px;margin:12px 0;font-size:.86rem;color:var(--tw);line-height:1.7}
+.hl strong{color:var(--g)}
+@media(max-width:560px){.dsw button{padding:9px 8px;font-size:.78rem}.cnt{padding:12px}.crd{padding:14px}}
 </style>
 </head>
 <body>
 
 <div class="hdr">
-  <h1>راهنمای mhrv-rs برای کامپیوتر و آیفون</h1>
-  <p>راه‌اندازی گام‌به‌گام — نسخه ساده و پیشرفته</p>
-  <a href="index.html" class="bk">← بازگشت به صفحه اصلی</a>
+<h1>راهنمای mhrv-rs برای کامپیوتر و آیفون</h1>
+<p>راه‌اندازی گام‌به‌گام — سطح ساده و پیشرفته</p>
+<a href="index.html" class="bk">← بازگشت به صفحه اصلی</a>
 </div>
 
-<!-- DEVICE SELECTOR -->
 <div class="dsw">
-  <button id="b-pc" class="on" onclick="dev('pc',this)">
-    <span class="ic">💻</span><span>کامپیوتر (Win/Mac/Linux)</span>
-  </button>
-  <button id="b-ios" onclick="dev('ios',this)">
-    <span class="ic">📱</span><span>آیفون / آیپد</span>
-  </button>
+<button id="b-pc" class="on" onclick="dev('pc',this)"><span class="ic">💻</span><span>کامپیوتر</span></button>
+<button id="b-ios" onclick="dev('ios',this)"><span class="ic">📱</span><span>آیفون</span></button>
 </div>
 
-<!-- LEVEL SELECTOR -->
 <div class="lsw">
-  <button id="l-easy" class="on" onclick="lvl('easy',this)">⚡ ساده</button>
-  <button id="l-adv" onclick="lvl('adv',this)">🛠 پیشرفته</button>
+<button id="l-easy" class="on" onclick="lvl('easy',this)">⚡ ساده</button>
+<button id="l-adv" onclick="lvl('adv',this)">🛠 پیشرفته</button>
 </div>
 
 <div class="cnt">
 
-<!-- ============== PC PANEL ============== -->
+<!-- ════════════════════════════════════════ -->
+<!-- ═════════════  PC PANEL  ═══════════════ -->
+<!-- ════════════════════════════════════════ -->
 <div id="p-pc" class="pnl on">
+
+<!-- 🚨 هشدار حیاتی: متصل موندن -->
+<div class="hl">
+<strong>🎯 برای بهترین تجربه — این رو حتماً بدون:</strong>
+<p style="margin-top:6px">برای کاربر شخصی PC، اپ <code>mhrv-rs</code> روی کامپیوترت باید <strong>روشن بمونه</strong> تا اینترنت آزاد داشته باشی. اگه PC رو خاموش کنی، اتصال هم قطع می‌شه. این طبیعیه و راهی نداره. اگه می‌خوای ۲۴/۷ اتصال داشته باشی، باید روی موبایل (Android) استفاده کنی.</p>
+</div>
 
 <!-- پیش‌نیازها -->
 <div class="crd">
-  <h2>📋 پیش‌نیازها</h2>
-  <p>قبل از شروع، این موارد رو آماده داشته باش:</p>
-  <ul style="padding-right:18px;color:var(--td);font-size:.86rem;margin-top:6px">
-    <li>✅ یک <strong style="color:var(--t)">حساب گوگل</strong> رایگان (به‌جز اکانت اصلی پیشنهاد می‌شه)</li>
-    <li>✅ یک <strong style="color:var(--t)">VPS اختصاصی</strong> از ما — یا اشتراک از <a href="https://t.me/Mhrv_script_bot">@Mhrv_script_bot</a></li>
-    <li>✅ <strong style="color:var(--t)">۱۰ دقیقه</strong> زمان برای راه‌اندازی</li>
-  </ul>
+<h2>📋 پیش‌نیازها — قبل از شروع</h2>
+<p>این موارد رو آماده داشته باش (همه رایگانن مگر VPS):</p>
+<ul>
+<li>✅ <strong>سیستم‌عامل:</strong> Windows 10+، macOS 11+ (Intel یا Apple Silicon)، یا Linux x86_64</li>
+<li>✅ <strong>دسترسی Administrator</strong> — برای نصب گواهی MITM لازمه (یک‌بار)</li>
+<li>✅ <strong>حساب گوگل رایگان</strong> — Apps Script روی این deploy می‌شه. پیشنهاد می‌شه یه Gmail جدید بسازی و فقط برای این کار استفاده کنی</li>
+<li>✅ <strong>VPS اختصاصی</strong> از ما — یا اشتراک از <a href="https://t.me/Mhrv_script_bot">@Mhrv_script_bot</a></li>
+<li>✅ <strong>~۱۵ دقیقه زمان</strong> — اگه از صفر شروع می‌کنی</li>
+</ul>
 </div>
 
-<!-- مقایسه CLI vs UI - فقط در حالت پیشرفته -->
+<!-- معماری ساده -->
 <div class="crd adv-only" style="display:none">
-  <h2>🤔 CLI یا UI؟</h2>
-  <div class="cmp">
-    <div class="c">
-      <h4>🖥 UI دسکتاپ (پیشنهاد)</h4>
-      <ul>
-        <li>✅ گرافیکی و ساده</li>
-        <li>✅ دکمه‌های Start/Stop/Test</li>
-        <li>✅ آمار زنده</li>
-        <li>✅ تنظیمات با فرم</li>
-      </ul>
-    </div>
-    <div class="c b">
-      <h4>⌨️ CLI</h4>
-      <ul>
-        <li>✅ headless و سرور</li>
-        <li>✅ سبک‌تر</li>
-        <li>✅ خودکارسازی</li>
-        <li>⚠️ نیاز به config.json دستی</li>
-      </ul>
-    </div>
-  </div>
+<h3>🏗 ترافیک از این مسیر می‌گذره</h3>
+<div class="code">
+مرورگر/تلگرام → mhrv-rs (لوکال) → TLS با SNI=www.google.com → Google Edge → Apps Script (جیمیل تو) → VPS Tunnel (سرور ما) → اینترنت آزاد
+</div>
+<p style="font-size:.82rem;color:var(--td);margin-top:8px">ISP فقط ترافیک TLS به Google رو می‌بینه. توی این تونل رمزشده، Host واقعی (script.google.com) درخواست رو به Apps Script منتقل می‌کنه.</p>
 </div>
 
-<!-- مراحل -->
-<h2 class="st">مراحل راه‌اندازی</h2>
+<!-- ════════════ مراحل اصلی ════════════ -->
+<h2 class="st">🚀 ۸ مرحله راه‌اندازی</h2>
 
 <div class="crd">
 <ol class="stp">
 
+<!-- مرحله ۱ -->
 <li>
-  <div class="sc">
-    <strong>دانلود برنامه</strong>
-    <p>از صفحه releases سازنده، نسخه مناسب سیستم‌عاملت رو دانلود کن:</p>
-    <div class="dl">
-      <a class="dlb" href="https://github.com/therealaleph/MasterHttpRelayVPN-RUST/releases/latest" target="_blank">
-        <span class="nm">🪟 Windows</span>
-        <span class="ds">mhrv-rs-windows-x64.zip</span>
-      </a>
-      <a class="dlb" href="https://github.com/therealaleph/MasterHttpRelayVPN-RUST/releases/latest" target="_blank">
-        <span class="nm">🍎 macOS</span>
-        <span class="ds">mhrv-rs-macos-*.zip</span>
-      </a>
-      <a class="dlb" href="https://github.com/therealaleph/MasterHttpRelayVPN-RUST/releases/latest" target="_blank">
-        <span class="nm">🐧 Linux</span>
-        <span class="ds">mhrv-rs-linux-*.tar.gz</span>
-      </a>
-    </div>
-    <div class="al b"><span class="ai">💡</span><span class="at"><strong>برای مک ARM (M1/M2/M3):</strong> فایلی که <code>aarch64</code> داره. برای مک قدیمی Intel، فایل <code>x86_64</code>.</span></div>
-  </div>
+<div class="sc">
+<strong>دانلود نرم‌افزار mhrv-rs</strong>
+<p>از صفحه release سازنده، نسخه‌ی مناسب سیستم‌عاملت رو انتخاب کن:</p>
+<div class="dl">
+<a class="dlb" href="https://github.com/therealaleph/MasterHttpRelayVPN-RUST/releases/latest" target="_blank">
+<span class="nm">🪟 Windows x64</span>
+<span class="ds">mhrv-rs-windows-x86_64.zip</span>
+</a>
+<a class="dlb" href="https://github.com/therealaleph/MasterHttpRelayVPN-RUST/releases/latest" target="_blank">
+<span class="nm">🍎 macOS Apple Silicon</span>
+<span class="ds">mhrv-rs-macos-aarch64-app.zip</span>
+</a>
+<a class="dlb" href="https://github.com/therealaleph/MasterHttpRelayVPN-RUST/releases/latest" target="_blank">
+<span class="nm">🍎 macOS Intel</span>
+<span class="ds">mhrv-rs-macos-x86_64-app.zip</span>
+</a>
+<a class="dlb" href="https://github.com/therealaleph/MasterHttpRelayVPN-RUST/releases/latest" target="_blank">
+<span class="nm">🐧 Linux x64</span>
+<span class="ds">mhrv-rs-linux-x86_64.tar.gz</span>
+</a>
+</div>
+<div class="al b"><span class="ai">💡</span><span class="at"><strong>نکته:</strong> فایل‌های مک با پسوند <code>-app.zip</code> شامل <code>mhrv-rs.app</code> هستن که فقط دابل‌کلیک می‌کنی. فایل‌های لینوکس <code>musl</code> هیچ وابستگی به سیستم ندارن، هرجایی کار می‌کنن.</span></div>
+</div>
 </li>
 
+<!-- مرحله ۲ -->
 <li>
-  <div class="sc">
-    <strong>اجرای اول و نصب گواهی</strong>
-    <p>فایل دانلود شده رو از حالت فشرده دربیار. سپس:</p>
-    <ul>
-      <li><strong style="color:var(--t)">ویندوز:</strong> روی <code>run.bat</code> دابل‌کلیک کن (با Run as Administrator)</li>
-      <li><strong style="color:var(--t)">مک:</strong> روی <code>run.command</code> دابل‌کلیک کن</li>
-      <li><strong style="color:var(--t)">لینوکس:</strong> در ترمینال <code>./run.sh</code></li>
-    </ul>
-    <div class="al y"><span class="ai">⚠️</span><span class="at">بار اول رمز سیستم رو می‌خواد. این فقط برای <strong>نصب یک گواهی محلی</strong>ست — هیچ‌چیز به سرور خارجی نمی‌ره. گواهی روی سیستم خودت ساخته می‌شه.</span></div>
-    <div class="al g adv-only" style="display:none"><span class="ai">🔒</span><span class="at"><strong>چرا گواهی لازمه؟</strong> چون mhrv-rs ترافیک HTTPS رو local باز می‌کنه، از طریق Apps Script رد می‌کنه، و دوباره رمزگذاری می‌کنه با گواهی خودش. کلید خصوصی این گواهی فقط روی سیستم تو می‌مونه.</span></div>
-  </div>
+<div class="sc">
+<strong>اولین اجرا و نصب گواهی MITM</strong>
+<p>فایل دانلودشده رو از حالت فشرده دربیار. سپس نسخه‌ی launcher رو اجرا کن (نه CLI):</p>
+<ul>
+<li><strong style="color:var(--t)">ویندوز:</strong> روی <code>run.bat</code> کلیک راست → <strong>Run as Administrator</strong></li>
+<li><strong style="color:var(--t)">مک:</strong> روی <code>run.command</code> دابل‌کلیک. اگه گفت "developer شناخته‌شده نیست": Settings → Privacy & Security → پایین صفحه <strong>Open Anyway</strong></li>
+<li><strong style="color:var(--t)">لینوکس:</strong> در ترمینال <code>./run.sh</code> (با sudo می‌پرسه)</li>
+</ul>
+<div class="al y"><span class="ai">⚠️</span><span class="at"><strong>چرا گواهی لازمه؟</strong> اپ ترافیک HTTPS رو محلی باز می‌کنه (تا بتونه از Apps Script رد کنه) و دوباره با گواهی خودش رمزگذاری می‌کنه. <strong>کلید خصوصی این گواهی فقط روی سیستم تو می‌مونه</strong> — به هیچ سرور خارجی نمی‌ره. این یه CA محلی برای خود سیستم خودته.</span></div>
+<p style="margin-top:8px">رمز Admin/sudo رو وارد کن. اپ خودش CA رو نصب می‌کنه و UI رو باز می‌کنه.</p>
+</div>
 </li>
 
+<!-- مرحله ۳ -->
 <li>
-  <div class="sc">
-    <strong>راه‌اندازی Apps Script</strong>
-    <p>اگه VPS اختصاصی داری، به صفحه اصلی برو و کد Apps Script رو از سربرگ «📝 Apps Script» کپی کن. اگه اشتراک از ربات گرفتی، اسکریپت آماده‌ای رو که برات اومده استفاده کن.</p>
-    <a href="index.html" style="display:inline-block;background:var(--s2);border:1px solid var(--ac);border-radius:6px;padding:6px 12px;font-size:.82rem;margin-top:4px;color:var(--bl)">→ ساخت Apps Script در صفحه اصلی</a>
-  </div>
+<div class="sc">
+<strong>ساخت Apps Script در گوگل</strong>
+<p>این کار فقط <strong>یک‌بار</strong> انجام می‌شه. روی PC انجامش بده (نه گوشی):</p>
+<ol style="counter-reset:item">
+<li>برو به <a href="https://script.google.com" target="_blank">script.google.com</a> → <strong>New project</strong></li>
+<li>کد قدیمی <code>function myFunction()</code> رو پاک کن</li>
+<li>کد آماده‌ای که از ربات یا صفحه‌ی <a href="index.html">راه‌اندازی</a> گرفتی رو paste کن</li>
+<li>نام پروژه رو بذار <code>mhrv-relay</code> (یا هرچی دوست داری)</li>
+<li>کلید <strong>Save</strong> (Ctrl+S / ⌘+S)</li>
+<li><strong>Deploy → New deployment</strong></li>
+<li>روی آیکون ⚙️ بزن → <strong>Web app</strong></li>
+<li>تنظیمات:
+<table class="tbl" style="margin:6px 0">
+<tr><td>Description</td><td><code>mhrv-relay v1</code></td></tr>
+<tr><td>Execute as</td><td><strong>Me</strong></td></tr>
+<tr><td>Who has access</td><td><strong>Anyone</strong></td></tr>
+</table>
+</li>
+<li><strong>Deploy</strong> بزن. اگه پرسید permission: Authorize → "Advanced" → "Go to project (unsafe)" → Allow</li>
+<li><strong>Web app URL</strong> رو کپی کن (شبیه <code>https://script.google.com/macros/s/AKfyc.../exec</code>)</li>
+</ol>
+<a href="index.html" style="display:inline-block;background:var(--s2);border:1px solid var(--ac);border-radius:6px;padding:7px 14px;font-size:.82rem;margin-top:8px;color:var(--bl)">→ گرفتن کد آماده از صفحه راه‌اندازی</a>
+</div>
 </li>
 
+<!-- مرحله ۴ -->
 <li>
-  <div class="sc">
-    <strong>دیپلوی Apps Script در گوگل</strong>
-    <ul>
-      <li>به <a href="https://script.google.com" target="_blank">script.google.com</a> برو</li>
-      <li><strong style="color:var(--t)">New project</strong> → کد آماده رو پیست کن</li>
-      <li>کلیک <strong style="color:var(--t)">Deploy → New deployment</strong></li>
-      <li>Type: <code>Web app</code> | Execute as: <code>Me</code> | Access: <code>Anyone</code></li>
-      <li>دکمه <strong style="color:var(--t)">Deploy</strong> رو بزن</li>
-      <li><strong style="color:var(--g)">Deployment ID</strong> رو کپی کن (رشته طولانی)</li>
-    </ul>
-  </div>
+<div class="sc">
+<strong>وارد کردن تنظیمات در اپ</strong>
+<p>UI اپ mhrv-rs الان باز هست. این فیلدها رو پر کن:</p>
+<table class="tbl">
+<thead><tr><th>فیلد</th><th>مقدار</th></tr></thead>
+<tbody>
+<tr><td>Apps Script URL / ID</td><td>همون <code>/exec URL</code> از مرحله ۳</td></tr>
+<tr><td>Auth key</td><td>همون رمز AUTH_KEY که در Apps Script گذاشتی</td></tr>
+<tr><td>Google IP</td><td><code>216.239.38.120</code> (پیش‌فرض)</td></tr>
+<tr><td>Front domain</td><td><code>www.google.com</code> (دست نزن)</td></tr>
+<tr><td>HTTP port</td><td><code>8085</code> (پیش‌فرض)</td></tr>
+<tr><td>SOCKS5 port</td><td><code>8086</code> (پیش‌فرض)</td></tr>
+<tr><td>Mode</td><td><strong>apps_script</strong> (یا Full mode اگه VPS داری)</td></tr>
+</tbody>
+</table>
+<p>کلید <strong>Save</strong> رو بزن.</p>
+</div>
 </li>
 
+<!-- مرحله ۵ -->
 <li>
-  <div class="sc">
-    <strong>پر کردن فرم در برنامه</strong>
-    <p>صفحه برنامه mhrv-rs الان باز هست. این فیلدها رو پر کن:</p>
-    <ul>
-      <li><strong>Apps Script ID:</strong> همون Deployment ID مرحله قبل</li>
-      <li><strong>Auth key:</strong> همون کلید AUTH (رمز VPS)</li>
-      <li><strong>Google IP:</strong> پیش‌فرض <code>216.239.38.120</code> خوبه</li>
-      <li><strong>Front domain:</strong> <code>www.google.com</code></li>
-      <li><strong>HTTP port:</strong> <code>8085</code> (پیش‌فرض)</li>
-      <li><strong>SOCKS5 port:</strong> <code>8086</code> (پیش‌فرض)</li>
-    </ul>
-    <p>دکمه <strong style="color:var(--g)">Save</strong> بعد <strong style="color:var(--g)">Start</strong>. وضعیت سبز شد ✅</p>
-    <div class="al b adv-only" style="display:none"><span class="ai">⚡</span><span class="at"><strong>برای سرعت بیشتر:</strong> دکمه <code>scan</code> کنار Google IP رو بزن. سریع‌ترین IP رو پیدا می‌کنه.</span></div>
-  </div>
+<div class="sc">
+<strong>تست SNI — این مرحله رو رد نکن!</strong>
+<p>قبل از Start، توی اپ باید مطمئن بشی مسیر گوگل کار می‌کنه:</p>
+<ol>
+<li>بخش <strong>SNI pool + tester</strong> رو باز کن</li>
+<li>کلید <strong>Test all</strong> بزن</li>
+<li>صبر کن ۱۰-۲۰ ثانیه — هر SNI آزمایش می‌شه</li>
+</ol>
+<table class="tbl">
+<thead><tr><th>نتیجه</th><th>معنا</th><th>کار بعدی</th></tr></thead>
+<tbody>
+<tr><td>✅ همه سبز</td><td>عالی</td><td>ادامه بده</td></tr>
+<tr><td>❌ بعضی قرمز</td><td>اون SNI ها در شبکه تو DPI-filter شدن</td><td>تیک ردیف‌های قرمز رو بردار</td></tr>
+<tr><td>❌ همه قرمز</td><td>Google IP قدیمیه</td><td><strong>Auto-detect google_ip</strong> رو بزن، دوباره Test all</td></tr>
+<tr><td>❌ DNS error</td><td>گوشی <code>www.google.com</code> رو resolve نمی‌کنه</td><td>اینترنت رو چک کن</td></tr>
+</tbody>
+</table>
+<div class="al g"><span class="ai">⚡</span><span class="at"><strong>کلید سرعت بالاتر:</strong> فقط ۲-۳ تا SNI با کمترین ping (زیر ۲۰۰ms) رو نگه دار، بقیه رو تیک بردار. اپ بین این‌ها چرخش (rotation) می‌کنه.</span></div>
+</div>
 </li>
 
+<!-- مرحله ۶ -->
 <li>
-  <div class="sc">
-    <strong>تنظیم مرورگر یا سیستم</strong>
-    <p>الان mhrv-rs روی <code>127.0.0.1:8085</code> گوش می‌ده. مرورگر رو وصل کن:</p>
-    <h3 style="font-size:.85rem;margin:10px 0 4px">🦊 فایرفاکس:</h3>
-    <p>Settings → Network Settings → Manual proxy<br>HTTP host: <code>127.0.0.1</code>, port: <code>8085</code><br>تیک ✅ <strong>Also use this proxy for HTTPS</strong></p>
-
-    <h3 style="font-size:.85rem;margin:10px 0 4px">🌐 کروم / Edge:</h3>
-    <p>افزونه <a href="https://chrome.google.com/webstore/search/SwitchyOmega" target="_blank">Proxy SwitchyOmega</a> نصب کن. سرور: <code>127.0.0.1:8085</code></p>
-
-    <h3 style="font-size:.85rem;margin:10px 0 4px">🍎 مک (کل سیستم):</h3>
-    <p>System Settings → Network → Wi-Fi → Details → Proxies<br>تیک ✅ Web Proxy + Secure Web Proxy، هر دو <code>127.0.0.1:8085</code></p>
-
-    <h3 style="font-size:.85rem;margin:10px 0 4px">🪟 ویندوز (کل سیستم):</h3>
-    <p>Settings → Network → Proxy → Manual proxy setup<br>Address: <code>127.0.0.1</code>, port: <code>8085</code></p>
-  </div>
+<div class="sc">
+<strong>Start کن و Test بزن</strong>
+<p>کلید سبز <strong>Start</strong> رو بزن. وضعیت سبز شد یعنی اپ روی <code>127.0.0.1:8085</code> داره listen می‌کنه ✅</p>
+<p style="margin-top:6px">کلید <strong>Test</strong> رو هم بزن — یه درخواست کامل از طریق رله می‌فرسته. اگه موفق بود = همه چیز سالمه.</p>
+</div>
 </li>
 
+<!-- مرحله ۷ -->
 <li>
-  <div class="sc">
-    <strong>تست کن!</strong>
-    <p>یه سایت فیلتر شده باز کن — مثلاً <a href="https://x.com" target="_blank">x.com</a> یا <a href="https://youtube.com" target="_blank">youtube.com</a>. اگه باز شد، تمام! 🎉</p>
-    <div class="al g"><span class="ai">✅</span><span class="at">دکمه <strong>Test</strong> در برنامه هم وجود داره — یک‌بار بزن، یه درخواست از طریق رله می‌فرسته و موفقیت/تأخیر رو نشون می‌ده.</span></div>
-  </div>
+<div class="sc">
+<strong>تنظیم مرورگر یا سیستم</strong>
+<p>الان اپ آماده‌ست ولی هنوز مرورگرت ازش استفاده نمی‌کنه. باید بهش بگی:</p>
+
+<h3>🦊 Firefox (پیشنهاد می‌شه)</h3>
+<ol>
+<li>Settings → General → پایین صفحه <strong>Network Settings</strong></li>
+<li>Manual proxy configuration</li>
+<li>HTTP Proxy: <code>127.0.0.1</code>، Port: <code>8085</code></li>
+<li>✅ تیک <strong>Also use this proxy for HTTPS</strong></li>
+<li>OK</li>
+</ol>
+
+<h3>🌐 Chrome / Edge</h3>
+<p>کرومیوم تنظیمات پروکسی جداگانه نداره — از سیستم می‌خونه. بهترین راه افزونه:</p>
+<ol>
+<li>افزونه <a href="https://chromewebstore.google.com/search/SwitchyOmega" target="_blank">Proxy SwitchyOmega</a> نصب کن</li>
+<li>New Profile → Proxy</li>
+<li>Server: <code>127.0.0.1</code>، Port: <code>8085</code>، Type: HTTP</li>
+<li>روی آیکون افزونه کلیک کن، profile رو فعال کن</li>
+</ol>
+
+<h3>🪟 ویندوز (کل سیستم)</h3>
+<ol>
+<li>Settings → Network & Internet → Proxy</li>
+<li>Manual proxy setup → On</li>
+<li>Address: <code>127.0.0.1</code>، Port: <code>8085</code></li>
+<li>Save</li>
+</ol>
+
+<h3>🍎 مک (کل سیستم)</h3>
+<ol>
+<li>System Settings → Network → Wi-Fi → Details</li>
+<li>سربرگ <strong>Proxies</strong></li>
+<li>تیک ✅ <strong>Web Proxy (HTTP)</strong> و <strong>Secure Web Proxy (HTTPS)</strong>، هر دو روی <code>127.0.0.1:8085</code></li>
+<li>OK</li>
+</ol>
+</div>
+</li>
+
+<!-- مرحله ۸ -->
+<li>
+<div class="sc">
+<strong>تست نهایی</strong>
+<p>یه سایت فیلتر شده باز کن — مثلاً <a href="https://x.com" target="_blank">x.com</a> یا <a href="https://www.youtube.com" target="_blank">youtube.com</a>.</p>
+<p>اگه باز شد، تمام! 🎉</p>
+<div class="al g"><span class="ai">✅</span><span class="at"><strong>برای IP خودت رو ببینی:</strong> به <a href="https://ipinfo.io" target="_blank">ipinfo.io</a> برو. باید IP گوگل ببینی (نه ISP ایران).</span></div>
+</div>
 </li>
 
 </ol>
 </div>
 
-<!-- بخش پیشرفته فقط -->
+<!-- ════════════ بخش پیشرفته ════════════ -->
 <div class="adv-only" style="display:none">
 
-<h2 class="st">🛠 تنظیمات پیشرفته</h2>
+<h2 class="st">🚀 ۳ راه افزایش سرعت چند برابر</h2>
+
+<div class="crd">
+<h3>۱. چند Deployment روی Gmail های مختلف</h3>
+<p>هر اکانت گوگل روزانه <strong>۲۰,۰۰۰ درخواست</strong> سهمیه داره. وقتی به پیک می‌رسی، سرویس کند می‌شه. راه‌حل:</p>
+<ol>
+<li>۲-۳ Gmail جدید بساز (مثلاً <code>kian.mhrv1@gmail.com</code>, <code>kian.mhrv2@...</code>)</li>
+<li>روی هر کدوم همون Apps Script رو deploy کن — هر بار با همون AUTH_KEY ولی Deployment ID جدید می‌گیری</li>
+<li>توی اپ، همه ID ها رو وارد کن — یکی در هر خط</li>
+</ol>
+<p>اپ بین‌شون round-robin می‌کنه. ۳ تا جیمیل = <strong>۶۰,۰۰۰ درخواست/روز</strong> = ۳ برابر سرعت در پیک.</p>
+<div class="al g"><span class="ai">⚡</span><span class="at"><strong>پیشنهاد عملی:</strong> ۳-۶ Deployment بهترین نقطه‌ی تعادل. بیشتر از این فقط مدیریتش سخت می‌شه.</span></div>
+</div>
+
+<div class="crd">
+<h3>۲. Auto-detect google_ip</h3>
+<p>گاهی گوگل A record های <code>www.google.com</code> رو عوض می‌کنه. IP پیش‌فرض ما (<code>216.239.38.120</code>) ممکنه کند بشه. در اپ:</p>
+<ul>
+<li>بخش Network → کلید <strong>Auto-detect google_ip</strong></li>
+<li>اپ DNS query می‌کنه و سریع‌ترین IP رو پیدا می‌کنه</li>
+<li>اگه پشتیبانی <code>fetch_ips_from_api</code> هم فعال کنی، از API گوگل لیست IP می‌گیره و ۱۰۰ تا کاندید تست می‌کنه</li>
+</ul>
+</div>
+
+<div class="crd">
+<h3>۳. SNI pool optimization</h3>
+<p>اپ پیش‌فرض چند SNI داره: <code>www.google.com</code>, <code>mail.google.com</code>, <code>drive.google.com</code>, ...</p>
+<p>اگه یکی در شبکه‌ی تو فیلتره، باعث error می‌شه. راه‌حل:</p>
+<ol>
+<li>SNI pool → Test all</li>
+<li>فقط ۲-۳ تا با کمترین ping رو نگه دار</li>
+<li>بقیه رو تیک بردار</li>
+</ol>
+</div>
+
+<h2 class="st">⚙️ تنظیمات پیشرفته</h2>
 
 <div class="crd">
 <h3>📡 تلگرام و اپ‌های غیر-HTTP (Upstream SOCKS5)</h3>
-<p>رله Apps Script فقط HTTP می‌فهمه. برای تلگرام MTProto و اپ‌های غیرمرورگری، باید یه xray محلی هم داشته باشی که به VPS خودت وصل بشه. در config.json:</p>
+<p>رله Apps Script فقط HTTP می‌فهمه. برای پروتکل‌های خام TCP (تلگرام MTProto، IMAP، SSH، بازی‌ها) باید یه xray محلی هم داشته باشی که به VPS شخصی خودت وصل بشه:</p>
 <div class="code">{
+  "mode": "apps_script",
+  "script_id": ["id1", "id2"],
+  "auth_key": "your-secret",
   "upstream_socks5": "127.0.0.1:50529"
 }</div>
-<p>این طوری ترافیک HTTP/HTTPS از Apps Script می‌ره، ولی ترافیک TCP خام (تلگرام، SSH، ...) از xray می‌ره.</p>
+<p style="margin-top:8px">این طوری HTTP/HTTPS از Apps Script می‌ره، TCP خام از xray. (xray رو خودت باید نصب و کانفیگ کنی.)</p>
+<div class="al b"><span class="ai">💡</span><span class="at"><strong>راحت‌تر:</strong> اگه VPS اختصاصی از ما گرفتی، <strong>Full mode</strong> رو استفاده کن — همه‌چیز (تلگرام/یوتیوب/همه) از تونل ما رد می‌شه بدون نیاز به xray.</span></div>
 </div>
 
 <div class="crd">
-<h3>🔀 چند Deployment برای سرعت بیشتر</h3>
-<p>هر Deployment ID یه pool 30 درخواست همزمان داره. برای استفاده سنگین، 3-6 Deployment روی حساب‌های گوگل مختلف بساز:</p>
+<h3>🎯 حالت Full mode (VPS اختصاصی)</h3>
+<p>اگه VPS اختصاصی از ما داری، در config.json:</p>
 <div class="code">{
-  "script_id": ["id1", "id2", "id3", "id4", "id5", "id6"],
+  "mode": "full",
+  "script_id": ["id1", "id2", "id3"],
   "auth_key": "your-secret"
 }</div>
-<table class="tbl">
-<thead><tr><th>تعداد</th><th>همزمانی</th><th>توضیح</th></tr></thead>
-<tbody>
-<tr><td>۱</td><td>۳۰</td><td>مرور سبک</td></tr>
-<tr><td>۳</td><td>۹۰</td><td>استفاده روزانه</td></tr>
-<tr><td>۶</td><td>۱۸۰</td><td>استفاده سنگین (پیشنهاد)</td></tr>
-<tr><td>۱۲</td><td>۳۶۰</td><td>حداکثر</td></tr>
-</tbody>
-</table>
+<p>تفاوت: همه ترافیک (HTTP، TCP خام، UDP) از مسیر Apps Script → tunnel-node ما → اینترنت رد می‌شه. تلگرام، یوتیوب، WhatsApp، همه کار می‌کنن.</p>
 </div>
 
 <div class="crd">
-<h3>🎯 SNI Pool — بهینه‌سازی</h3>
-<p>به‌طور پیش‌فرض، mhrv-rs بین <code>www.google.com</code>, <code>mail.google.com</code>, <code>drive.google.com</code>, <code>docs.google.com</code>, <code>calendar.google.com</code> می‌چرخه. اگه یکی محلی فیلتر بود:</p>
-<p>UI → <strong>SNI pool</strong> → <strong>Test all</strong> → <strong>Keep ✓ only</strong></p>
-<p>یا در config.json:</p>
-<div class="code">{
-  "sni_hosts": [
-    "www.google.com",
-    "drive.google.com",
-    "docs.google.com"
-  ]
-}</div>
+<h3>🔄 حالت Direct — وقتی Apps Script فیلتر شد</h3>
+<p>اگه ISP خود <code>script.google.com</code> رو هم بسته (تو شرایط خاص فیلترینگ سنگین):</p>
+<ol>
+<li>اول mhrv-rs رو در <code>mode: "direct"</code> اجرا کن — فقط دامنه‌های گوگل رو تونل می‌کنه</li>
+<li>به <code>script.google.com</code> برو، Apps Script رو deploy کن</li>
+<li>بعد <code>mode</code> رو به <code>apps_script</code> یا <code>full</code> برگردون</li>
+</ol>
 </div>
 
 <div class="crd">
-<h3>🌍 Exit Node — برای ChatGPT/Claude/Grok</h3>
-<p>سرویس‌های پشت Cloudflare (ChatGPT، Claude، Grok) IPهای گوگل رو bot می‌بینن. اگه می‌خوای کار کنن، یه Exit Node کوچک روی Deno Deploy یا Cloudflare Workers راه بنداز.</p>
-<a href="https://github.com/therealaleph/MasterHttpRelayVPN-RUST/blob/main/assets/exit_node/README.fa.md" target="_blank" style="color:var(--bl);font-size:.85rem">→ راهنمای کامل Exit Node</a>
-</div>
-
-<div class="crd">
-<h3>🔄 حالت Direct — وقتی Apps Script فیلتر شده</h3>
-<p>اگه ISP خود <code>script.google.com</code> رو هم بسته، اول mhrv-rs رو در حالت <code>direct</code> اجرا کن — فقط ترافیک گوگل رو تونل می‌کنه و کمکت می‌کنه بری Apps Script رو deploy کنی. بعد بهش به حالت <code>apps_script</code> برگرد.</p>
-<div class="code">{
-  "mode": "direct",
-  "google_ip": "216.239.38.120",
-  "front_domain": "www.google.com"
-}</div>
-</div>
-
-</div>
-
-<!-- مشکلات رایج -->
-<h2 class="st">🆘 مشکلات رایج</h2>
-
-<div class="crd">
-<h3>❌ «Test» fail می‌شه</h3>
-<p>۱) چک کن VPS بالا باشه (با <code>check.sh</code>)<br>۲) Apps Script رو دوباره deploy کن<br>۳) دکمه scan کنار Google IP رو بزن</p>
-
-<h3>🐌 سرعت کم</h3>
-<p>۱) چند Deployment روی حساب‌های گوگل مختلف بساز<br>۲) از حالت Full Tunnel استفاده کن (با VPS)<br>۳) برای ویدیو، YouTube via relay رو فعال کن</p>
-
-<h3>🌐 یوتیوب پخش نمی‌شه</h3>
-<p>chunkهای ویدیو از <code>googlevideo.com</code> میان که سهمیه Apps Script رو زود می‌سوزونه. راه‌حل: Full Tunnel با VPS</p>
-
-<h3>🔐 هشدار «دستگاه ناشناس» گوگل</h3>
-<p>چون IP از دیتاسنتر گوگل میاد. یه بار از طریق تونل لاگین کن، بعد عادی می‌شه</p>
-
-<h3 class="adv-only" style="display:none">🐛 خطای GLIBC در لینوکس</h3>
-<p class="adv-only" style="display:none">از فایل <code>mhrv-rs-linux-musl-amd64.tar.gz</code> استفاده کن — کاملاً استاتیک، هر کجا کار می‌کنه</p>
+<h3>💻 رابط CLI (headless)</h3>
+<p>برای سرور یا اتوماسیون، می‌تونی از CLI استفاده کنی:</p>
+<div class="code">./mhrv-rs                  # اجرای پروکسی
+./mhrv-rs test             # تست یک درخواست کامل
+./mhrv-rs scan-ips         # رتبه‌بندی IP های گوگل
+./mhrv-rs test-sni         # تست SNI ها
+./mhrv-rs --install-cert   # نصب مجدد CA
+./mhrv-rs --remove-cert    # حذف کامل CA
+./mhrv-rs --help</div>
+<p style="margin-top:6px">فایل config.json در این مسیرها قرار می‌گیره:</p>
+<ul>
+<li>مک: <code>~/Library/Application Support/mhrv-rs/</code></li>
+<li>لینوکس: <code>~/.config/mhrv-rs/</code></li>
+<li>ویندوز: <code>%APPDATA%\mhrv-rs\</code></li>
+</ul>
 </div>
 
 </div>
-<!-- ============== /PC PANEL ============== -->
 
+<!-- ════════════ FAQ ════════════ -->
+<h2 class="st">❓ سوالات رایج (PC)</h2>
 
-<!-- ============== iOS PANEL ============== -->
+<div class="faq">
+
+<details>
+<summary>چرا بعد از Start هیچ سایتی باز نمی‌شه؟</summary>
+<div class="a">
+<p>۳ علت رایج:</p>
+<ul>
+<li><strong>مرورگر تنظیم نشده:</strong> مرحله ۷ رو دوباره چک کن. مرورگرت باید روی <code>127.0.0.1:8085</code> ست شده باشه.</li>
+<li><strong>Apps Script deploy نشده:</strong> به <code>/exec URL</code> در مرورگر برو، باید پیام <em>"The script completed but did not return anything"</em> ببینی. اگه error دیدی، deploy رو دوباره انجام بده.</li>
+<li><strong>SNI همه fail:</strong> به مرحله ۵ برگرد و Auto-detect google_ip رو بزن.</li>
+</ul>
+</div>
+</details>
+
+<details>
+<summary>🐌 سرعت کند است</summary>
+<div class="a">
+<p>۴ راه بهبود سرعت (به ترتیب اهمیت):</p>
+<ol>
+<li><strong>چند Deployment</strong> بساز (۳ تا روی Gmail های جدا)</li>
+<li><strong>SNI pool</strong> رو فقط ۲-۳ تا با کمترین ping نگه دار</li>
+<li><strong>Auto-detect google_ip</strong> بزن</li>
+<li>اگه VPS اختصاصی داری، به <strong>Full mode</strong> سوییچ کن</li>
+</ol>
+</div>
+</details>
+
+<details>
+<summary>🎥 یوتیوب کند پخش می‌شه</summary>
+<div class="a">
+<p>این محدودیت ذاتیه: ویدیوهای یوتیوب از <code>googlevideo.com</code> میان که سهمیه Apps Script رو سریع می‌سوزونه.</p>
+<p><strong>راه‌حل:</strong></p>
+<ul>
+<li>اگه VPS داری، <strong>Full mode</strong> این رو حل می‌کنه — یوتیوب از tunnel-node رد می‌شه نه Apps Script</li>
+<li>ویدیوهای کوتاه‌تر یا کیفیت پایین‌تر</li>
+<li>چند Deployment داشته باش</li>
+</ul>
+</div>
+</details>
+
+<details>
+<summary>🌐 ChatGPT / Claude / Grok بسته می‌شه (Cloudflare CAPTCHA)</summary>
+<div class="a">
+<p>این سایت‌ها پشت Cloudflare هستن و IP های دیتاسنتر گوگل رو bot می‌بینن. Cloudflare CAPTCHA می‌ده.</p>
+<p><strong>راه‌حل قطعی نداره</strong> در این معماری. ولی موقتاً:</p>
+<ul>
+<li>CAPTCHA رو حل کن — معمولاً برای ۵-۱۰ دقیقه قبول می‌کنه</li>
+<li>هر باز که قطع شد، دوباره</li>
+<li>اگه چت‌جی‌پی‌تی روزانه مهمه، با پشتیبانی صحبت کن — راه‌حل سفارشی داریم (Exit Node)</li>
+</ul>
+</div>
+</details>
+
+<details>
+<summary>📜 خطای "certificate not trusted"</summary>
+<div class="a">
+<p>گواهی MITM در مرحله ۲ درست نصب نشده. راه‌حل:</p>
+<ol>
+<li>اپ رو ببند</li>
+<li>دوباره <code>run.bat</code> / <code>run.command</code> رو با Administrator اجرا کن</li>
+<li>یا از CLI: <code>./mhrv-rs --install-cert</code></li>
+</ol>
+</div>
+</details>
+
+<details>
+<summary>🔥 هشدار گوگل: "ورود از مکان ناشناس"</summary>
+<div class="a">
+<p>چون IP از دیتاسنتر گوگل میاد (نه ISP معمول تو)، گوگل ممکنه هشدار بده. این طبیعیه و خطر امنیتی نیست.</p>
+<p><strong>راه‌حل:</strong> یه بار از طریق تونل به Gmail/Google account وارد شو و گوگل رو تأیید کن. بعد دیگه هشدار نمی‌ده.</p>
+</div>
+</details>
+
+<details class="adv-only" style="display:none">
+<summary>🐧 لینوکس: خطای GLIBC</summary>
+<div class="a">
+<p>نسخه‌ی glibc سیستم تو خیلی قدیمیه. از فایل <code>mhrv-rs-linux-musl-amd64.tar.gz</code> استفاده کن — کاملاً استاتیک، هرجا کار می‌کنه.</p>
+</div>
+</details>
+
+<details class="adv-only" style="display:none">
+<summary>🛠 لاگ‌ها کجا هستن؟</summary>
+<div class="a">
+<p>UI: بخش <strong>Live logs</strong> در پایین اپ، هر ۵۰۰ms به‌روز می‌شه.</p>
+<p>CLI: روی stderr چاپ می‌شه. برای save:</p>
+<div class="code">./mhrv-rs serve --log-level debug 2> mhrv.log</div>
+</div>
+</details>
+
+<details>
+<summary>♻️ چطور uninstall کنم؟</summary>
+<div class="a">
+<ol>
+<li>اپ رو ببند</li>
+<li>CLI: <code>./mhrv-rs --remove-cert</code> (گواهی رو از سیستم پاک می‌کنه)</li>
+<li>پوشه‌ی اپ رو پاک کن</li>
+<li>اختیاری: پوشه‌ی config رو هم پاک کن:
+<ul>
+<li>مک: <code>~/Library/Application Support/mhrv-rs/</code></li>
+<li>لینوکس: <code>~/.config/mhrv-rs/</code></li>
+<li>ویندوز: <code>%APPDATA%\mhrv-rs\</code></li>
+</ul>
+</li>
+</ol>
+</div>
+</details>
+
+</div>
+
+</div>
+<!-- ═══════════════ /PC PANEL ═══════════════ -->
+
+<!-- ════════════════════════════════════════ -->
+<!-- ════════════  iOS PANEL  ══════════════ -->
+<!-- ════════════════════════════════════════ -->
 <div id="p-ios" class="pnl">
 
-<div class="al r"><span class="ai">⚠️</span><span class="at"><strong>نکته مهم درباره آیفون:</strong> اپ مستقیم mhrv-rs برای iOS منتشر نشده. باید از روش غیرمستقیم استفاده کنی (گزینه‌های زیر).</span></div>
-
-<!-- روش‌ها -->
-<div class="crd">
-<h2>🤔 سه روش برای آیفون</h2>
-<table class="tbl">
-<thead><tr><th>روش</th><th>راحتی</th><th>کیفیت</th><th>نیاز</th></tr></thead>
-<tbody>
-<tr><td>۱. اشتراک از گوشی Android</td><td>⭐⭐⭐⭐⭐</td><td>کامل</td><td>یه گوشی Android</td></tr>
-<tr><td>۲. اشتراک از کامپیوتر</td><td>⭐⭐⭐</td><td>کامل</td><td>یه PC که روشن باشه</td></tr>
-<tr><td>۳. مستقیم با Shadowrocket</td><td>⭐⭐</td><td>محدود</td><td>اپ پولی Shadowrocket</td></tr>
-</tbody>
-</table>
+<!-- 🚨 هشدار اصلی iOS -->
+<div class="hl" style="background:linear-gradient(135deg,rgba(248,81,73,.08),rgba(227,179,65,.08));border-color:#9e6a03">
+<strong style="color:var(--y)">⚠️ نکته مهم درباره آیفون:</strong>
+<p style="margin-top:6px">سازنده اپ mhrv-rs <strong>نسخه‌ی native iOS منتشر نکرده</strong> — فقط Android، Windows، macOS، Linux. این به‌خاطر محدودیت‌های App Store اپل هست (VPN-MITM ها معمولاً رد می‌شن).</p>
+<p style="margin-top:6px">پس آیفون باید از روش‌های غیرمستقیم استفاده کنه. ۳ روش پایین رو بررسی کن و بهترین رو برای خودت انتخاب کن.</p>
 </div>
 
-<!-- روش ۱ -->
-<h2 class="st">روش ۱: اشتراک از Android (پیشنهاد ✨)</h2>
+<!-- جدول مقایسه -->
+<div class="crd">
+<h2>🤔 سه روش — کدوم برای تو بهتره؟</h2>
+<table class="tbl">
+<thead><tr><th>روش</th><th>راحتی</th><th>کیفیت</th><th>نیاز اضافه</th></tr></thead>
+<tbody>
+<tr><td>۱. اشتراک از Android</td><td>⭐⭐⭐⭐⭐</td><td>عالی</td><td>یه گوشی Android</td></tr>
+<tr><td>۲. اشتراک از PC</td><td>⭐⭐⭐</td><td>عالی</td><td>یه PC که روشن بمونه</td></tr>
+<tr><td>۳. Shadowrocket مستقیم</td><td>⭐⭐</td><td>محدود</td><td>اپ Shadowrocket (پولی)</td></tr>
+</tbody>
+</table>
+<div class="al b" style="margin-top:10px"><span class="ai">💡</span><span class="at"><strong>پیشنهاد:</strong> اگه یه گوشی Android بیکار داری، روش ۱ بهترینه. اگه نه و PC داری که اغلب روشنه، روش ۲. اگه هیچ‌کدوم، روش ۳ (محدود ولی portable).</span></div>
+</div>
+
+<!-- ════════ روش ۱: Android Hotspot ════════ -->
+<h2 class="st">روش ۱: اشتراک از Android (پیشنهاد می‌شه ✨)</h2>
 
 <div class="crd">
-<p>این روش راحت‌ترین و بهترینه. یه گوشی Android که اپ mhrv-rs روش هست، تونل رو از طریق hotspot به آیفون می‌ده.</p>
+<p>گوشی Android که اپ mhrv-rs روش هست، تونل رو از طریق Wi-Fi hotspot به آیفون share می‌کنه. کیفیت کامل، هیچ افت سرعت.</p>
 
 <ol class="stp">
 <li>
 <div class="sc">
-<strong>روی گوشی Android اپ رو نصب و راه بنداز</strong>
-<p>راهنمای Android رو در سربرگ «📱 اندروید» صفحه اصلی ببین. مطمئن شو سبز شده و کار می‌کنه.</p>
+<strong>روی Android: اپ mhrv-rs نصب و راه بنداز</strong>
+<p>از سربرگ <strong>📱 اندروید</strong> صفحه اصلی، راهنمای Android رو دنبال کن. مطمئن شو سبز شده و در گوشی Android خودش اتصال داری.</p>
+<a href="index.html#a" style="display:inline-block;background:var(--s2);border:1px solid var(--ac);border-radius:6px;padding:6px 12px;font-size:.82rem;margin-top:6px;color:var(--bl)">→ راهنمای Android</a>
 </div>
 </li>
 
 <li>
 <div class="sc">
-<strong>روی Android: تنظیم listen_host</strong>
-<p>برو در تنظیمات Advanced اپ، listen address رو از <code>127.0.0.1</code> به <code>0.0.0.0</code> تغییر بده. این طوری دستگاه‌های دیگه روی همون Wi-Fi می‌تونن وصل بشن.</p>
+<strong>روی Android: تغییر listen_host به 0.0.0.0</strong>
+<p>اپ پیش‌فرض روی <code>127.0.0.1</code> فقط برای خود گوشی listen می‌کنه. باید بازش کنیم:</p>
+<ul>
+<li>اپ mhrv-rs → بخش <strong>Advanced</strong></li>
+<li><strong>listen host</strong> رو از <code>127.0.0.1</code> به <code>0.0.0.0</code> تغییر بده</li>
+<li>Save → Restart اپ</li>
+</ul>
+<div class="al y"><span class="ai">⚠️</span><span class="at">این یعنی هر دستگاه روی همون Wi-Fi (شامل آیفون) می‌تونه به اپ Android تو وصل بشه. روی شبکه عمومی استفاده نکن.</span></div>
 </div>
 </li>
 
 <li>
 <div class="sc">
 <strong>روی Android: روشن کردن Hotspot</strong>
-<p>Settings → Network → Hotspot & Tethering → روشن کن<br>IP پیش‌فرض معمولاً <code>192.168.43.1</code> هست</p>
+<p>Settings → Connections → Hotspot & Tethering → Mobile Hotspot → روشن</p>
+<p>یه اسم Wi-Fi و رمز ست کن (مثلاً <code>MyTunnel</code> / <code>12345678</code>).</p>
+<p style="margin-top:6px">IP اپ Android روی hotspot معمولاً <code>192.168.43.1</code> هست. ممکنه روی بعضی گوشی‌ها فرق کنه:</p>
+<ul>
+<li>Samsung/Xiaomi: <code>192.168.43.1</code></li>
+<li>Pixel: ممکنه <code>192.168.1.1</code> باشه</li>
+<li>برای پیدا کردن دقیق: بعد از connect آیفون، IP gateway رو ببین</li>
+</ul>
 </div>
 </li>
 
 <li>
 <div class="sc">
 <strong>روی آیفون: وصل شدن به Hotspot</strong>
-<p>Settings → Wi-Fi → اسم hotspot Android رو انتخاب کن</p>
+<p>Settings → Wi-Fi → اسم hotspot Android رو انتخاب کن → رمز رو وارد کن</p>
 </div>
 </li>
 
 <li>
 <div class="sc">
-<strong>روی آیفون: تنظیم Proxy</strong>
-<p>روی همون شبکه Wi-Fi در iPhone:<br>Settings → Wi-Fi → دکمه ⓘ کنار اسم شبکه → پایین صفحه <strong>Configure Proxy</strong> → <strong>Manual</strong></p>
-<ul>
-<li>Server: <code>192.168.43.1</code></li>
-<li>Port: <code>8080</code></li>
-<li>Authentication: خاموش</li>
-</ul>
-<p>Save بزن، تمام!</p>
+<strong>روی آیفون: تنظیم Proxy روی Wi-Fi</strong>
+<p>Settings → Wi-Fi → روی <strong>ⓘ</strong> کنار اسم شبکه بزن → اسکرول کن پایین → <strong>Configure Proxy</strong> → <strong>Manual</strong></p>
+<table class="tbl">
+<tr><td>Server</td><td><code>192.168.43.1</code> (یا IP gateway hotspot)</td></tr>
+<tr><td>Port</td><td><code>8080</code></td></tr>
+<tr><td>Authentication</td><td>Off (خاموش)</td></tr>
+</table>
+<p>کلید <strong>Save</strong> بالا سمت راست.</p>
 </div>
 </li>
 
 <li>
 <div class="sc">
 <strong>تست</strong>
-<p>Safari باز کن، یه سایت فیلتر باز کن. اگه باز شد، کار می‌کنه ✅</p>
-<div class="al y"><span class="ai">⚠️</span><span class="at">این روش HTTP/HTTPS رو با proxy می‌فرسته. تلگرام، اینستاگرام، WhatsApp چون اپ خودشون هستن، proxy سیستم رو نادیده می‌گیرن. برای اونا باید روش ۳ یا اپ Shadowrocket استفاده کنی.</span></div>
+<p>Safari باز کن → یه سایت فیلتر باز کن. اگه باز شد، تمام! 🎉</p>
+<div class="al y"><span class="ai">⚠️</span><span class="at"><strong>محدودیت:</strong> این روش فقط <strong>HTTP/HTTPS</strong> رو با proxy می‌فرسته. تلگرام، اینستاگرام، WhatsApp چون اپ‌های خودشون proxy سیستم رو نادیده می‌گیرن، از تونل رد <strong>نمی‌شن</strong>. برای این اپ‌ها از روش ۳ یا Shadowrocket استفاده کن.</span></div>
+<div class="al g"><span class="ai">💡</span><span class="at"><strong>راه‌حل برای همه اپ‌ها:</strong> به‌جای System Proxy ساده، از <strong>Shadowrocket</strong> (روش ۳) استفاده کن. Shadowrocket کل ترافیک رو از طریق SOCKS5 می‌فرسته (شامل تلگرام).</span></div>
 </div>
 </li>
 </ol>
-
-<div class="al g"><span class="ai">💡</span><span class="at"><strong>راه‌حل کامل برای همه اپ‌ها:</strong> به‌جای System Proxy، از <strong>Shadowrocket</strong> (پولی، ~$3) استفاده کن که SOCKS5 رو پشتیبانی می‌کنه و کل ترافیک رو routing می‌کنه. تنظیمش رو در روش ۳ ببین.</span></div>
 </div>
 
-<!-- روش ۲ -->
+<!-- ════════ روش ۲: PC LAN ════════ -->
 <h2 class="st">روش ۲: اشتراک از کامپیوتر</h2>
 
 <div class="crd">
-<p>اگه گوشی Android نداری، می‌تونی از PC تونل رو share کنی.</p>
+<p>اگه گوشی Android نداری ولی PC داری که اغلب روشنه، می‌تونی از اون share کنی.</p>
 
 <ol class="stp">
 <li>
 <div class="sc">
 <strong>روی PC: راه‌اندازی mhrv-rs</strong>
-<p>طبق راهنمای PC (سربرگ بالا، تب «💻 کامپیوتر»)، اپ رو نصب و راه بنداز.</p>
+<p>طبق راهنمای PC بالا (سربرگ <strong>💻 کامپیوتر</strong>) اپ رو نصب و تنظیم کن. مطمئن شو روی PC کار می‌کنه.</p>
 </div>
 </li>
 
 <li>
 <div class="sc">
 <strong>تغییر listen_host به 0.0.0.0</strong>
-<p>در UI: تنظیمات → listen host → <code>0.0.0.0</code> (به‌جای <code>127.0.0.1</code>)</p>
-<p>این یعنی هر دستگاه روی همون شبکه می‌تونه به PC وصل بشه.</p>
+<p>در UI اپ → Advanced → <strong>listen_host</strong> رو از <code>127.0.0.1</code> به <code>0.0.0.0</code> تغییر بده. اپ رو restart کن.</p>
 </div>
 </li>
 
@@ -470,18 +649,18 @@ a:hover{text-decoration:underline}
 <div class="sc">
 <strong>پیدا کردن IP کامپیوتر</strong>
 <ul>
-<li><strong style="color:var(--t)">ویندوز:</strong> Command Prompt → <code>ipconfig</code> → IPv4 Address</li>
-<li><strong style="color:var(--t)">مک:</strong> System Settings → Network → IP</li>
-<li><strong style="color:var(--t)">لینوکس:</strong> <code>ip a</code></li>
+<li><strong style="color:var(--t)">ویندوز:</strong> CMD باز کن → <code>ipconfig</code> → دنبال <strong>IPv4 Address</strong> بگرد</li>
+<li><strong style="color:var(--t)">مک:</strong> System Settings → Network → Wi-Fi → Details → IP address</li>
+<li><strong style="color:var(--t)">لینوکس:</strong> ترمینال → <code>ip a | grep inet</code></li>
 </ul>
-<p>معمولاً چیزی شبیه <code>192.168.1.x</code> هست</p>
+<p>معمولاً چیزی شبیه <code>192.168.1.50</code> هست.</p>
 </div>
 </li>
 
 <li>
 <div class="sc">
 <strong>وصل کردن آیفون به همون Wi-Fi</strong>
-<p>آیفون و PC باید روی یه شبکه Wi-Fi باشن (مثلاً مودم خونه)</p>
+<p>آیفون و PC باید روی <strong>یه شبکه‌ی Wi-Fi</strong> باشن (مثلاً مودم خونه).</p>
 </div>
 </li>
 
@@ -489,85 +668,198 @@ a:hover{text-decoration:underline}
 <div class="sc">
 <strong>تنظیم Proxy روی آیفون</strong>
 <p>Settings → Wi-Fi → ⓘ شبکه → Configure Proxy → Manual:</p>
-<ul>
-<li>Server: <code>IP کامپیوتر</code> (مثلاً 192.168.1.50)</li>
-<li>Port: <code>8085</code></li>
-</ul>
-<p>Save</p>
+<table class="tbl">
+<tr><td>Server</td><td>IP کامپیوتر (مثلاً <code>192.168.1.50</code>)</td></tr>
+<tr><td>Port</td><td><code>8085</code> (port اپ روی PC)</td></tr>
+</table>
+<p>Save.</p>
+</div>
+</li>
+
+<li>
+<div class="sc">
+<strong>تست</strong>
+<p>Safari → سایت فیلتر باز کن.</p>
 </div>
 </li>
 </ol>
 
-<div class="al r"><span class="ai">⚠️</span><span class="at"><strong>محدودیت‌ها:</strong> اگه PC خاموش بشه، آیفون بدون اینترنت می‌مونه. اگه از خونه بری بیرون، تنظیمات رو باید خاموش کنی.</span></div>
+<div class="al r"><span class="ai">⚠️</span><span class="at"><strong>محدودیت‌های مهم:</strong><br>• اگه PC خاموش بشه، آیفون بدون اینترنت می‌مونه<br>• وقتی از خونه می‌ری بیرون، proxy رو خاموش کن وگرنه آیفون اینترنت نداره<br>• مثل روش ۱، فقط HTTP/HTTPS کار می‌کنه. برای تلگرام، Shadowrocket لازمه.</span></div>
 </div>
 
-<!-- روش ۳ -->
+<!-- ════════ روش ۳: Shadowrocket ════════ -->
 <h2 class="st">روش ۳: Shadowrocket مستقیم</h2>
 
 <div class="crd">
-<p>این روش ساده‌تره ولی فقط یه قسمت از قابلیت‌های mhrv-rs رو می‌ده — نه Full Tunnel کامل.</p>
+<p>این روش portable‌تره — وقتی از خونه بیرونی هم کار می‌کنه. ولی نیاز به یه Apple ID خارجی داره (US/UK/Turkey).</p>
 
 <ol class="stp">
 <li>
 <div class="sc">
-<strong>خرید و نصب Shadowrocket</strong>
-<p>اپ <strong>Shadowrocket</strong> از App Store (نزدیک $3). نیاز به اپل آیدی خارج از ایران داره.</p>
-<a href="https://apps.apple.com/app/shadowrocket/id932747118" target="_blank" style="color:var(--bl);font-size:.85rem">→ Shadowrocket در App Store</a>
+<strong>خرید Shadowrocket</strong>
+<p>اپ <strong>Shadowrocket</strong> پولیه (~$3) و در App Store ایران موجود نیست. روش‌های گرفتن:</p>
+<ul>
+<li><strong>Apple ID خارجی:</strong> یه Apple ID با کشور US/UK/Turkey بساز یا بخر</li>
+<li><strong>خرید Gift Card:</strong> $5 یا £5 خریداری کن، با Apple ID خارجی</li>
+<li><strong>App Sharing:</strong> اگه کسی این اپ رو داره و Family Sharing فعاله، می‌تونی share کنی</li>
+</ul>
+<a href="https://apps.apple.com/app/shadowrocket/id932747118" target="_blank" style="display:inline-block;color:var(--bl);font-size:.85rem;margin-top:4px">→ Shadowrocket در App Store</a>
 </div>
 </li>
 
 <li>
 <div class="sc">
-<strong>اضافه کردن سرور</strong>
-<p>اگه از PC یا Android تونل رو share می‌کنی، در Shadowrocket یه سرور دستی اضافه کن:</p>
-<ul>
-<li>Type: <code>SOCKS5</code> (یا HTTP)</li>
-<li>Address: IP دستگاه دیگه (PC یا Android)</li>
+<strong>اضافه کردن سرور SOCKS5 (یا HTTP)</strong>
+<p>اگه یه دستگاه دیگه (Android یا PC) داری که اپ mhrv-rs روش هست:</p>
+<ol>
+<li>Shadowrocket رو باز کن</li>
+<li>دکمه <strong>+</strong> بالا → Type: <code>SOCKS5</code></li>
+<li>Address: IP دستگاه دیگه (مثلاً <code>192.168.43.1</code> برای Android یا <code>192.168.1.50</code> برای PC)</li>
 <li>Port: <code>8086</code> (SOCKS5) یا <code>8085</code> (HTTP)</li>
-</ul>
+<li>Username / Password: خالی</li>
+<li>Save</li>
+</ol>
 </div>
 </li>
 
 <li>
 <div class="sc">
 <strong>روشن کردن</strong>
-<p>دکمه روشن/خاموش بالای Shadowrocket. آیکون VPN در نوار بالا روشن می‌شه ✅</p>
-<p>الان تمام اپ‌ها (Safari, Telegram, Instagram, WhatsApp) از تونل می‌رن.</p>
+<p>روی سرور تازه ساخته شده tap کن → دکمه‌ی روشن/خاموش بالای Shadowrocket. اولین بار اپل permission VPN می‌خواد، Allow.</p>
+<p>آیکون <strong>VPN</strong> در نوار بالای آیفون روشن می‌شه ✅</p>
+<div class="al g"><span class="ai">✅</span><span class="at"><strong>الان همه‌ی اپ‌ها از تونل رد می‌شن:</strong> Safari، Telegram، Instagram، WhatsApp، YouTube — همه. Shadowrocket route همه ترافیک TCP و UDP رو.</span></div>
 </div>
 </li>
 </ol>
 </div>
 
+<!-- ════════ پیشرفته iOS ════════ -->
 <div class="adv-only" style="display:none">
-<h2 class="st">🛠 پیشرفته — جایگزین‌های Shadowrocket</h2>
+<h2 class="st">🛠 پیشرفته (iOS)</h2>
 
 <div class="crd">
-<h3>اپ‌های جایگزین رایگان یا پولی</h3>
-<ul style="padding-right:18px;color:var(--td);font-size:.86rem">
-<li><strong style="color:var(--t)">Potatso Lite</strong> — رایگان، SOCKS5 و HTTP proxy</li>
-<li><strong style="color:var(--t)">Streisand</strong> — متن‌باز و قوی</li>
-<li><strong style="color:var(--t)">Quantumult X</strong> — پولی، خیلی حرفه‌ای</li>
-<li><strong style="color:var(--t)">Loon</strong> — پولی، شبیه Quantumult</li>
-<li><strong style="color:var(--t)">Stash</strong> — مبتنی بر Clash</li>
+<h3>اپ‌های جایگزین Shadowrocket</h3>
+<p>اگه نمی‌تونی Shadowrocket رو بگیری:</p>
+<table class="tbl">
+<thead><tr><th>اپ</th><th>قیمت</th><th>نکته</th></tr></thead>
+<tbody>
+<tr><td>Quantumult X</td><td>$8</td><td>حرفه‌ای، rule-based، بهترین</td></tr>
+<tr><td>Loon</td><td>$7</td><td>شبیه Quantumult</td></tr>
+<tr><td>Stash</td><td>$4</td><td>مبتنی بر Clash</td></tr>
+<tr><td>Potatso Lite</td><td>رایگان</td><td>محدود، SOCKS5 پشتیبانی</td></tr>
+<tr><td>Streisand</td><td>رایگان</td><td>متن‌باز، ولی نگه‌داری ضعیف</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="crd">
+<h3>چرا Apple ID خارجی لازمه؟</h3>
+<p>اپ‌های VPN/Proxy در App Store ایران در دسترس نیستن (سیاست اپل). راه‌حل‌ها:</p>
+<ul>
+<li>Apple ID جدید با کشور US/UK/Turkey بساز (برای ساخت آدرس US fake نیاز داری)</li>
+<li>یا از سایت‌های فروش Apple ID آماده بخر (~۵۰ هزار تومان)</li>
 </ul>
 </div>
 
 <div class="crd">
-<h3>چرا Apple ID خارج از ایران لازم می‌شه؟</h3>
-<p>این اپ‌ها چون VPN/proxy هستن، در App Store ایران موجود نیستن. باید یه Apple ID جدید با کشور آمریکا، ترکیه، یا امارات بسازی، یا از یکی بخری.</p>
-</div>
+<h3>روش ۴: VPS مستقیم با xray (پیشرفته)</h3>
+<p>اگه VPS اختصاصی داری، می‌تونی یه xray یا v2ray روی همون VPS نصب کنی و از Shadowrocket مستقیم به VPS وصل بشی — بدون نیاز به اپ Android/PC. ولی این:</p>
+<ul>
+<li>سرعت کمتر داره (مسیر مستقیم ایران→VPS بدون cover گوگل)</li>
+<li>احتمال filter شدن VPS بالاتر</li>
+<li>پیچیدگی نصب بیشتر</li>
+</ul>
+<p>پیشنهاد می‌شه اول روش‌های ۱-۳ رو امتحان کنی.</p>
 </div>
 
 </div>
-<!-- ============== /iOS PANEL ============== -->
 
-<!-- SUPPORT -->
+<!-- ════════ FAQ iOS ════════ -->
+<h2 class="st">❓ سوالات رایج (iOS)</h2>
+
+<div class="faq">
+
+<details>
+<summary>چرا نسخه‌ی iOS native وجود نداره؟</summary>
+<div class="a">
+<p>۲ دلیل اصلی:</p>
+<ul>
+<li><strong>App Store policy:</strong> اپل اپ‌های VPN-MITM (که گواهی محلی نصب می‌کنن و TLS رو decrypt می‌کنن) رو رد می‌کنه. این محدودیت سیاست‌گذاری اپله.</li>
+<li><strong>تلاش سازنده:</strong> سازنده اپ روی Android تمرکز کرده چون اونجا این محدودیت نیست. برای iOS، تنها راه TestFlight beta هست که برای کاربر عمومی sustainable نیست.</li>
+</ul>
+<p>روش‌های جایگزین (۳ روش بالا) صد در صد کار می‌کنن.</p>
+</div>
+</details>
+
+<details>
+<summary>تلگرام کار نمی‌کنه با Wi-Fi Proxy</summary>
+<div class="a">
+<p>این محدودیت ذاتی iOS Wi-Fi proxy ست — فقط HTTP/HTTPS رو route می‌کنه. تلگرام (که MTProto داره) از proxy سیستم رد نمی‌شه.</p>
+<p><strong>راه‌حل:</strong> از روش ۳ (Shadowrocket) استفاده کن. Shadowrocket یه VPN tunnel کامل می‌سازه که <strong>همه</strong> ترافیک رو route می‌کنه.</p>
+</div>
+</details>
+
+<details>
+<summary>آیفون بعد از قطع کردن Wi-Fi proxy بدون اینترنت می‌مونه</summary>
+<div class="a">
+<p>این طبیعیه. وقتی proxy رو فعال کردی، آیفون فکر می‌کنه همه ترافیک باید از proxy رد بشه. اگه proxy down باشه (مثلاً Android خاموش شد)، اینترنت قطع می‌شه.</p>
+<p><strong>راه‌حل:</strong></p>
+<ol>
+<li>Settings → Wi-Fi → ⓘ شبکه</li>
+<li>Configure Proxy → <strong>Off</strong></li>
+<li>Save</li>
+</ol>
+<p>وقتی دوباره می‌خوای استفاده کنی، Manual رو فعال کن.</p>
+</div>
+</details>
+
+<details>
+<summary>وقتی از خونه می‌رم بیرون چی کار کنم؟</summary>
+<div class="a">
+<p>اگه از روش ۱ (Android hotspot) استفاده می‌کنی، گوشی Android رو هم با خودت ببر. روی data موبایل (4G/5G)، روش ۱ همچنان کار می‌کنه — Android تو هرجا که داده داشته باشه، می‌تونه hotspot بسازه.</p>
+<p>اگه از روش ۲ (PC) استفاده می‌کنی، در بیرون از خونه کار نمی‌کنه. گزینه‌ها:</p>
+<ul>
+<li>به روش ۱ سوییچ کن (Android hotspot)</li>
+<li>یا روش ۳ (Shadowrocket که portable‌ست)</li>
+</ul>
+</div>
+</details>
+
+<details>
+<summary>چرا Shadowrocket توی App Store ایران نیست؟</summary>
+<div class="a">
+<p>اپل اپ‌های VPN/Proxy رو از App Store ایران حذف کرده. این سیاست خود اپله، نه مشکل برنامه.</p>
+<p>راه‌حل: Apple ID خارجی (US, UK, Turkey, UAE). در گوگل سرچ کن "ساخت اپل آیدی خارجی" راهنمای دقیق هست.</p>
+</div>
+</details>
+
+<details>
+<summary>کلاً iOS از Android بدتره برای این کار؟</summary>
+<div class="a">
+<p>متأسفانه بله. iOS کاربر کمتری در ایران داره ولی محدودیت‌های زیادی برای VPN خانگی داره:</p>
+<ul>
+<li>App Store policy علیه VPN-MITM</li>
+<li>محدودیت اپ‌های third-party</li>
+<li>Apple ID خارجی لازم</li>
+<li>قیمت اپ‌ها (Shadowrocket پولیه)</li>
+</ul>
+<p>اگه استفاده‌ت سنگینه، شاید بهتره یه گوشی Android بیکار بگیری.</p>
+</div>
+</details>
+
+</div>
+
+</div>
+<!-- ═══════════════ /iOS PANEL ═══════════════ -->
+
+<!-- ════════ Support ════════ -->
 <div class="sb">
 <h3>🆘 نیاز به کمک داری؟</h3>
-<p style="font-size:.84rem;color:var(--td);margin:6px 0">پشتیبانی و راهنمایی:</p>
+<p>پشتیبانی، راهنمایی، و سوال:</p>
 <a href="https://t.me/Kian_irani_t">@Kian_irani_t پشتیبانی</a>
 <a href="https://t.me/kian_irani_cdn_f">@kian_irani_cdn_f کانال</a>
 <a href="https://t.me/Mhrv_script_bot">@Mhrv_script_bot ربات</a>
+<a href="https://t.me/kiancdn_group">@kiancdn گروه گفتگو</a>
 </div>
 
 </div>
@@ -584,8 +876,7 @@ function dev(d, btn) {
 function lvl(l, btn) {
   document.querySelectorAll('.lsw button').forEach(b => b.classList.remove('on'));
   btn.classList.add('on');
-  const advs = document.querySelectorAll('.adv-only');
-  advs.forEach(e => {
+  document.querySelectorAll('.adv-only').forEach(e => {
     e.style.display = (l === 'adv') ? '' : 'none';
   });
 }
